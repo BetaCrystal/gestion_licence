@@ -59,9 +59,6 @@
 /assets/vendor/
 ###< symfony/asset-mapper ###
 
-.env
-.env.dev
-
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 /public/build/
