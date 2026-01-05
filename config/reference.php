@@ -261,7 +261,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         formats?: array<string, string|list<scalar|null|Param>>,
  *     },
  *     assets?: bool|array{ // Assets configuration
- *         enabled?: bool|Param, // Default: true
+ *         enabled?: bool|Param, // Default: false
  *         strict_mode?: bool|Param, // Throw an exception if an entry is missing from the manifest.json. // Default: false
  *         version_strategy?: scalar|null|Param, // Default: null
  *         version?: scalar|null|Param, // Default: null
@@ -280,7 +280,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         }>,
  *     },
  *     asset_mapper?: bool|array{ // Asset Mapper configuration
- *         enabled?: bool|Param, // Default: true
+ *         enabled?: bool|Param, // Default: false
  *         paths?: array<string, scalar|null|Param>,
  *         excluded_patterns?: list<scalar|null|Param>,
  *         exclude_dotfiles?: bool|Param, // If true, any files starting with "." will be excluded from the asset mapper. // Default: true
@@ -327,7 +327,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         }>,
  *     },
  *     validation?: bool|array{ // Validation configuration
- *         enabled?: bool|Param, // Default: true
+ *         enabled?: bool|Param, // Default: false
  *         enable_attributes?: bool|Param, // Default: true
  *         static_method?: list<scalar|null|Param>,
  *         translation_domain?: scalar|null|Param, // Default: "validators"
@@ -362,7 +362,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         }>,
  *     },
  *     property_access?: bool|array{ // Property access configuration
- *         enabled?: bool|Param, // Default: true
+ *         enabled?: bool|Param, // Default: false
  *         magic_call?: bool|Param, // Default: false
  *         magic_get?: bool|Param, // Default: true
  *         magic_set?: bool|Param, // Default: true
@@ -370,11 +370,11 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         throw_exception_on_invalid_property_path?: bool|Param, // Default: true
  *     },
  *     type_info?: bool|array{ // Type info configuration
- *         enabled?: bool|Param, // Default: true
+ *         enabled?: bool|Param, // Default: false
  *         aliases?: array<string, scalar|null|Param>,
  *     },
  *     property_info?: bool|array{ // Property info configuration
- *         enabled?: bool|Param, // Default: true
+ *         enabled?: bool|Param, // Default: false
  *         with_constructor_extractor?: bool|Param, // Registers the constructor extractor. // Default: true
  *     },
  *     cache?: array{ // Cache configuration
@@ -465,7 +465,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     },
  *     disallow_search_engine_index?: bool|Param, // Enabled by default when debug is enabled. // Default: true
  *     http_client?: bool|array{ // HTTP Client configuration
- *         enabled?: bool|Param, // Default: true
+ *         enabled?: bool|Param, // Default: false
  *         max_host_connections?: int|Param, // The maximum number of connections to a single host.
  *         default_options?: array{
  *             headers?: array<string, mixed>,
@@ -687,61 +687,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     root_namespace?: scalar|null|Param, // Default: "App"
  *     generate_final_classes?: bool|Param, // Default: true
  *     generate_final_entities?: bool|Param, // Default: false
- * @psalm-type SymfonycastsTailwindConfig = array{
- *     input_css?: list<scalar|null|Param>,
- *     config_file?: scalar|null|Param, // Path to the tailwind.config.js file // Default: "%kernel.project_dir%/tailwind.config.js"
- *     binary?: scalar|null|Param, // The tailwind binary to use instead of downloading a new one // Default: null
- *     binary_version?: scalar|null|Param, // Tailwind CLI version to download - null means the latest version // Default: null
- *     binary_platform?: "auto"|"linux-arm64"|"linux-arm64-musl"|"linux-x64"|"linux-x64-musl"|"macos-arm64"|"macos-x64"|"windows-x64"|Param, // Tailwind CLI platform to download - "auto" will try to detect the platform automatically // Default: "auto"
- *     postcss_config_file?: scalar|null|Param, // Path to PostCSS config file which is passed to the Tailwind CLI // Default: null
- *     strict_mode?: bool|null|Param, // When enabled, an exception will be thrown if there are no built assets (default: false in `test` env, true otherwise) // Default: null
- * }
- * @psalm-type DebugConfig = array{
- *     max_items?: int|Param, // Max number of displayed items past the first level, -1 means no limit. // Default: 2500
- *     min_depth?: int|Param, // Minimum tree depth to clone all the items, 1 is default. // Default: 1
- *     max_string_length?: int|Param, // Max length of displayed strings, -1 means no limit. // Default: -1
- *     dump_destination?: scalar|null|Param, // A stream URL where dumps should be written to. // Default: null
- *     theme?: "dark"|"light"|Param, // Changes the color of the dump() output when rendered directly on the templating. "dark" (default) or "light". // Default: "dark"
- * }
- * @psalm-type TwigConfig = array{
- *     form_themes?: list<scalar|null|Param>,
- *     globals?: array<string, array{ // Default: []
- *         id?: scalar|null|Param,
- *         type?: scalar|null|Param,
- *         value?: mixed,
- *     }>,
- *     autoescape_service?: scalar|null|Param, // Default: null
- *     autoescape_service_method?: scalar|null|Param, // Default: null
- *     cache?: scalar|null|Param, // Default: true
- *     charset?: scalar|null|Param, // Default: "%kernel.charset%"
- *     debug?: bool|Param, // Default: "%kernel.debug%"
- *     strict_variables?: bool|Param, // Default: "%kernel.debug%"
- *     auto_reload?: scalar|null|Param,
- *     optimizations?: int|Param,
- *     default_path?: scalar|null|Param, // The default path used to load templates. // Default: "%kernel.project_dir%/templates"
- *     file_name_pattern?: list<scalar|null|Param>,
- *     paths?: array<string, mixed>,
- *     date?: array{ // The default format options used by the date filter.
- *         format?: scalar|null|Param, // Default: "F j, Y H:i"
- *         interval_format?: scalar|null|Param, // Default: "%d days"
- *         timezone?: scalar|null|Param, // The timezone used when formatting dates, when set to null, the timezone returned by date_default_timezone_get() is used. // Default: null
- *     },
- *     number_format?: array{ // The default format options for the number_format filter.
- *         decimals?: int|Param, // Default: 0
- *         decimal_point?: scalar|null|Param, // Default: "."
- *         thousands_separator?: scalar|null|Param, // Default: ","
- *     },
- *     mailer?: array{
- *         html_to_text_converter?: scalar|null|Param, // A service implementing the "Symfony\Component\Mime\HtmlToTextConverter\HtmlToTextConverterInterface". // Default: null
- *     },
- * }
- * @psalm-type WebProfilerConfig = array{
- *     toolbar?: bool|array{ // Profiler toolbar configuration
- *         enabled?: bool|Param, // Default: false
- *         ajax_replace?: bool|Param, // Replace toolbar on AJAX requests // Default: false
- *     },
- *     intercept_redirects?: bool|Param, // Default: false
- *     excluded_ajax_paths?: scalar|null|Param, // Default: "^/((index|app(_[\\w]+)?)\\.php/)?_wdt"
  * }
  * @psalm-type DoctrineConfig = array{
  *     dbal?: array{
@@ -951,135 +896,47 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     enable_profiler?: bool|Param, // Whether or not to enable the profiler collector to calculate and visualize migration status. This adds some queries overhead. // Default: false
  *     transactional?: bool|Param, // Whether or not to wrap migrations in a single transaction. // Default: true
  * }
- * @psalm-type ConfigType = array{
- *     imports?: ImportsConfig,
- *     parameters?: ParametersConfig,
- *     services?: ServicesConfig,
- *     framework?: FrameworkConfig,
- *     doctrine?: DoctrineConfig,
- *     doctrine_migrations?: DoctrineMigrationsConfig,
- *     "when@dev"?: array{
- *         imports?: ImportsConfig,
- *         parameters?: ParametersConfig,
- *         services?: ServicesConfig,
- *         framework?: FrameworkConfig,
- *         maker?: MakerConfig,
- *         doctrine?: DoctrineConfig,
- *         doctrine_migrations?: DoctrineMigrationsConfig,
+ * @psalm-type SymfonycastsTailwindConfig = array{
+ *     input_css?: list<scalar|null|Param>,
+ *     config_file?: scalar|null|Param, // Path to the tailwind.config.js file // Default: "%kernel.project_dir%/tailwind.config.js"
+ *     binary?: scalar|null|Param, // The tailwind binary to use instead of downloading a new one // Default: null
+ *     binary_version?: scalar|null|Param, // Tailwind CLI version to download - null means the latest version // Default: null
+ *     binary_platform?: "auto"|"linux-arm64"|"linux-arm64-musl"|"linux-x64"|"linux-x64-musl"|"macos-arm64"|"macos-x64"|"windows-x64"|Param, // Tailwind CLI platform to download - "auto" will try to detect the platform automatically // Default: "auto"
+ *     postcss_config_file?: scalar|null|Param, // Path to PostCSS config file which is passed to the Tailwind CLI // Default: null
+ *     strict_mode?: bool|null|Param, // When enabled, an exception will be thrown if there are no built assets (default: false in `test` env, true otherwise) // Default: null
+ * }
+ * @psalm-type TwigConfig = array{
+ *     form_themes?: list<scalar|null|Param>,
+ *     globals?: array<string, array{ // Default: []
+ *         id?: scalar|null|Param,
+ *         type?: scalar|null|Param,
+ *         value?: mixed,
+ *     }>,
+ *     autoescape_service?: scalar|null|Param, // Default: null
+ *     autoescape_service_method?: scalar|null|Param, // Default: null
+ *     cache?: scalar|null|Param, // Default: true
+ *     charset?: scalar|null|Param, // Default: "%kernel.charset%"
+ *     debug?: bool|Param, // Default: "%kernel.debug%"
+ *     strict_variables?: bool|Param, // Default: "%kernel.debug%"
+ *     auto_reload?: scalar|null|Param,
+ *     optimizations?: int|Param,
+ *     default_path?: scalar|null|Param, // The default path used to load templates. // Default: "%kernel.project_dir%/templates"
+ *     file_name_pattern?: list<scalar|null|Param>,
+ *     paths?: array<string, mixed>,
+ *     date?: array{ // The default format options used by the date filter.
+ *         format?: scalar|null|Param, // Default: "F j, Y H:i"
+ *         interval_format?: scalar|null|Param, // Default: "%d days"
+ *         timezone?: scalar|null|Param, // The timezone used when formatting dates, when set to null, the timezone returned by date_default_timezone_get() is used. // Default: null
  *     },
- *     "when@prod"?: array{
- *         imports?: ImportsConfig,
- *         parameters?: ParametersConfig,
- *         services?: ServicesConfig,
- *         framework?: FrameworkConfig,
- *         doctrine?: DoctrineConfig,
- *         doctrine_migrations?: DoctrineMigrationsConfig,
+ *     number_format?: array{ // The default format options for the number_format filter.
+ *         decimals?: int|Param, // Default: 0
+ *         decimal_point?: scalar|null|Param, // Default: "."
+ *         thousands_separator?: scalar|null|Param, // Default: ","
  *     },
- *     "when@test"?: array{
- *         imports?: ImportsConfig,
- *         parameters?: ParametersConfig,
- *         services?: ServicesConfig,
- *         framework?: FrameworkConfig,
- *         doctrine?: DoctrineConfig,
- *         doctrine_migrations?: DoctrineMigrationsConfig,
+ *     mailer?: array{
+ *         html_to_text_converter?: scalar|null|Param, // A service implementing the "Symfony\Component\Mime\HtmlToTextConverter\HtmlToTextConverterInterface". // Default: null
  *     },
- *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
- *         imports?: ImportsConfig,
- *         parameters?: ParametersConfig,
- *         services?: ServicesConfig,
- *         ...<string, ExtensionType>,
- *     }>
  * }
- */
-final class App
-{
-    /**
-     * @param ConfigType $config
-     *
-     * @psalm-return ConfigType
-     */
-    public static function config(array $config): array
-    {
-        return AppReference::config($config);
-    }
-}
-
-namespace Symfony\Component\Routing\Loader\Configurator;
-
-/**
- * This class provides array-shapes for configuring the routes of an application.
- *
- * Example:
- *
- *     ```php
- *     // config/routes.php
- *     namespace Symfony\Component\Routing\Loader\Configurator;
- *
- *     return Routes::config([
- *         'controllers' => [
- *             'resource' => 'routing.controllers',
- *         ],
- *     ]);
- *     ```
- *
- * @psalm-type RouteConfig = array{
- *     path: string|array<string,string>,
- *     controller?: string,
- *     methods?: string|list<string>,
- *     requirements?: array<string,string>,
- *     defaults?: array<string,mixed>,
- *     options?: array<string,mixed>,
- *     host?: string|array<string,string>,
- *     schemes?: string|list<string>,
- *     condition?: string,
- *     locale?: string,
- *     format?: string,
- *     utf8?: bool,
- *     stateless?: bool,
- * }
- * @psalm-type ImportConfig = array{
- *     resource: string,
- *     type?: string,
- *     exclude?: string|list<string>,
- *     prefix?: string|array<string,string>,
- *     name_prefix?: string,
- *     trailing_slash_on_root?: bool,
- *     controller?: string,
- *     methods?: string|list<string>,
- *     requirements?: array<string,string>,
- *     defaults?: array<string,mixed>,
- *     options?: array<string,mixed>,
- *     host?: string|array<string,string>,
- *     schemes?: string|list<string>,
- *     condition?: string,
- *     locale?: string,
- *     format?: string,
- *     utf8?: bool,
- *     stateless?: bool,
- * }
- * @psalm-type AliasConfig = array{
- *     alias: string,
- *     deprecated?: array{package:string, version:string, message?:string},
- * }
- * @psalm-type RoutesConfig = array{
- *     "when@dev"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
- *     "when@prod"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
- *     "when@test"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
- *     ...<string, RouteConfig|ImportConfig|AliasConfig>
- * }
- */
-final class Routes
-{
-    /**
-     * @param RoutesConfig $config
-     *
-     * @psalm-return RoutesConfig
-     */
-    public static function config(array $config): array
-    {
-        return $config;
-    }
-}
  * @psalm-type TwigExtraConfig = array{
  *     cache?: bool|array{
  *         enabled?: bool|Param, // Default: false
@@ -1133,7 +990,10 @@ final class Routes
  *         name_prefix?: scalar|null|Param, // Default: ""
  *     }>,
  *     anonymous_template_directory?: scalar|null|Param, // Defaults to `components`
- *     profiler?: bool|Param, // Enables the profiler for Twig Component (in debug mode) // Default: "%kernel.debug%"
+ *     profiler?: bool|array{ // Enables the profiler for Twig Component
+ *         enabled?: bool|Param, // Default: "%kernel.debug%"
+ *         collect_components?: bool|Param, // Collect components instances // Default: true
+ *     },
  *     controllers_json?: scalar|null|Param, // Deprecated: The "twig_component.controllers_json" config option is deprecated, and will be removed in 3.0. // Default: null
  * }
  * @psalm-type SecurityConfig = array{
@@ -1459,10 +1319,10 @@ final class Routes
  *     parameters?: ParametersConfig,
  *     services?: ServicesConfig,
  *     framework?: FrameworkConfig,
- *     symfonycasts_tailwind?: SymfonycastsTailwindConfig,
- *     twig?: TwigConfig,
  *     doctrine?: DoctrineConfig,
  *     doctrine_migrations?: DoctrineMigrationsConfig,
+ *     symfonycasts_tailwind?: SymfonycastsTailwindConfig,
+ *     twig?: TwigConfig,
  *     twig_extra?: TwigExtraConfig,
  *     twig_component?: TwigComponentConfig,
  *     security?: SecurityConfig,
@@ -1472,12 +1332,11 @@ final class Routes
  *         parameters?: ParametersConfig,
  *         services?: ServicesConfig,
  *         framework?: FrameworkConfig,
- *         symfonycasts_tailwind?: SymfonycastsTailwindConfig,
- *         debug?: DebugConfig,
- *         twig?: TwigConfig,
- *         web_profiler?: WebProfilerConfig,
+ *         maker?: MakerConfig,
  *         doctrine?: DoctrineConfig,
  *         doctrine_migrations?: DoctrineMigrationsConfig,
+ *         symfonycasts_tailwind?: SymfonycastsTailwindConfig,
+ *         twig?: TwigConfig,
  *         twig_extra?: TwigExtraConfig,
  *         twig_component?: TwigComponentConfig,
  *         security?: SecurityConfig,
@@ -1488,10 +1347,10 @@ final class Routes
  *         parameters?: ParametersConfig,
  *         services?: ServicesConfig,
  *         framework?: FrameworkConfig,
- *         symfonycasts_tailwind?: SymfonycastsTailwindConfig,
- *         twig?: TwigConfig,
  *         doctrine?: DoctrineConfig,
  *         doctrine_migrations?: DoctrineMigrationsConfig,
+ *         symfonycasts_tailwind?: SymfonycastsTailwindConfig,
+ *         twig?: TwigConfig,
  *         twig_extra?: TwigExtraConfig,
  *         twig_component?: TwigComponentConfig,
  *         security?: SecurityConfig,
@@ -1502,11 +1361,10 @@ final class Routes
  *         parameters?: ParametersConfig,
  *         services?: ServicesConfig,
  *         framework?: FrameworkConfig,
- *         symfonycasts_tailwind?: SymfonycastsTailwindConfig,
- *         twig?: TwigConfig,
- *         web_profiler?: WebProfilerConfig,
  *         doctrine?: DoctrineConfig,
  *         doctrine_migrations?: DoctrineMigrationsConfig,
+ *         symfonycasts_tailwind?: SymfonycastsTailwindConfig,
+ *         twig?: TwigConfig,
  *         twig_extra?: TwigExtraConfig,
  *         twig_component?: TwigComponentConfig,
  *         security?: SecurityConfig,
@@ -1589,8 +1447,7 @@ namespace Symfony\Component\Routing\Loader\Configurator;
  * @psalm-type AliasConfig = array{
  *     alias: string,
  *     deprecated?: array{package:string, version:string, message?:string},
- * }
-
+ * }
  * @psalm-type RoutesConfig = array{
  *     "when@dev"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
  *     "when@prod"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
