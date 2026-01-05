@@ -51,6 +51,9 @@
 # Embedded web-server pid file
 /.web-server-pid
 
+
+/.env
+/.env.dev
 ###> symfony/asset-mapper ###
 /public/assets/
 /assets/vendor/

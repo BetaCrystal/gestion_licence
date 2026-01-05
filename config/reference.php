@@ -683,6 +683,10 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         enabled?: bool|Param, // Default: false
  *     },
  * }
+ * @psalm-type MakerConfig = array{
+ *     root_namespace?: scalar|null|Param, // Default: "App"
+ *     generate_final_classes?: bool|Param, // Default: true
+ *     generate_final_entities?: bool|Param, // Default: false
  * @psalm-type SymfonycastsTailwindConfig = array{
  *     input_css?: list<scalar|null|Param>,
  *     config_file?: scalar|null|Param, // Path to the tailwind.config.js file // Default: "%kernel.project_dir%/tailwind.config.js"
@@ -947,6 +951,135 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     enable_profiler?: bool|Param, // Whether or not to enable the profiler collector to calculate and visualize migration status. This adds some queries overhead. // Default: false
  *     transactional?: bool|Param, // Whether or not to wrap migrations in a single transaction. // Default: true
  * }
+ * @psalm-type ConfigType = array{
+ *     imports?: ImportsConfig,
+ *     parameters?: ParametersConfig,
+ *     services?: ServicesConfig,
+ *     framework?: FrameworkConfig,
+ *     doctrine?: DoctrineConfig,
+ *     doctrine_migrations?: DoctrineMigrationsConfig,
+ *     "when@dev"?: array{
+ *         imports?: ImportsConfig,
+ *         parameters?: ParametersConfig,
+ *         services?: ServicesConfig,
+ *         framework?: FrameworkConfig,
+ *         maker?: MakerConfig,
+ *         doctrine?: DoctrineConfig,
+ *         doctrine_migrations?: DoctrineMigrationsConfig,
+ *     },
+ *     "when@prod"?: array{
+ *         imports?: ImportsConfig,
+ *         parameters?: ParametersConfig,
+ *         services?: ServicesConfig,
+ *         framework?: FrameworkConfig,
+ *         doctrine?: DoctrineConfig,
+ *         doctrine_migrations?: DoctrineMigrationsConfig,
+ *     },
+ *     "when@test"?: array{
+ *         imports?: ImportsConfig,
+ *         parameters?: ParametersConfig,
+ *         services?: ServicesConfig,
+ *         framework?: FrameworkConfig,
+ *         doctrine?: DoctrineConfig,
+ *         doctrine_migrations?: DoctrineMigrationsConfig,
+ *     },
+ *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
+ *         imports?: ImportsConfig,
+ *         parameters?: ParametersConfig,
+ *         services?: ServicesConfig,
+ *         ...<string, ExtensionType>,
+ *     }>
+ * }
+ */
+final class App
+{
+    /**
+     * @param ConfigType $config
+     *
+     * @psalm-return ConfigType
+     */
+    public static function config(array $config): array
+    {
+        return AppReference::config($config);
+    }
+}
+
+namespace Symfony\Component\Routing\Loader\Configurator;
+
+/**
+ * This class provides array-shapes for configuring the routes of an application.
+ *
+ * Example:
+ *
+ *     ```php
+ *     // config/routes.php
+ *     namespace Symfony\Component\Routing\Loader\Configurator;
+ *
+ *     return Routes::config([
+ *         'controllers' => [
+ *             'resource' => 'routing.controllers',
+ *         ],
+ *     ]);
+ *     ```
+ *
+ * @psalm-type RouteConfig = array{
+ *     path: string|array<string,string>,
+ *     controller?: string,
+ *     methods?: string|list<string>,
+ *     requirements?: array<string,string>,
+ *     defaults?: array<string,mixed>,
+ *     options?: array<string,mixed>,
+ *     host?: string|array<string,string>,
+ *     schemes?: string|list<string>,
+ *     condition?: string,
+ *     locale?: string,
+ *     format?: string,
+ *     utf8?: bool,
+ *     stateless?: bool,
+ * }
+ * @psalm-type ImportConfig = array{
+ *     resource: string,
+ *     type?: string,
+ *     exclude?: string|list<string>,
+ *     prefix?: string|array<string,string>,
+ *     name_prefix?: string,
+ *     trailing_slash_on_root?: bool,
+ *     controller?: string,
+ *     methods?: string|list<string>,
+ *     requirements?: array<string,string>,
+ *     defaults?: array<string,mixed>,
+ *     options?: array<string,mixed>,
+ *     host?: string|array<string,string>,
+ *     schemes?: string|list<string>,
+ *     condition?: string,
+ *     locale?: string,
+ *     format?: string,
+ *     utf8?: bool,
+ *     stateless?: bool,
+ * }
+ * @psalm-type AliasConfig = array{
+ *     alias: string,
+ *     deprecated?: array{package:string, version:string, message?:string},
+ * }
+ * @psalm-type RoutesConfig = array{
+ *     "when@dev"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
+ *     "when@prod"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
+ *     "when@test"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
+ *     ...<string, RouteConfig|ImportConfig|AliasConfig>
+ * }
+ */
+final class Routes
+{
+    /**
+     * @param RoutesConfig $config
+     *
+     * @psalm-return RoutesConfig
+     */
+    public static function config(array $config): array
+    {
+        return $config;
+    }
+}
  * @psalm-type TwigExtraConfig = array{
  *     cache?: bool|array{
  *         enabled?: bool|Param, // Default: false
@@ -1456,7 +1589,8 @@ namespace Symfony\Component\Routing\Loader\Configurator;
  * @psalm-type AliasConfig = array{
  *     alias: string,
  *     deprecated?: array{package:string, version:string, message?:string},
- * }
+ * }
+
  * @psalm-type RoutesConfig = array{
  *     "when@dev"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
  *     "when@prod"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
