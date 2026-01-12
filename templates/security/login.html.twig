@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion du supérieur{% endblock %}
+
+{% block body %}
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">Mot de passe ou email invalide</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div>
+                Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <h1>Connexion au portail</h1>
+
+        <div class="formulaire">
+            <label class = "label">Email</label>
+            <input type="email" name="email" class="form-champ" value="{{ last_username }}" required>
+
+            <label class = "label">Mot de passe</label>
+            <input type="password" name="password" class="form-champ" required>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        </div>
+
+        <button type="submit">Accéder au portail</button>
+    </form>
+{% endblock %}
