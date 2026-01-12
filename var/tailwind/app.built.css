@@ -1,8 +1,32 @@
+h1 {
+    font-family: Poppins;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 24px;
+    line-height: 11px;
+    letter-spacing: 0.5px;
+    color: rgba(0, 0, 0, 1);
+}
+
+h2{
+    width: 225;
+    height: 11;
+    top: 193px;
+    left: 302px;
+    color: rgba(44, 65, 110, 1);
+    font-family: Poppins;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 20px;
+    line-height: 11px;
+    letter-spacing: 0.5px;
+
+}
+
 .formulaire{
     display: flex;
     flex-direction: column;
-    width: 659;
-    height: 248;
+    width: 25%;
     top: 232px;
     left: 304px;
     gap: 10px;

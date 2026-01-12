@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion du supérieur{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
     <form method="post">
@@ -14,13 +14,14 @@
             </div>
         {% endif %}
 
-        <h1>Connexion au portail</h1>
+        <h1>Gestion du supérieur</h1>
+        <h2>Connexion au portail</h2>
 
         <div class="formulaire">
-            <label class = "label">Email</label>
+            <label class = "label">Email - champ obligatoire</label>
             <input type="email" name="email" class="form-champ" value="{{ last_username }}" required>
 
-            <label class = "label">Mot de passe</label>
+            <label class = "label">Mot de passe - champ obligatoire</label>
             <input type="password" name="password" class="form-champ" required>
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
