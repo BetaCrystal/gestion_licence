@@ -1,0 +1,6 @@
+<?php
+namespace App\DataFixtures;
+
+use App\Entity\SchoolYear;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;

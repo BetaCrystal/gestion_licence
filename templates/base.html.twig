@@ -11,6 +11,27 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js'></script>
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    timeZone: 'UTC+1',
+                    initialView: 'timeGridWeek',
+                    slotMinTime: "08:00:00",
+                    slotMaxTime: "19:00:00",
+                    firstDay: 1,
+                    headerToolbar: {
+                    left: 'prev,next',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    }
+                });
+                calendar.render();
+            });
+    </script>
     </head>
     <body>
         {% block body %}{% endblock %}

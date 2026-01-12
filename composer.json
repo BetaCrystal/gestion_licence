@@ -24,6 +24,7 @@
         "symfony/yaml": "8.0.*"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "*",
         "symfony/maker-bundle": "^1.65",
         "symfony/security-bundle": "8.0.*",
         "symfony/twig-bundle": "8.0.*",
