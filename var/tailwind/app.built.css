@@ -1,0 +1,70 @@
+h1 {
+    font-family: Poppins;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 24px;
+    line-height: 11px;
+    letter-spacing: 0.5px;
+    color: rgba(0, 0, 0, 1);
+}
+
+h2{
+    width: 225;
+    height: 11;
+    top: 193px;
+    left: 302px;
+    color: rgba(44, 65, 110, 1);
+    font-family: Poppins;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 20px;
+    line-height: 11px;
+    letter-spacing: 0.5px;
+
+}
+
+.formulaire{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    top: 232px;
+    left: 304px;
+    gap: 10px;
+
+}
+.form-champ{
+    width: 659;
+    height: 46;
+    opacity: 1;
+    gap: 10px;
+    border-radius: 6px;
+    border-width: 1px;
+    padding-top: 12px;
+    padding-right: 16px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+
+}
+.label{
+    font-family: Poppins;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0%;
+
+}
+
+.bouton{
+    width: 190;
+    height: 52;
+    gap: 10px;
+    border-radius: 8px;
+    padding-top: 14px;
+    padding-right: 20px;
+    padding-bottom: 14px;
+    padding-left: 20px;
+    background: rgba(44, 65, 110, 1);
+    color: white;
+    margin-top: 2%;
+}
