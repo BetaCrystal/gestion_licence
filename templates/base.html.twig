@@ -27,9 +27,23 @@
                     left: 'prev,next',
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    },
+                    events: {
+                        url: '{{ path("twig_calendar_events") }}'
+                    },
+                    eventContent: function(arg, createElement){
+                        console.log(arg.extendedProps);
+                        var innerText;
+
+                        innerText = '<div>Loading...</div>';
+
+                        return createElement('i', {}, innerText)
                     }
-                });
+
+                    });
+
                 calendar.render();
+
             });
     </script>
     </head>
