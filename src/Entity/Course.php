@@ -123,6 +123,11 @@ class Course
         return $this;
     }
 
+    public function getCourse(): ?Course
+    {
+        return $this;
+    }
+
     /**
      * @return Collection<int, Instructor>
      */
