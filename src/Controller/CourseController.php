@@ -26,6 +26,18 @@ class CourseController extends AbstractController
     public function addCourse(Request $request, EntityManagerInterface $entityManager): Response
     {
         $course = new Course();
+
+        // Pre-fill dates if date parameter is provided
+        $dateStr = $request->query->get('date');
+        if ($dateStr) {
+            $selectedDate = new \DateTime($dateStr);
+            $course->setStartDate($selectedDate);
+            // Set end date to the same day or next day, adjust as needed
+            /*$endDate = clone $selectedDate;
+            $endDate->setTime(23, 59, 59); // End of the day
+            $course->setEndDate($endDate);*/
+        }
+
         $form = $this->createForm(CourseForm::class, $course);
         $form->handleRequest($request);
 

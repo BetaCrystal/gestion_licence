@@ -23,6 +23,9 @@
                     slotMinTime: "08:00:00",
                     slotMaxTime: "19:00:00",
                     firstDay: 1,
+                    dateClick: function(info) {
+                        window.location.href = '{{ path("app_add_course") }}?date=' + info.dateStr;
+                    },
                     headerToolbar: {
                     left: 'prev,next',
                     center: 'title',
@@ -38,8 +41,7 @@
                         innerText = '<div>Loading...</div>';
 
                         return createElement('i', {}, innerText)
-                    }
-
+                    },
                     });
 
                 calendar.render();
