@@ -33,18 +33,22 @@ final class CourseForm extends AbstractType
                 'class' => Module::class,
                 'label' => 'Module - champ obligatoire',
                 'required' => true,
+                'choice_label' => 'name',
             ])
-            ->add('intervention_type', EntityType::class, [
+            ->add('intervention_type_id', EntityType::class, [
                 'class' => InterventionType::class,
                 'label' => 'Type d\'intervention - champ obligatoire',
                 'required' => true,
+                'choice_label' => 'name',
             ])
-            ->add('instructor', EntityType::class, [
+            ->add('CourseInstructor', EntityType::class, [
                 'class' => Instructor::class,
                 'label' => 'Intervenants - champ obligatoire',
                 'required' => true,
+                'multiple' => true,
+                'choice_label' => 'user.lastName',
             ])
-            ->add('remote', CheckboxType::class, [
+            ->add('remotely', CheckboxType::class, [
                 'label' => 'Intervention effectuée en visio',
                 'required' => true,
             ]);

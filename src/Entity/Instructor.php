@@ -6,6 +6,7 @@ use App\Repository\InstructorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: InstructorRepository::class)]
 class Instructor
@@ -17,7 +18,7 @@ class Instructor
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $user_id = null;
+    private ?User $user_id = null;
 
     /**
      * @var Collection<int, Module>
@@ -35,12 +36,12 @@ class Instructor
         return $this->id;
     }
 
-    public function getUserId(): ?user
+    public function getUserId(): ?User
     {
         return $this->user_id;
     }
 
-    public function setUserId(user $user_id): static
+    public function setUserId(User $user_id): static
     {
         $this->user_id = $user_id;
 

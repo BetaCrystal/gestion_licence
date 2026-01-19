@@ -4,11 +4,11 @@
 
 {% block body %}
 
-    <button class="btn"><a href="{{ path('app_course') }}">Retour à la liste des interventions</a></button>
+    <button class="btn"><a href="{{ path('app_calendar_calendar') }}">X</a></button>
     <form method="post">
         {{ form_start(form) }}
         {{ form_widget(form) }}
-        <button class="btn"> {{ button_label|default('Annuler') }} </button>
+        <a href="{{ path('app_calendar_calendar') }}" class="btn"> {{ button_label|default('Annuler') }} </a>
         <button class="btn">{{ button_label|default('Confirmer') }}</button>
         {{ form_end(form) }}
 
