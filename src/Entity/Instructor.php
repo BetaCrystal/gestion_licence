@@ -59,7 +59,7 @@ class Instructor
     {
         if (!$this->modules->contains($module)) {
             $this->modules->add($module);
-            $module->addInstructorModule($this);
+            $module->addInstructor($this);
         }
 
         return $this;
@@ -68,7 +68,7 @@ class Instructor
     public function removeModule(Module $module): static
     {
         if ($this->modules->removeElement($module)) {
-            $module->removeInstructorModule($this);
+            $module->removeInstructor($this);
         }
 
         return $this;
