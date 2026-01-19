@@ -2,14 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\Course;
-use Doctrine\DBAL\Types\BooleanType;
+use App\Entity\Instructor;
+use App\Entity\InterventionType;
+use App\Entity\Module;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\TypeInfo\Type\ObjectType;
 
 final class CourseForm extends AbstractType
 {
@@ -28,19 +29,22 @@ final class CourseForm extends AbstractType
                 'label' => 'Date de fin - champ obligatoire',
                 'required' => true,
             ])
-            ->add('module', ObjectType::class, [
+            ->add('module', EntityType::class, [
+                'class' => Module::class,
                 'label' => 'Module - champ obligatoire',
                 'required' => true,
             ])
-            ->add('intervention_type', ObjectType::class, [
+            ->add('intervention_type', EntityType::class, [
+                'class' => InterventionType::class,
                 'label' => 'Type d\'intervention - champ obligatoire',
                 'required' => true,
             ])
-            ->add('instructor', ObjectType::class, [
+            ->add('instructor', EntityType::class, [
+                'class' => Instructor::class,
                 'label' => 'Intervenants - champ obligatoire',
                 'required' => true,
             ])
-            ->add('remote', BooleanType::class, [
+            ->add('remote', CheckboxType::class, [
                 'label' => 'Intervention effectuée en visio',
                 'required' => true,
             ]);
