@@ -11,9 +11,16 @@
         "ext-iconv": "*",
         "doctrine/doctrine-bundle": "^3.2.2",
         "doctrine/doctrine-migrations-bundle": "^4.0",
+<<<<<<< HEAD
         "doctrine/orm": "^3.6.1",
         "shuchkin/simplexlsxgen": "*",
         "symfony/asset": "8.0.*",
+=======
+        "doctrine/orm": "^3.6",
+        "phpoffice/phpspreadsheet": "^5.3",
+        "symfony/asset": "8.0.*",
+        "symfony/asset-mapper": "8.0.*",
+>>>>>>> fdcd32e (premier test menu latteral)
         "symfony/console": "8.0.*",
         "symfony/dotenv": "8.0.*",
         "symfony/flex": "^2.10",
@@ -31,10 +38,16 @@
         "symfony/security-bundle": "8.0.*",
         "symfony/stopwatch": "8.0.*",
         "symfony/twig-bundle": "8.0.*",
+<<<<<<< HEAD
         "symfony/ux-twig-component": "^2.32",
         "symfony/validator": "8.0.*",
         "symfony/web-profiler-bundle": "8.0.*",
         "symfony/webpack-encore-bundle": "^2.4",
+=======
+        "symfony/ux-twig-component": "*",
+        "symfony/validator": "8.0.*",
+        "symfony/webpack-encore-bundle": "*",
+>>>>>>> fdcd32e (premier test menu latteral)
         "symfony/yaml": "8.0.*",
         "symfonycasts/tailwind-bundle": "^0.12.0",
         "twig/extra-bundle": "^2.12|^3.22.2",
