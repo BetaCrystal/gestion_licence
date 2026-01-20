@@ -16,18 +16,18 @@ class Course
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?\DateTime $start_date = null;
+    private ?\DateTime $startDate = null;
 
     #[ORM\Column]
-    private ?\DateTime $end_date = null;
+    private ?\DateTime $endDate = null;
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?CoursePeriod $course_period_id = null;
+    private ?CoursePeriod $coursePeriod = null;
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?InterventionType $intervention_type_id = null;
+    private ?InterventionType $interventionType = null;
 
     #[ORM\Column]
     private ?bool $remotely = null;
@@ -57,48 +57,48 @@ class Course
 
     public function getStartDate(): ?\DateTime
     {
-        return $this->start_date;
+        return $this->startDate;
     }
 
-    public function setStartDate(\DateTime $start_date): static
+    public function setStartDate(\DateTime $startDate): static
     {
-        $this->start_date = $start_date;
+        $this->startDate = $startDate;
 
         return $this;
     }
 
     public function getEndDate(): ?\DateTime
     {
-        return $this->end_date;
+        return $this->endDate;
     }
 
-    public function setEndDate(\DateTime $end_date): static
+    public function setEndDate(\DateTime $endDate): static
     {
-        $this->end_date = $end_date;
+        $this->endDate = $endDate;
 
         return $this;
     }
 
     public function getCoursePeriodId(): ?CoursePeriod
     {
-        return $this->course_period_id;
+        return $this->coursePeriod;
     }
 
-    public function setCoursePeriodId(?CoursePeriod $course_period_id): static
+    public function setCoursePeriodId(?CoursePeriod $coursePeriod): static
     {
-        $this->course_period_id = $course_period_id;
+        $this->coursePeriod = $coursePeriod;
 
         return $this;
     }
 
     public function getInterventionTypeId(): ?InterventionType
     {
-        return $this->intervention_type_id;
+        return $this->interventionType;
     }
 
-    public function setInterventionTypeId(?InterventionType $intervention_type_id): static
+    public function setInterventionTypeId(?InterventionType $interventionType): static
     {
-        $this->intervention_type_id = $intervention_type_id;
+        $this->interventionType = $interventionType;
 
         return $this;
     }
