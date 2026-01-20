@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Course;
 
 #[ORM\Entity(repositoryClass: ModuleRepository::class)]
 class Module
@@ -47,6 +48,12 @@ class Module
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     private Collection $children;
 
+    /**
+     * @var Collection<int, Course>
+     */
+    #[ORM\OneToMany(targetEntity: Course::class, mappedBy: 'module')]
+    private Collection $courses;
+
     #[ORM\ManyToOne(targetEntity: TeachingBlock::class, inversedBy: 'modules')]
     #[ORM\JoinColumn(name: 'teaching_block_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     private ?TeachingBlock $teachingBlock = null;
@@ -56,6 +63,7 @@ class Module
     {
         $this->instructors = new ArrayCollection();
         $this->children = new ArrayCollection();
+        $this->courses = new ArrayCollection();
     }
 
     // ------------------- GETTERS & SETTERS -------------------
@@ -188,4 +196,30 @@ class Module
         return $this;
     }
 
+    /**
+     * @return Collection<int, Course>
+     */
+    public function getCourses(): Collection
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(Course $course): self
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses->add($course);
+            $course->setModule($this);
+        }
+        return $this;
+    }
+
+    public function removeCourse(Course $course): self
+    {
+        if ($this->courses->removeElement($course)) {
+            if ($course->getModule() === $this) {
+                $course->setModule(null);
+            }
+        }
+        return $this;
+    }
 }

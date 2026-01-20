@@ -7,6 +7,9 @@ framework:
     # Nécessaire pour property-access
     http_client: true
 
+    # Disable AssetMapper when using Webpack Encore
+    asset_mapper: false
+
     #esi: true
     #fragments: true
 

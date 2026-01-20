@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
-#[Route('/twig/calendar', name: 'twig_calendar')]
+#[Route('/twig/calendar', name: 'app_calendar')]
 final class CalendarController extends AbstractController
 {
     #[Route('/', name: '_calendar')]

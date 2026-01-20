@@ -35,6 +35,10 @@ class Course
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $title = null;
 
+    #[ORM\ManyToOne(inversedBy: 'courses')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Module $module = null;
+
     /**
      * @var Collection<int, Instructor>
      */
@@ -124,6 +128,23 @@ class Course
     {
         $this->title = $title;
 
+        return $this;
+    }
+
+    public function getModule(): ?Module
+    {
+        return $this->module;
+    }
+
+    public function setModule(?Module $module): static
+    {
+        $this->module = $module;
+
+        return $this;
+    }
+
+    public function getCourse(): ?Course
+    {
         return $this;
     }
 
