@@ -1,64 +1,55 @@
 <?php
+
 namespace App\DataFixtures;
 
-use App\Entity\InterventionType;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
+use App\Entity\InterventionType;
 
-final class InterventionTypeFixtures extends Fixture
+class InterventionTypeFixtures extends Fixture
 {
-    public const INTERVENTION_TYPES =
-        [
-            'intervention_type_1' => [
-                'name' => 'Cours',
-                'description' => 'Cours basique',
-                'color' => '#FF5733'
-            ],
-            'intervention_type_2' => [
-                'name' => 'TP',
-                'description' => 'TP sur ordi',
-                'color' => '#33FF57'
-            ],
-            'intervention_type_3' => [
-                'name' => 'Projet',
-                'description' => 'Projet en équipe',
-                'color' => '#3357FF'
-            ],
-            'intervention_type_4' => [
-                'name' => 'Réunion',
-                'description' => 'Réunion pour faire le point',
-                'color' => '#F1C40F'
-            ],
-            'intervention_type_5' => [
-                'name' => 'Soutenance',
-                'description' => '',
-                'color' => '#8E44AD'
-            ],
-            'intervention_type_6' => [
-                'name' => 'Examen',
-                'description' => 'Examen sur feuille',
-                'color' => '#E74C3C'
-            ],
-            'intervention_type_7' => [
+    public static function data(): array
+    {
+        return [
+            [
                 'name' => 'Autonomie',
-                'description' => 'Code en autonomie',
-                'color' => 'red'
+                'description' => 'Elèves en autonomie',
+                'color' => '#6750A4'
             ],
-            'intervention_type_' => [
+            [
                 'name' => 'Conférence',
-                'description' => 'Conférence avec un intervenant',
-                'color' => 'blue'
-            ]
+                'description' => 'Conférence effectuée par un ou plusieurs intervenants',
+                'color' => '#028202'
+            ],
+            [
+                'name' => 'Cours',
+                'description' => 'Cours dispensé par un ou plusieurs intervenants',
+                'color' => '#0EA5E9'
+            ],
+            [
+                'name' => 'Évaluation',
+                'description' => "Evaluation sous forme de POC ou d’écrit",
+                'color' => '#FF8000'
+            ],
+            [
+                'name' => 'Soutenance',
+                'description' => 'Soutenance de fin de projet',
+                'color' => '#8C1D18'
+            ],
         ];
+    }
 
     public function load(ObjectManager $manager): void
     {
-        foreach (self::INTERVENTION_TYPES as $reference => $typeData) {
-            $type = new InterventionType();
-            $type->setName($typeData['name']);
-            $type->setDescription($typeData['description']);
-            $type->setColor($typeData['color']);
-            $manager->persist($type);
+        foreach (self::data() as $index => $data) {
+
+            $interventionType = new InterventionType();
+            $interventionType->setName($data['name']);
+            $interventionType->setDescription($data['description']);
+            $interventionType->setColor($data['color']);
+            $this->addReference('intervention_type_' . $index, $interventionType);
+            $manager->persist($interventionType);
+
         }
 
         $manager->flush();
