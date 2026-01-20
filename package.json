@@ -3,10 +3,21 @@
         "@babel/core": "^7.17.0",
         "@babel/preset-env": "^7.16.0",
         "@symfony/webpack-encore": "^5.1.0",
+        "autoprefixer": "^10.4.23",
         "core-js": "^3.38.0",
+        "postcss": "^8.5.6",
+<<<<<<< HEAD
+        "postcss-loader": "^8.2.0",
         "regenerator-runtime": "^0.13.9",
         "webpack": "^5.74.0",
+        "webpack-cli": "^5.1.0",
+        "webpack-notifier": "^1.15.0"
+=======
+        "regenerator-runtime": "^0.13.9",
+        "tailwindcss": "^4.1.18",
+        "webpack": "^5.74.0",
         "webpack-cli": "^5.1.0"
+>>>>>>> fdcd32e (premier test menu latteral)
     },
     "license": "UNLICENSED",
     "private": true,
@@ -16,10 +27,28 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
+<<<<<<< HEAD
     "dependencies": {
         "@fullcalendar/core": "^6.1.20",
         "@fullcalendar/daygrid": "^6.1.20",
         "@fullcalendar/interaction": "^6.1.20",
         "fullcalendar": "^6.1.20"
     }
+=======
+    "name": "gestion_licence",
+    "version": "1.0.0",
+    "description": "Projet final symfony de BTS2 'Gestion licence\"",
+    "main": "tailwind.config.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/BetaCrystal/gestion_licence.git"
+    },
+    "keywords": [],
+    "author": "",
+    "type": "commonjs",
+    "bugs": {
+        "url": "https://github.com/BetaCrystal/gestion_licence/issues"
+    },
+    "homepage": "https://github.com/BetaCrystal/gestion_licence#readme"
+>>>>>>> fdcd32e (premier test menu latteral)
 }
