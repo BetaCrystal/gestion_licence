@@ -9,6 +9,7 @@ use App\Entity\CoursePeriod;
 use App\Entity\InterventionType;
 use App\Entity\Instructor;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use App\Entity\Module;
 
 class CourseFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -22,6 +23,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'interventionTypeRef' => 'intervention_type_2',
                 'instructors' => ['instructor_1'],
                 'remotely' => TRUE,
+                'module' => 'Module_1',
                 'title' => 'Méthode agile'
             ],
             [
@@ -31,6 +33,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'interventionTypeRef' => 'intervention_type_3',
                 'instructors' => ['instructor_3'],
                 'remotely' => FALSE,
+                'module' => 'Module_7',
                 'title' => 'Éco-conception'
             ],
             [
@@ -40,6 +43,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'interventionTypeRef' => 'intervention_type_2',
                 'instructors' => ['instructor_3','instructor_1'],
                 'remotely' => FALSE,
+                'module' => 'Module_10',
                 'title' => 'Devops/Cyber'
             ],
             [
@@ -49,6 +53,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'interventionTypeRef' => 'intervention_type_1',
                 'instructors' => ['instructor_1'],
                 'remotely' => FALSE,
+                'module' => 'Module_16',
                 'title' => 'Javascript'
             ],
         ];
@@ -75,6 +80,10 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
 
                 $course->setInterventionTypeId(
                     $this->getReference($data['interventionTypeRef'], InterventionType::class)
+                );
+
+                $course->setModule(
+                    $this->getReference($data['module'], Module::class)
                 );
 
                 // Relation ManyToMany (Instructor)

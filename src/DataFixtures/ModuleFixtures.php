@@ -223,6 +223,10 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($module);
 
             $this->addReference($data['code'], $module);
+                        
+            $a = $index + 1;
+            $this->addReference('Module_'.$a, $module);
+            
         }
 
         $manager->flush();

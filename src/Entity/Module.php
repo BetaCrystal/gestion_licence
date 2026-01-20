@@ -24,7 +24,7 @@ class Module
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
-
+    
     #[ORM\Column]
     private ?int $hours_count = null;
 
@@ -50,6 +50,7 @@ class Module
     #[ORM\ManyToOne(targetEntity: TeachingBlock::class, inversedBy: 'modules')]
     #[ORM\JoinColumn(name: 'teaching_block_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     private ?TeachingBlock $teachingBlock = null;
+
 
     public function __construct()
     {
@@ -186,4 +187,5 @@ class Module
         $this->teachingBlock = $teachingBlock;
         return $this;
     }
+
 }
