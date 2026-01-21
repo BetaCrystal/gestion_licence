@@ -9,6 +9,8 @@ use App\Entity\Course;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\CourseForm;
+use App\Entity\CoursePeriod;
+use App\Entity\SchoolYear;
 
 class CourseController extends AbstractController
 {
@@ -22,7 +24,7 @@ class CourseController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/twig/add_course', name: 'app_add_course', methods: ['GET'])]
+    #[Route(path: '/twig/add_course', name: 'app_add_course', methods: ['GET','POST'])]
     public function addCourse(Request $request, EntityManagerInterface $entityManager): Response
     {
         $course = new Course();
@@ -32,16 +34,54 @@ class CourseController extends AbstractController
         if ($dateStr) {
             $selectedDate = new \DateTime($dateStr);
             $course->setStartDate($selectedDate);
-            // Set end date to the same day or next day, adjust as needed
-            /*$endDate = clone $selectedDate;
-            $endDate->setTime(23, 59, 59); // End of the day
-            $course->setEndDate($endDate);*/
         }
 
         $form = $this->createForm(CourseForm::class, $course);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $startDate = $course->getStartDate();
+
+            // Find school year containing the start date
+            $qb = $entityManager->createQueryBuilder();
+            $schoolYear = $qb->select('sy')
+                ->from(SchoolYear::class, 'sy')
+                ->where('sy.start_date <= :date AND sy.end_date >= :date')
+                ->setParameter('date', $startDate)
+                ->getQuery()
+                ->getOneOrNullResult();
+
+            if (!$schoolYear) {
+                // Handle error, perhaps throw exception or add flash message
+                $this->addFlash('error', 'No school year found for the selected date.');
+                return $this->redirectToRoute('app_add_course');
+            }
+
+            // Calculate week start (Monday) and end (Sunday)
+            $weekStart = clone $startDate;
+            $weekStart->modify('monday this week');
+            $weekEnd = clone $weekStart;
+            $weekEnd->modify('+6 days');
+
+            // Find or create CoursePeriod
+            // Crée le courseperiod s'il n'existe pas. Obligatoire pour ajouter une course car ça doit être automatique
+            // (pas dans le formulaire) et la course doit y être rattachée.
+            $coursePeriod = $entityManager->getRepository(CoursePeriod::class)->findOneBy([
+                'school_year_id' => $schoolYear,
+                'start_date' => $weekStart,
+                'end_date' => $weekEnd
+            ]);
+
+            if (!$coursePeriod) {
+                $coursePeriod = new CoursePeriod();
+                $coursePeriod->setSchoolYearId($schoolYear);
+                $coursePeriod->setStartDate($weekStart);
+                $coursePeriod->setEndDate($weekEnd);
+                $entityManager->persist($coursePeriod);
+            }
+
+            $course->setCoursePeriodId($coursePeriod);
+
             $entityManager->persist($course);
             $entityManager->flush();
 
