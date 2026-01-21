@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification Interventions{% endblock %}
+
+{% block body %}
+    <h1>Modififier une intervention</h1>
+        <h2>Remplissez les informations ci-dessous.</h2>
+
+    {{ include("form_course.html.twig") }}
+
+
+    <div class="">
+        <button class="w-[122] h-[44] top-[212px] left-[20px] rounded-[8px] opacity-100 pt-[14px] pr-[20px] pb-[14px] pl-[20px] gap-[10px] bg-[#FF0004]" type="submit">Annuler</button>
+        <button class="bouton" type="submit">Supprimer/button>
+        <button class="bouton" type="submit">Enregistrer les informations</button>
+    </div>
+
+{% endblock %}
