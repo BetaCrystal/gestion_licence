@@ -40,20 +40,35 @@ class CourseController extends AbstractController
         $form = $this->createForm(CourseForm::class, $course);
         $form->handleRequest($request);
 
+
         $submitted = $form->isSubmitted();
-        $this->addFlash('info', 'Form submitted: ' . ($submitted ? 'yes' : 'no'));
-        if ($submitted) {
-            $valid = $form->isValid();
-            $this->addFlash('info', 'Form valid: ' . ($valid ? 'yes' : 'no'));
-            if (!$valid) {
-                $errors = [];
-                foreach ($form->getErrors(true) as $error) {
-                    $errors[] = $error->getMessage();
-                }
-                $this->addFlash('error', 'Form errors: ' . implode(', ', $errors));
+        //erreurs de champs vides
+        if ($submitted && !$form->isValid()) {
+            if (!$form->get('startDate')->getData()) {
+                $this->addFlash('error', 'La date de début est obligatoire.');
             }
-        } else {
-            $this->addFlash('info', 'Form valid: N/A (not submitted)');
+            if (!$form->get('endDate')->getData()) {
+                $this->addFlash('error', 'La date de fin est obligatoire.');
+            }
+            if (!$form->get('module')->getData()) {
+                $this->addFlash('error', 'Le module est obligatoire.');
+            }
+            if (!$form->get('interventionType')->getData()) {
+                $this->addFlash('error', 'Le type d\'intervention est obligatoire.');
+            }
+            if ($form->get('CourseInstructor')->getData()->isEmpty()) {
+                $this->addFlash('error', 'Au moins un intervenant est obligatoire.');
+            }
+            if ($form->get('remotely')->getData() === null) {
+                $this->addFlash('error', 'Le mode (présentiel/à distance) est obligatoire.');
+            }
+            if ($form->get('startDate')->getData() && $form->get('endDate')->getData()) {
+                $startDate = $form->get('startDate')->getData();
+                $endDate = $form->get('endDate')->getData();
+                if ($startDate > $endDate) {
+                    $this->addFlash('error', 'La date de début doit être antérieure à la date de fin.');
+                }
+            }
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -69,7 +84,6 @@ class CourseController extends AbstractController
                 ->getOneOrNullResult();
 
             if (!$schoolYear) {
-                // Handle error, perhaps throw exception or add flash message
                 $this->addFlash('error', 'Aucune année scolaire trouvée à cette date.');
                 return $this->redirectToRoute('app_add_course');
             }
