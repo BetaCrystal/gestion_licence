@@ -23,7 +23,7 @@ class Instructor
     /**
      * @var Collection<int, Module>
      */
-    #[ORM\ManyToMany(targetEntity: Module::class, mappedBy: 'instructor_module')]
+    #[ORM\ManyToMany(targetEntity: Module::class, mappedBy: 'instructors')]
     private Collection $modules;
 
     public function __construct()

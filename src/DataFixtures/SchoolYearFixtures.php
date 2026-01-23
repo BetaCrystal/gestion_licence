@@ -13,18 +13,18 @@ class SchoolYearFixtures extends Fixture
         return [
             [
                 'name' => '2026',
-                'start_date' => '2026-09-01',
-                'end_date' => '2027-07-02'
+                'start_date' => '2026-01-01',
+                'end_date' => '2026-12-31'
             ],
             [
                 'name' => '2027',
-                'start_date' => '2027-09-02',
-                'end_date' => '2028-06-30'
+                'start_date' => '2027-01-01',
+                'end_date' => '2027-12-31'
             ],
             [
                 'name' => '2028',
-                'start_date' => '2028-09-03',
-                'end_date' => '2029-07-05'
+                'start_date' => '2028-01-01',
+                'end_date' => '2028-12-31'
             ],
         ];
     }

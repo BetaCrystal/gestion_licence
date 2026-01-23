@@ -74,11 +74,11 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 $course->setTitle($data['title']);
 
                 // Relations ManyToOne
-                $course->setCoursePeriodId(
+                $course->setCoursePeriod(
                     $this->getReference($data['coursePeriodRef'],CoursePeriod::class)
                 );
 
-                $course->setInterventionTypeId(
+                $course->setInterventionType(
                     $this->getReference($data['interventionTypeRef'], InterventionType::class)
                 );
 

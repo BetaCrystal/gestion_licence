@@ -36,7 +36,7 @@ final class CourseForm extends AbstractType
                 'required' => true,
                 'choice_label' => 'name',
             ])
-            ->add('intervention_type_id', EntityType::class, [
+            ->add('interventionType', EntityType::class, [
                 'class' => InterventionType::class,
                 'label' => 'Type d\'intervention - champ obligatoire',
                 'required' => true,
@@ -50,14 +50,14 @@ final class CourseForm extends AbstractType
                 'choice_label' => 'user_id.lastName',
                 'expanded' => true,
             ])
-            ->add('coursePeriodId', EntityType::class, [
+            /*->add('coursePeriodId', EntityType::class, [
                 'class' => CoursePeriod::class,
                 'label' => 'Période du cours - champ obligatoire',
                 'required' => true,
                 'choice_label' => function (CoursePeriod $period) {
                     return $period->getStartDate()->format('d/m/Y') . ' - ' . $period->getEndDate()->format('d/m/Y');
                 },
-            ])
+            ])*/
             ->add('remotely', CheckboxType::class, [
                 'label' => 'Intervention effectuée en visio',
                 'required' => false,

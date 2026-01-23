@@ -34,10 +34,27 @@ class CourseController extends AbstractController
         if ($dateStr) {
             $selectedDate = new \DateTime($dateStr);
             $course->setStartDate($selectedDate);
+            $course->setEndDate($selectedDate);
         }
 
         $form = $this->createForm(CourseForm::class, $course);
         $form->handleRequest($request);
+
+        $submitted = $form->isSubmitted();
+        $this->addFlash('info', 'Form submitted: ' . ($submitted ? 'yes' : 'no'));
+        if ($submitted) {
+            $valid = $form->isValid();
+            $this->addFlash('info', 'Form valid: ' . ($valid ? 'yes' : 'no'));
+            if (!$valid) {
+                $errors = [];
+                foreach ($form->getErrors(true) as $error) {
+                    $errors[] = $error->getMessage();
+                }
+                $this->addFlash('error', 'Form errors: ' . implode(', ', $errors));
+            }
+        } else {
+            $this->addFlash('info', 'Form valid: N/A (not submitted)');
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $startDate = $course->getStartDate();
@@ -53,7 +70,7 @@ class CourseController extends AbstractController
 
             if (!$schoolYear) {
                 // Handle error, perhaps throw exception or add flash message
-                $this->addFlash('error', 'No school year found for the selected date.');
+                $this->addFlash('error', 'Aucune année scolaire trouvée à cette date.');
                 return $this->redirectToRoute('app_add_course');
             }
 
@@ -80,15 +97,16 @@ class CourseController extends AbstractController
                 $entityManager->persist($coursePeriod);
             }
 
-            $course->setCoursePeriodId($coursePeriod);
+            $course->setCoursePeriod($coursePeriod);
+            $this->addFlash('success', 'Client ajouté avec succès !');
 
             $entityManager->persist($course);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_course');
+            return $this->redirectToRoute('app_calendar_calendar');
         }
 
-        return $this->render('admin/form/form_course.html.twig', [
+        return $this->render('admin/courses/add_course.html.twig', [
             'form' => $form,
         ]);
     }
