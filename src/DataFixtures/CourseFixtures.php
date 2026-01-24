@@ -8,6 +8,7 @@ use App\Entity\Course;
 use App\Entity\CoursePeriod;
 use App\Entity\InterventionType;
 use App\Entity\Instructor;
+use App\Entity\Module;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class CourseFixtures extends Fixture implements DependentFixtureInterface
@@ -20,6 +21,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'endDate' => '2026-09-04 17:00:00',
                 'coursePeriodRef' => 'course_period_1',
                 'interventionTypeRef' => 'intervention_type_2',
+                'moduleRef' => 'GESTION_PROJET_AGILE', // Gestion de projet – Méthodes Agile
                 'instructors' => ['instructor_1'],
                 'remotely' => TRUE,
                 'title' => 'Méthode agile'
@@ -29,6 +31,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'endDate' => '2026-10-06 12:30:00',
                 'coursePeriodRef' => 'course_period_2',
                 'interventionTypeRef' => 'intervention_type_3',
+                'moduleRef' => 'CADRE_LEGAL', // Cadre légal – Droit numérique
                 'instructors' => ['instructor_3'],
                 'remotely' => FALSE,
                 'title' => 'Éco-conception'
@@ -38,6 +41,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'endDate' => '2026-11-02 17:30:00',
                 'coursePeriodRef' => 'course_period_1',
                 'interventionTypeRef' => 'intervention_type_2',
+                'moduleRef' => 'DEVOPS_CYBER', // DevOps et cybersécurité
                 'instructors' => ['instructor_3','instructor_1'],
                 'remotely' => FALSE,
                 'title' => 'Devops/Cyber'
@@ -47,6 +51,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'endDate' => '2026-11-30 12:30:00',
                 'coursePeriodRef' => 'course_period_1',
                 'interventionTypeRef' => 'intervention_type_1',
+                'moduleRef' => 'DEV_FRONT', // Développement front-end
                 'instructors' => ['instructor_1'],
                 'remotely' => FALSE,
                 'title' => 'Javascript'
@@ -69,12 +74,16 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 $course->setTitle($data['title']);
 
                 // Relations ManyToOne
-                $course->setCoursePeriodId(
+                $course->setCoursePeriod(
                     $this->getReference($data['coursePeriodRef'],CoursePeriod::class)
                 );
 
-                $course->setInterventionTypeId(
+                $course->setInterventionType(
                     $this->getReference($data['interventionTypeRef'], InterventionType::class)
+                );
+
+                $course->setModule(
+                    $this->getReference($data['moduleRef'], Module::class)
                 );
 
                 // Relation ManyToMany (Instructor)
@@ -96,6 +105,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
             CoursePeriodFixtures::class,
             InterventionTypeFixtures::class,
             InstructorFixtures::class,
+            ModuleFixtures::class,
         ];
     }
 }
