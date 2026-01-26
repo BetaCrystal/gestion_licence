@@ -14,8 +14,6 @@
         "doctrine/orm": "^3.6",
         "knplabs/knp-paginator-bundle": "^6.10",
         "phpoffice/phpspreadsheet": "^5.3",
-        "shuchkin/simplexlsxgen": "*",
-        "symfony/asset": "8.0.*",
         "symfony/asset-mapper": "8.0.*",
         "symfony/console": "8.0.*",
         "symfony/dotenv": "8.0.*",
@@ -30,6 +28,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^4.3.1",
+        "symfony/debug-bundle": "8.0.*",
         "symfony/maker-bundle": "^1.65.1",
         "symfony/security-bundle": "8.0.*",
         "symfony/stopwatch": "8.0.*",

@@ -79,24 +79,24 @@ class Course
         return $this;
     }
 
-    public function getCoursePeriodId(): ?CoursePeriod
+    public function getCoursePeriod(): ?CoursePeriod
     {
         return $this->coursePeriod;
     }
 
-    public function setCoursePeriodId(?CoursePeriod $coursePeriod): static
+    public function setCoursePeriod(?CoursePeriod $coursePeriod): static
     {
         $this->coursePeriod = $coursePeriod;
 
         return $this;
     }
 
-    public function getInterventionTypeId(): ?InterventionType
+    public function getInterventionType(): ?InterventionType
     {
         return $this->interventionType;
     }
 
-    public function setInterventionTypeId(?InterventionType $interventionType): static
+    public function setInterventionType(?InterventionType $interventionType): static
     {
         $this->interventionType = $interventionType;
 
