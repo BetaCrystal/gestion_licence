@@ -10,6 +10,7 @@ use App\Entity\InterventionType;
 use App\Entity\Instructor;
 use App\Entity\Module;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use App\Entity\Module;
 
 class CourseFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -24,6 +25,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'moduleRef' => 'GESTION_PROJET_AGILE', // Gestion de projet – Méthodes Agile
                 'instructors' => ['instructor_1'],
                 'remotely' => TRUE,
+                'module' => 'Module_1',
                 'title' => 'Méthode agile'
             ],
             [
@@ -34,6 +36,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'moduleRef' => 'CADRE_LEGAL', // Cadre légal – Droit numérique
                 'instructors' => ['instructor_3'],
                 'remotely' => FALSE,
+                'module' => 'Module_7',
                 'title' => 'Éco-conception'
             ],
             [
@@ -44,6 +47,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'moduleRef' => 'DEVOPS_CYBER', // DevOps et cybersécurité
                 'instructors' => ['instructor_3','instructor_1'],
                 'remotely' => FALSE,
+                'module' => 'Module_10',
                 'title' => 'Devops/Cyber'
             ],
             [
@@ -54,6 +58,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'moduleRef' => 'DEV_FRONT', // Développement front-end
                 'instructors' => ['instructor_1'],
                 'remotely' => FALSE,
+                'module' => 'Module_16',
                 'title' => 'Javascript'
             ],
         ];

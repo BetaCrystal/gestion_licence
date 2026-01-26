@@ -4,7 +4,7 @@ namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -20,17 +20,20 @@ class InterventionForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('DateDebut', DateType::class, [
+        ->add('DateDebut', DateTimeType::class, [
                 'label' => 'Date de début',
+                'required' => false,
         ])
-        ->add('DateFin', DateType::class, [
+        ->add('DateFin', DateTimeType::class, [
                 'label' => 'Date de fin',
+                'required' => false,
         ])
         ->add('Module', EntityType::class, [
             'class' => Module::class,
             'choice_label' => 'name',
             'label' => 'Module',
             'placeholder' => 'Sélectionnez le module',
+            'required' => false,
         ])
         ->add('submit', SubmitType::class, [
             'label' => 'Enregistrer',

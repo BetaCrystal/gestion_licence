@@ -47,7 +47,7 @@ class InterventionTypeFixtures extends Fixture
             $interventionType->setName($data['name']);
             $interventionType->setDescription($data['description']);
             $interventionType->setColor($data['color']);
-            $this->addReference('intervention_type_' . $index, $interventionType);
+            $this->addReference('intervention_type_' . ($index+1), $interventionType);
             $manager->persist($interventionType);
 
         }

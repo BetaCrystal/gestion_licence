@@ -11,9 +11,8 @@
         "ext-iconv": "*",
         "doctrine/doctrine-bundle": "^3.2.2",
         "doctrine/doctrine-migrations-bundle": "^4.0",
-        "shuchkin/simplexlsxgen": "*",
-        "symfony/asset": "8.0.*",
         "doctrine/orm": "^3.6",
+        "knplabs/knp-paginator-bundle": "^6.10",
         "phpoffice/phpspreadsheet": "^5.3",
         "symfony/asset-mapper": "8.0.*",
         "symfony/console": "8.0.*",
@@ -77,8 +76,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "importmap:install": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"

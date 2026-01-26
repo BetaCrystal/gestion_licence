@@ -1329,6 +1329,32 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     intercept_redirects?: bool|Param, // Default: false
  *     excluded_ajax_paths?: scalar|null|Param, // Default: "^/((index|app(_[\\w]+)?)\\.php/)?_wdt"
  * }
+ * @psalm-type KnpPaginatorConfig = array{
+ *     default_options?: array{
+ *         sort_field_name?: scalar|null|Param, // Default: "sort"
+ *         sort_direction_name?: scalar|null|Param, // Default: "direction"
+ *         filter_field_name?: scalar|null|Param, // Default: "filterField"
+ *         filter_value_name?: scalar|null|Param, // Default: "filterValue"
+ *         page_name?: scalar|null|Param, // Default: "page"
+ *         distinct?: bool|Param, // Default: true
+ *         page_out_of_range?: scalar|null|Param, // Default: "ignore"
+ *         default_limit?: scalar|null|Param, // Default: 10
+ *     },
+ *     template?: array{
+ *         pagination?: scalar|null|Param, // Default: "@KnpPaginator/Pagination/sliding.html.twig"
+ *         rel_links?: scalar|null|Param, // Default: "@KnpPaginator/Pagination/rel_links.html.twig"
+ *         filtration?: scalar|null|Param, // Default: "@KnpPaginator/Pagination/filtration.html.twig"
+ *         sortable?: scalar|null|Param, // Default: "@KnpPaginator/Pagination/sortable_link.html.twig"
+ *     },
+ *     page_range?: scalar|null|Param, // Default: 5
+ *     page_limit?: scalar|null|Param, // Default: null
+ *     convert_exception?: bool|Param, // Default: false
+ *     remove_first_page_param?: bool|Param, // Default: false
+ * }
+ * @psalm-type ConfigType = array{
+ *     imports?: ImportsConfig,
+ *     parameters?: ParametersConfig,
+ *     services?: ServicesConfig,
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -1341,6 +1367,11 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     twig_extra?: TwigExtraConfig,
  *     twig_component?: TwigComponentConfig,
  *     security?: SecurityConfig,
+ *     webpack_encore?: WebpackEncoreConfig,
+ *     knp_paginator?: KnpPaginatorConfig,
+ *     "when@dev"?: array{
+ *         imports?: ImportsConfig,
+ *         parameters?: ParametersConfig,
  *     webpack_encore?: WebpackEncoreConfig,
  *     "when@dev"?: array{
  *         imports?: ImportsConfig,
@@ -1356,6 +1387,12 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_component?: TwigComponentConfig,
  *         security?: SecurityConfig,
  *         webpack_encore?: WebpackEncoreConfig,
+ *         web_profiler?: WebProfilerConfig,
+ *         knp_paginator?: KnpPaginatorConfig,
+ *     },
+ *     "when@prod"?: array{
+ *         imports?: ImportsConfig,
+ *         parameters?: ParametersConfig,
  *         debug?: DebugConfig,
  *         web_profiler?: WebProfilerConfig,
  *     },
@@ -1372,6 +1409,12 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_component?: TwigComponentConfig,
  *         security?: SecurityConfig,
  *         webpack_encore?: WebpackEncoreConfig,
+ *         knp_paginator?: KnpPaginatorConfig,
+ *     },
+ *     "when@test"?: array{
+ *         imports?: ImportsConfig,
+ *         parameters?: ParametersConfig,
+ *         webpack_encore?: WebpackEncoreConfig,
  *     },
  *     "when@test"?: array{
  *         imports?: ImportsConfig,
@@ -1386,6 +1429,106 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_component?: TwigComponentConfig,
  *         security?: SecurityConfig,
  *         webpack_encore?: WebpackEncoreConfig,
+ *         web_profiler?: WebProfilerConfig,
+ *         knp_paginator?: KnpPaginatorConfig,
+ *     },
+ *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
+ *         imports?: ImportsConfig,
+ *         parameters?: ParametersConfig,
+ *         services?: ServicesConfig,
+ *         ...<string, ExtensionType>,
+ *     }>
+ * }
+ */
+final class App
+{
+    /**
+     * @param ConfigType $config
+     *
+     * @psalm-return ConfigType
+     */
+    public static function config(array $config): array
+    {
+        return AppReference::config($config);
+    }
+}
+
+namespace Symfony\Component\Routing\Loader\Configurator;
+
+/**
+ * This class provides array-shapes for configuring the routes of an application.
+ *
+ * Example:
+ *
+ *     ```php
+ *     // config/routes.php
+ *     namespace Symfony\Component\Routing\Loader\Configurator;
+ *
+ *     return Routes::config([
+ *         'controllers' => [
+ *             'resource' => 'routing.controllers',
+ *         ],
+ *     ]);
+ *     ```
+ *
+ * @psalm-type RouteConfig = array{
+ *     path: string|array<string,string>,
+ *     controller?: string,
+ *     methods?: string|list<string>,
+ *     requirements?: array<string,string>,
+ *     defaults?: array<string,mixed>,
+ *     options?: array<string,mixed>,
+ *     host?: string|array<string,string>,
+ *     schemes?: string|list<string>,
+ *     condition?: string,
+ *     locale?: string,
+ *     format?: string,
+ *     utf8?: bool,
+ *     stateless?: bool,
+ * }
+ * @psalm-type ImportConfig = array{
+ *     resource: string,
+ *     type?: string,
+ *     exclude?: string|list<string>,
+ *     prefix?: string|array<string,string>,
+ *     name_prefix?: string,
+ *     trailing_slash_on_root?: bool,
+ *     controller?: string,
+ *     methods?: string|list<string>,
+ *     requirements?: array<string,string>,
+ *     defaults?: array<string,mixed>,
+ *     options?: array<string,mixed>,
+ *     host?: string|array<string,string>,
+ *     schemes?: string|list<string>,
+ *     condition?: string,
+ *     locale?: string,
+ *     format?: string,
+ *     utf8?: bool,
+ *     stateless?: bool,
+ * }
+ * @psalm-type AliasConfig = array{
+ *     alias: string,
+ *     deprecated?: array{package:string, version:string, message?:string},
+ * }
+ * @psalm-type RoutesConfig = array{
+ *     "when@dev"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
+ *     "when@prod"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
+ *     "when@test"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
+ *     ...<string, RouteConfig|ImportConfig|AliasConfig>
+ * }
+ */
+final class Routes
+{
+    /**
+     * @param RoutesConfig $config
+     *
+     * @psalm-return RoutesConfig
+     */
+    public static function config(array $config): array
+    {
+        return $config;
+    }
+}
  *         web_profiler?: WebProfilerConfig,
  *     },
  *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
@@ -1465,7 +1608,8 @@ namespace Symfony\Component\Routing\Loader\Configurator;
  * @psalm-type AliasConfig = array{
  *     alias: string,
  *     deprecated?: array{package:string, version:string, message?:string},
- * }
+ * }
+
  * @psalm-type RoutesConfig = array{
  *     "when@dev"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
  *     "when@prod"?: array<string, RouteConfig|ImportConfig|AliasConfig>,

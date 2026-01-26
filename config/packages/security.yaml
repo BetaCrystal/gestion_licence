@@ -23,7 +23,8 @@ security:
                 username_parameter: email
                 password_parameter: password
                 enable_csrf: true
-                default_target_path: /twig/calendar
+                default_target_path: app_calendar_calendar
+                always_use_default_target_path: true
 
             logout:
                 path: app_logout
