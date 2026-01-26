@@ -25,7 +25,7 @@ class Module
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
-    
+
     #[ORM\Column]
     private ?int $hours_count = null;
 
@@ -33,10 +33,10 @@ class Module
     private ?bool $capstone_project = null;
 
     /**
-     * @var Collection<int, Instructor>
+     * @var Collection<int, ModuleInstructor>
      */
-    #[ORM\ManyToMany(targetEntity: Instructor::class, inversedBy: 'modules')]
-    private Collection $instructors;
+    #[ORM\OneToMany(targetEntity: ModuleInstructor::class, mappedBy: 'module')]
+    private Collection $moduleInstructors;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
@@ -61,7 +61,7 @@ class Module
 
     public function __construct()
     {
-        $this->instructors = new ArrayCollection();
+        $this->moduleInstructors = new ArrayCollection();
         $this->children = new ArrayCollection();
         $this->courses = new ArrayCollection();
     }
@@ -128,23 +128,24 @@ class Module
         return $this;
     }
 
-    // ----------- Relation ManyToMany Instructors ----------
-    public function getInstructors(): Collection
+    // ----------- Relation OneToMany ModuleInstructors ----------
+    public function getModuleInstructors(): Collection
     {
-        return $this->instructors;
+        return $this->moduleInstructors;
     }
 
-    public function addInstructor(Instructor $instructor): self
+    public function addModuleInstructor(ModuleInstructor $moduleInstructor): self
     {
-        if (!$this->instructors->contains($instructor)) {
-            $this->instructors->add($instructor);
+        if (!$this->moduleInstructors->contains($moduleInstructor)) {
+            $this->moduleInstructors->add($moduleInstructor);
+            $moduleInstructor->setModule($this);
         }
         return $this;
     }
 
-    public function removeInstructor(Instructor $instructor): self
+    public function removeModuleInstructor(ModuleInstructor $moduleInstructor): self
     {
-        $this->instructors->removeElement($instructor);
+        $this->moduleInstructors->removeElement($moduleInstructor);
         return $this;
     }
 
