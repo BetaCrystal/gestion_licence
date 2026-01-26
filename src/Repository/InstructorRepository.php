@@ -19,10 +19,9 @@ class InstructorRepository extends ServiceEntityRepository
     public function findAllInstructor(): array
 {
     return $this->createQueryBuilder('i')
-        ->select('u.firstName, u.lastName, m.name, m.hoursCount')
-        ->join('i.user', 'u') // param 1 = jointure de instructor vers user, param 2 = création d'un alias pour user 'u'
-        ->join('i.teachingBlock', 't') //param 1 = jointure de instructor vers teachingblock, param 2 = création d'un alias pour teachingBlock 't'
-        ->join('t.module', 'm') //param 1 = jointure de teachingBlock vers module, param 2 = création d'un alias pour module 'm'
+        ->select('u.firstName, u.lastName, m.name, m.hours_count')
+        ->join('i.user_id', 'u') // param 1 = jointure de instructor vers user, param 2 = création d'un alias pour user 'u'
+        ->join('i.modules', 'm') //param 1 = jointure de instructor vers module, param 2 = création d'un alias pour module 'm'
         ->getQuery()
         ->getResult();
 }

@@ -1,0 +1,20 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom de famille</th>
+            <th>Prénom</th>
+            <th>Modules enseignés</th>
+            <th>Nombre d'heures</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in instructor %}
+            <tr>
+                <td>{{ i.firstName }}</td>
+                <td>{{ i.lastName}}</td>
+                <td>{{ i.name}}</td>
+                <td>{{ i.hours_count}}h</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
