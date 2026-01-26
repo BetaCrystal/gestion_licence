@@ -28,7 +28,7 @@ class ModuleInstructorFixtures extends Fixture implements DependentFixtureInterf
 
     public function load(ObjectManager $manager): void
     {
-        foreach (self::data() as $key => $data) {
+        foreach (self::data() as $data) {
             $moduleInstructor = new ModuleInstructor();
             $moduleInstructor->setModule(
                 $this->getReference('Module_' . ($data['module_id'] - 86), Module::class)
