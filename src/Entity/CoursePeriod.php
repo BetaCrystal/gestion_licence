@@ -90,7 +90,7 @@ class CoursePeriod
     {
         if (!$this->courses->contains($course)) {
             $this->courses->add($course);
-            $course->setCoursePeriodId($this);
+            $course->setCoursePeriod($this);
         }
 
         return $this;
@@ -100,8 +100,8 @@ class CoursePeriod
     {
         if ($this->courses->removeElement($course)) {
             // set the owning side to null (unless already changed)
-            if ($course->getCoursePeriodId() === $this) {
-                $course->setCoursePeriodId(null);
+            if ($course->getCoursePeriod() === $this) {
+                $course->setCoursePeriod(null);
             }
         }
 

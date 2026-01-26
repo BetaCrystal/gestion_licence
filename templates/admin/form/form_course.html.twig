@@ -4,15 +4,25 @@
 
 {% block body %}
 
-    <button class="btn"><a href="{{ path('app_calendar_calendar') }}">X</a></button>
-    <form method="post">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <a href="{{ path('app_calendar_calendar') }}" class="btn"> {{ button_label|default('Annuler') }} </a>
-        <button class="btn">{{ button_label|default('Confirmer') }}</button>
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('info') %}
+        <div class="alert alert-info">{{ message }}</div>
+    {% endfor %}
+
+        {{ form_start(form, { attr: { id: 'course_form'} } ) }}
+
+        {{ form_row(form.title) }}
+        {{ form_row(form.startDate) }}
+        {{ form_row(form.endDate) }}
+        {{ form_row(form.module) }}
+        {{ form_row(form.interventionType) }}
+        {{ form_row(form.CourseInstructor) }}
+        {{ form_row(form.remotely) }}
+        <button type="submit" class="btn">Ajouter</button>
         {{ form_end(form) }}
 
-    </form>
 
 
 {% endblock %}
