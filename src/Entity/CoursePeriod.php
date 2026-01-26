@@ -29,7 +29,7 @@ class CoursePeriod
     /**
      * @var Collection<int, Course>
      */
-    #[ORM\OneToMany(targetEntity: Course::class, mappedBy: 'course_period_id')]
+    #[ORM\OneToMany(targetEntity: Course::class, mappedBy: 'coursePeriod')]
     private Collection $courses;
 
     public function __construct()

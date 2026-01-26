@@ -56,6 +56,86 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'module' => 'Module_16',
                 'title' => 'Javascript'
             ],
+            [
+                'startDate' => '2026-09-04 13:00:00',
+                'endDate' => '2026-09-04 17:00:00',
+                'coursePeriodRef' => 'course_period_1',
+                'interventionTypeRef' => 'intervention_type_2',
+                'instructors' => ['instructor_2'],
+                'remotely' => TRUE,
+                'module' => 'Module_1',
+                'title' => 'Méthode agile'
+            ],
+            [
+                'startDate' => '2026-10-06 08:30:00',
+                'endDate' => '2026-10-06 12:30:00',
+                'coursePeriodRef' => 'course_period_2',
+                'interventionTypeRef' => 'intervention_type_3',
+                'instructors' => ['instructor_3'],
+                'remotely' => FALSE,
+                'module' => 'Module_7',
+                'title' => 'Éco-conception'
+            ],
+            [
+                'startDate' => '2026-11-02 13:30:00',
+                'endDate' => '2026-11-02 17:30:00',
+                'coursePeriodRef' => 'course_period_1',
+                'interventionTypeRef' => 'intervention_type_2',
+                'instructors' => ['instructor_3','instructor_2'],
+                'remotely' => FALSE,
+                'module' => 'Module_10',
+                'title' => 'Devops/Cyber'
+            ],
+            [
+                'startDate' => '2026-11-30 08:30:00',
+                'endDate' => '2026-11-30 12:30:00',
+                'coursePeriodRef' => 'course_period_1',
+                'interventionTypeRef' => 'intervention_type_1',
+                'instructors' => ['instructor_2'],
+                'remotely' => FALSE,
+                'module' => 'Module_16',
+                'title' => 'Javascript'
+            ],
+            [
+                'startDate' => '2026-09-04 13:00:00',
+                'endDate' => '2026-09-04 17:00:00',
+                'coursePeriodRef' => 'course_period_1',
+                'interventionTypeRef' => 'intervention_type_2',
+                'instructors' => ['instructor_2'],
+                'remotely' => TRUE,
+                'module' => 'Module_1',
+                'title' => 'Méthode agile'
+            ],
+            [
+                'startDate' => '2026-10-06 08:30:00',
+                'endDate' => '2026-10-06 12:30:00',
+                'coursePeriodRef' => 'course_period_2',
+                'interventionTypeRef' => 'intervention_type_3',
+                'instructors' => ['instructor_3'],
+                'remotely' => FALSE,
+                'module' => 'Module_7',
+                'title' => 'Éco-conception'
+            ],
+            [
+                'startDate' => '2026-11-02 13:30:00',
+                'endDate' => '2026-11-02 17:30:00',
+                'coursePeriodRef' => 'course_period_1',
+                'interventionTypeRef' => 'intervention_type_2',
+                'instructors' => ['instructor_3','instructor_2'],
+                'remotely' => FALSE,
+                'module' => 'Module_10',
+                'title' => 'Devops/Cyber'
+            ],
+            [
+                'startDate' => '2026-11-30 08:30:00',
+                'endDate' => '2026-11-30 12:30:00',
+                'coursePeriodRef' => 'course_period_1',
+                'interventionTypeRef' => 'intervention_type_1',
+                'instructors' => ['instructor_2'],
+                'remotely' => FALSE,
+                'module' => 'Module_16',
+                'title' => 'Javascript'
+            ],
         ];
     }
 
