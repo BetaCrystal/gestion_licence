@@ -45,10 +45,6 @@ class Course
     #[ORM\ManyToMany(targetEntity: Instructor::class)]
     private Collection $CourseInstructor;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Module $module = null;
-
     public function __construct()
     {
         $this->CourseInstructor = new ArrayCollection();
@@ -168,18 +164,6 @@ class Course
     public function removeCourseInstructor(Instructor $courseInstructor): static
     {
         $this->CourseInstructor->removeElement($courseInstructor);
-
-        return $this;
-    }
-
-    public function getModule(): ?Module
-    {
-        return $this->module;
-    }
-
-    public function setModule(?Module $module): static
-    {
-        $this->module = $module;
 
         return $this;
     }

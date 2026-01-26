@@ -21,7 +21,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'endDate' => '2026-09-04 17:00:00',
                 'coursePeriodRef' => 'course_period_1',
                 'interventionTypeRef' => 'intervention_type_2',
-                'instructors' => ['instructor_1'],
+                'instructors' => ['instructor_2'],
                 'remotely' => TRUE,
                 'module' => 'Module_1',
                 'title' => 'Méthode agile'
@@ -41,7 +41,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'endDate' => '2026-11-02 17:30:00',
                 'coursePeriodRef' => 'course_period_1',
                 'interventionTypeRef' => 'intervention_type_2',
-                'instructors' => ['instructor_3','instructor_1'],
+                'instructors' => ['instructor_3','instructor_2'],
                 'remotely' => FALSE,
                 'module' => 'Module_10',
                 'title' => 'Devops/Cyber'
@@ -51,7 +51,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'endDate' => '2026-11-30 12:30:00',
                 'coursePeriodRef' => 'course_period_1',
                 'interventionTypeRef' => 'intervention_type_1',
-                'instructors' => ['instructor_1'],
+                'instructors' => ['instructor_2'],
                 'remotely' => FALSE,
                 'module' => 'Module_16',
                 'title' => 'Javascript'

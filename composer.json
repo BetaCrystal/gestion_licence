@@ -11,10 +11,10 @@
         "ext-iconv": "*",
         "doctrine/doctrine-bundle": "^3.2.2",
         "doctrine/doctrine-migrations-bundle": "^4.0",
-        "shuchkin/simplexlsxgen": "*",
-        "symfony/asset": "8.0.*",
         "doctrine/orm": "^3.6",
+        "knplabs/knp-paginator-bundle": "^6.10",
         "phpoffice/phpspreadsheet": "^5.3",
+        "shuchkin/simplexlsxgen": "*",
         "symfony/asset": "8.0.*",
         "symfony/asset-mapper": "8.0.*",
         "symfony/console": "8.0.*",
@@ -36,6 +36,7 @@
         "symfony/twig-bundle": "8.0.*",
         "symfony/ux-twig-component": "*",
         "symfony/validator": "8.0.*",
+        "symfony/web-profiler-bundle": "8.0.*",
         "symfony/webpack-encore-bundle": "*",
         "symfony/yaml": "8.0.*",
         "symfonycasts/tailwind-bundle": "^0.12.0",
@@ -76,8 +77,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "importmap:install": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
