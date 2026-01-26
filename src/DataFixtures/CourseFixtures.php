@@ -10,7 +10,6 @@ use App\Entity\InterventionType;
 use App\Entity\Instructor;
 use App\Entity\Module;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use App\Entity\Module;
 
 class CourseFixtures extends Fixture implements DependentFixtureInterface
 {
