@@ -1,20 +1,38 @@
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nom de famille</th>
-            <th>Prénom</th>
-            <th>Modules enseignés</th>
-            <th>Nombre d'heures</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for i in instructor %}
-            <tr>
-                <td>{{ i.firstName }}</td>
-                <td>{{ i.lastName}}</td>
-                <td>{{ i.name}}</td>
-                <td>{{ i.hours_count}}h</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% extends 'base.html.twig' %}
+
+{% block title %}Corp enseignant{% endblock %}
+
+{% block body %}
+    <div>
+        <h2>Corp enseignant</h2>
+        <a href="">Ajouter un enseignant</a>
+    </div>
+
+
+    <h2>Filtres</h2>
+    {{ include('admin/form/form_instructor.html.twig', { form: form }) }}
+
+
+    <div class="table-wrapper">
+        <table class="interventions-table">
+            <thead>
+                <tr>
+                    <th>Nom de famille</th>
+                    <th>Prénom</th>
+                    <th>Modules enseignés</th>
+                    <th>Nombre d'heures</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in instructor %}
+                    <tr>
+                        <td>{{ i.lastName }}</td>
+                        <td>{{ i.firstName }}</td>
+                        <td>{{ i.name }}</td>
+                        <td>{{ i.hours_count }}h</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

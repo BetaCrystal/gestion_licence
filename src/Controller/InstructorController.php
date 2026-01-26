@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\InstructorFilterForm;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,10 +13,14 @@ use App\Repository\InstructorRepository;
 final class InstructorController extends AbstractController
 {
     #[Route(path: '/list_instructor', name: 'instructors', methods: ['GET'])]
-    public function findInstructors( InstructorRepository $InstructorRepository): Response
+    public function findInstructors( Request $request, InstructorRepository $InstructorRepository): Response
     {
-        return $this->render('instructor/instructor_list.html.twig', [
-            'instructor' => $InstructorRepository->findAllInstructor(),
-        ]);
-    }
+        $form = $this->createForm(InstructorFilterForm::class);
+        $form->handleRequest($request);
+
+            return $this->render('instructor/instructor_list.html.twig', [
+                'instructor' => $InstructorRepository->findAllInstructor(),
+                'form' => $form->createView(),
+            ]);
+        }
 }
