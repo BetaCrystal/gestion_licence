@@ -79,7 +79,7 @@ class CourseController extends AbstractController
             return $this->redirectToRoute('app_course');
         }
 
-        return $this->render('admin/form/form_course.html.twig', [
+        return $this->render('admin/courses/change_course.html.twig', [
             'form' => $form,
         ]);
     }

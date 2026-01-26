@@ -16,6 +16,18 @@ class InstructorRepository extends ServiceEntityRepository
         parent::__construct($registry, Instructor::class);
     }
 
+    public function findAllInstructor(): array
+{
+    return $this->createQueryBuilder('i')
+        ->select('u.firstName, u.lastName, m.name, m.hoursCount')
+        ->join('i.user', 'u')
+        ->join('i.teachingBlock', 't')
+        ->join('t.module', 'm')
+        ->getQuery()
+        ->getResult();
+}
+
+
 //    /**
 //     * @return Instructor[] Returns an array of Instructor objects
 //     */
