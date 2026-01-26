@@ -15,7 +15,13 @@
     {{ form_end(form) }}
 
     <div class="interventions-container">
-
+        {% if pagination|length == 0 %}
+                <tr>
+                    <td colspan="6" class="center">
+                        Aucune intervention trouvée.
+                    </td>
+                </tr>
+        {% else %}
         <div class="interventions-header">
             <h2>{{ pagination|length }} intervention{{ pagination|length > 1 ? 's' : '' }} trouvée{{ pagination|length > 1 ? 's' : '' }}</h2>
         </div>
@@ -35,10 +41,10 @@
                 <tbody>
                     {% for row in pagination %}
                         <tr>
-                            <td>{{ row.start_date|date('d/m/Y H:i') }}</td>
+                            <td>{{ row.startDate|date('d/m/Y H:i') }}</td>
                             <td>{{ row.moduleName }}</td>
                             <td>{{ row.interventionType }}</td>
-                            <td>{{ row.first_name|first }}. {{ row.last_name }}</td>
+                            <td>{{ row.firstName|first }}. {{ row.lastName }}</td>
                             <td class="center">
                                 {% if row.remotely %}🎥{% endif %}
                             </td>
@@ -48,6 +54,7 @@
                 </tbody>
             </table>
         </div>
+        {% endif %}
     </div>
         <div class="pagination">
             {{ knp_pagination_render(pagination) }}
