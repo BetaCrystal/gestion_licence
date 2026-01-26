@@ -28,7 +28,7 @@ class InterventionType
     /**
      * @var Collection<int, Course>
      */
-    #[ORM\OneToMany(targetEntity: Course::class, mappedBy: 'intervention_type_id')]
+    #[ORM\OneToMany(targetEntity: Course::class, mappedBy: 'interventionType')]
     private Collection $courses;
 
     public function __construct()
@@ -89,7 +89,7 @@ class InterventionType
     {
         if (!$this->courses->contains($course)) {
             $this->courses->add($course);
-            $course->setInterventionTypeId($this);
+            $course->setInterventionType($this);
         }
 
         return $this;
@@ -99,8 +99,8 @@ class InterventionType
     {
         if ($this->courses->removeElement($course)) {
             // set the owning side to null (unless already changed)
-            if ($course->getInterventionTypeId() === $this) {
-                $course->setInterventionTypeId(null);
+            if ($course->getInterventionType() === $this) {
+                $course->setInterventionType(null);
             }
         }
 

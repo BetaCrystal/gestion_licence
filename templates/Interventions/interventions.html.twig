@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Interventions{% endblock %}
+
+{% block header %}
+    <img src= "">
+{% endblock %}
+{% block body %}
+    <div>
+        <h2>Interventions</h2>
+        <a href = "{{ path('app_add_course')}}">Ajouter une nouvelle intervention</a>
+    </div>
+    {{ form_start(form) }}
+
+    {{ form_end(form) }}
+
+    <div class="interventions-container">
+
+        <div class="interventions-header">
+            <h2>{{ pagination|length }} intervention{{ pagination|length > 1 ? 's' : '' }} trouvée{{ pagination|length > 1 ? 's' : '' }}</h2>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="interventions-table">
+                <thead>
+                    <tr>
+                        <th>Date de l’intervention</th>
+                        <th>Module & titre</th>
+                        <th>Type</th>
+                        <th>Intervenants</th>
+                        <th>En visio</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in pagination %}
+                        <tr>
+                            <td>{{ row.start_date|date('d/m/Y H:i') }}</td>
+                            <td>{{ row.moduleName }}</td>
+                            <td>{{ row.interventionType }}</td>
+                            <td>{{ row.first_name|first }}. {{ row.last_name }}</td>
+                            <td class="center">
+                                {% if row.remotely %}🎥{% endif %}
+                            </td>
+                            <td><a href="#">👁 Accéder à la fiche</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <div class="pagination">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% endblock %}
+
+

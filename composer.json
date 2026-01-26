@@ -11,9 +11,16 @@
         "ext-iconv": "*",
         "doctrine/doctrine-bundle": "^3.2.2",
         "doctrine/doctrine-migrations-bundle": "^4.0",
+<<<<<<< HEAD
         "doctrine/orm": "^3.6.1",
         "shuchkin/simplexlsxgen": "*",
         "symfony/asset": "8.0.*",
+=======
+        "doctrine/orm": "^3.6",
+        "knplabs/knp-paginator-bundle": "^6.10",
+        "phpoffice/phpspreadsheet": "^5.3",
+        "symfony/asset-mapper": "8.0.*",
+>>>>>>> ee4ac574ec9560eb3c4cea8fecf66f67394d7601
         "symfony/console": "8.0.*",
         "symfony/dotenv": "8.0.*",
         "symfony/flex": "^2.10",
@@ -27,14 +34,22 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^4.3.1",
+        "symfony/debug-bundle": "8.0.*",
         "symfony/maker-bundle": "^1.65.1",
         "symfony/security-bundle": "8.0.*",
         "symfony/stopwatch": "8.0.*",
         "symfony/twig-bundle": "8.0.*",
+<<<<<<< HEAD
         "symfony/ux-twig-component": "^2.32",
         "symfony/validator": "8.0.*",
         "symfony/web-profiler-bundle": "8.0.*",
         "symfony/webpack-encore-bundle": "^2.4",
+=======
+        "symfony/ux-twig-component": "*",
+        "symfony/validator": "8.0.*",
+        "symfony/web-profiler-bundle": "8.0.*",
+        "symfony/webpack-encore-bundle": "*",
+>>>>>>> ee4ac574ec9560eb3c4cea8fecf66f67394d7601
         "symfony/yaml": "8.0.*",
         "symfonycasts/tailwind-bundle": "^0.12.0",
         "twig/extra-bundle": "^2.12|^3.22.2",
@@ -74,8 +89,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "importmap:install": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"

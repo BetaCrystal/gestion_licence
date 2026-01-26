@@ -23,10 +23,12 @@ security:
                 username_parameter: email
                 password_parameter: password
                 enable_csrf: true
-                default_target_path: /calendrier
+                default_target_path: app_calendar_calendar
+                always_use_default_target_path: true
 
             logout:
                 path: app_logout
 
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/connection, roles: PUBLIC_ACCESS }
+        - { path: ^/, roles: ROLE_ADMIN }

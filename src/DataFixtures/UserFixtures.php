@@ -25,13 +25,27 @@ class UserFixtures extends Fixture
                 'lastName' => 'Ribas',
                 'roles' => ['ROLE_ADMIN'],
                 'password' => 'password123'
-            ]
+            ],
+            [
+                'email' => 'j.martins@mentalworks.fr',
+                'firstName' => 'Jeff',
+                'lastName' => 'Martins-Jacquelot',
+                'roles' => ['ROLE_USER'],
+                'password' => 'louvre123'
+            ],
+            [
+                'email' => 'o.salesse@mentalworks.fr',
+                'firstName' => 'Olivier',
+                'lastName' => 'Salesse',
+                'roles' => ['ROLE_USER'],
+                'password' => 'password1234'
+            ],
         ];
     }
 
     public function load(ObjectManager $manager): void
     {
-        foreach (self::data() as $data) {
+        foreach (self::data() as $index => $data) {
 
             $user = new User();
             $user->SetFirstName($data['firstName']);
@@ -47,6 +61,8 @@ class UserFixtures extends Fixture
             $user->setPassword($hashedPassword);
 
             $manager->persist($user);
+
+            $this->addReference('user_' . ($index + 1), $user);
         }
 
         $manager->flush();

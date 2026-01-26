@@ -3,7 +3,10 @@
 {% block title %}Ajout Interventions{% endblock %}
 
 {% block body %}
+    <button class="btn"><a href="{{ path('app_calendar_calendar') }}">X</a></button>
     <h1>Ajouter une intervention</h1>
-    {{ include("form_course.html.twig") }}
+    {{ include("admin/form/form_course.html.twig") }}
+
+    <a href="{{ path('app_calendar_calendar') }}" class="btn"> Annuler </a>
 
 {% endblock %}

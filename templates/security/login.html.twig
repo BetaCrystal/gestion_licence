@@ -8,12 +8,6 @@
             <div class="alert alert-danger">Mot de passe ou email invalide</div>
         {% endif %}
 
-        {% if app.user %}
-            <div>
-                Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-            </div>
-        {% endif %}
-
         <h1>Gestion du supérieur</h1>
         <h2>Connexion au portail</h2>
 

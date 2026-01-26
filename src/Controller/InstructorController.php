@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 #[Route('/twig/instructor', name: 'app_instructor')]
 final class InstructorController extends AbstractController
 {
-    #[Route(path: '/instructors', name: 'instructors', methods: ['GET'])]
+    #[Route(path: '/list_instructor', name: 'instructors', methods: ['GET'])]
     public function findInstructors( $InstructorRepository): Response
     {
         return $this->render('instructor/instructor.html.twig', [
