@@ -21,14 +21,14 @@ class Instructor
     private ?User $user_id = null;
 
     /**
-     * @var Collection<int, Module>
+     * @var Collection<int, ModuleInstructor>
      */
-    #[ORM\ManyToMany(targetEntity: Module::class, mappedBy: 'instructors')]
-    private Collection $modules;
+    #[ORM\OneToMany(targetEntity: ModuleInstructor::class, mappedBy: 'instructor')]
+    private Collection $moduleInstructors;
 
     public function __construct()
     {
-        $this->modules = new ArrayCollection();
+        $this->moduleInstructors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -49,28 +49,26 @@ class Instructor
     }
 
     /**
-     * @return Collection<int, Module>
+     * @return Collection<int, ModuleInstructor>
      */
-    public function getModules(): Collection
+    public function getModuleInstructors(): Collection
     {
-        return $this->modules;
+        return $this->moduleInstructors;
     }
 
-    public function addModule(Module $module): static
+    public function addModuleInstructor(ModuleInstructor $moduleInstructor): static
     {
-        if (!$this->modules->contains($module)) {
-            $this->modules->add($module);
-            $module->addInstructor($this);
+        if (!$this->moduleInstructors->contains($moduleInstructor)) {
+            $this->moduleInstructors->add($moduleInstructor);
+            $moduleInstructor->setInstructor($this);
         }
 
         return $this;
     }
 
-    public function removeModule(Module $module): static
+    public function removeModuleInstructor(ModuleInstructor $moduleInstructor): static
     {
-        if ($this->modules->removeElement($module)) {
-            $module->removeInstructor($this);
-        }
+        $this->moduleInstructors->removeElement($moduleInstructor);
 
         return $this;
     }
