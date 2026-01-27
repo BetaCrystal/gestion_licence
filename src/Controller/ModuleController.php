@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Module;
 use App\Form\ModuleForm;
 use App\Entity\TeachingBlock;
+use Doctrine\ORM\EntityManagerInterface;
 
 final class ModuleController extends AbstractController
 {
@@ -36,7 +37,7 @@ final class ModuleController extends AbstractController
     }
 
     #[Route(path:'/twig/add_module{block_id}', name:'app_add_module', methods:['GET','POST'])]
-    public function addModule(Request $request, ?int $block_id = null): Response
+    public function addModule(Request $request, ?int $block_id = null, EntityManagerInterface $entityManager): Response
     {
         $module = new Module();
         $block = new TeachingBlock();
@@ -52,6 +53,9 @@ final class ModuleController extends AbstractController
             $module = $form->getData();
             // Here you would typically save the new module to the database
             $this->addFlash('success', 'Nouveau module ajouté avec succès !');
+
+            $entityManager->persist($module);
+            $entityManager->flush();
             return $this->redirectToRoute('app_modules');
         }
 

@@ -1,0 +1,19 @@
+{% foreach teaching_block %}
+<h1>{{ teaching_block_name }}</h1>
+{% if module %}
+	<li>
+		{{ include 'module/module_child.html.twig' with {'module': module} }}
+		{# si le module a des enfants, les afficher en dessous #}
+		{% if module.children %}
+			<ul>
+				{% for child in module.children %}
+					<li>
+						{{ include 'module/module_child.html.twig' with {'module': child} }}
+					</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		{#faire un foreach de chaque module, si le module a un enfant, l'afficher en dessous
+						        la boucle s'étend sur les enfants
+						        sinon, passer au module suivant#}
+	</li>
