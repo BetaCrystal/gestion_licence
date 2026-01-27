@@ -20,15 +20,15 @@ class SchoolYear
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $start_date = null;
+    private ?\DateTime $startDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $end_date = null;
+    private ?\DateTime $endDate = null;
 
     /**
      * @var Collection<int, CoursePeriod>
      */
-    #[ORM\OneToMany(targetEntity: CoursePeriod::class, mappedBy: 'school_year_id')]
+    #[ORM\OneToMany(targetEntity: CoursePeriod::class, mappedBy: 'schoolYear')]
     private Collection $coursePeriods;
 
     public function __construct()
@@ -55,24 +55,24 @@ class SchoolYear
 
     public function getStartDate(): ?\DateTime
     {
-        return $this->start_date;
+        return $this->startDate;
     }
 
-    public function setStartDate(\DateTime $start_date): static
+    public function setStartDate(\DateTime $startDate): static
     {
-        $this->start_date = $start_date;
+        $this->startDate = $startDate;
 
         return $this;
     }
 
     public function getEndDate(): ?\DateTime
     {
-        return $this->end_date;
+        return $this->endDate;
     }
 
-    public function setEndDate(\DateTime $end_date): static
+    public function setEndDate(\DateTime $endDate): static
     {
-        $this->end_date = $end_date;
+        $this->endDate = $endDate;
 
         return $this;
     }

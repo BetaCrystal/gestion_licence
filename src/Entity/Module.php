@@ -27,10 +27,10 @@ class Module
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?int $hours_count = null;
+    private ?int $hoursCount = null;
 
     #[ORM\Column]
-    private ?bool $capstone_project = null;
+    private ?bool $capstoneProject = null;
 
     /**
      * @var Collection<int, ModuleInstructor>
@@ -108,23 +108,23 @@ class Module
 
     public function getHoursCount(): ?int
     {
-        return $this->hours_count;
+        return $this->hoursCcount;
     }
 
-    public function setHoursCount(int $hours_count): self
+    public function setHoursCount(int $hoursCount): self
     {
-        $this->hours_count = $hours_count;
+        $this->hoursCount = $hoursCount;
         return $this;
     }
 
     public function isCapstoneProject(): ?bool
     {
-        return $this->capstone_project;
+        return $this->capstoneProject;
     }
 
-    public function setCapstoneProject(bool $capstone_project): self
+    public function setCapstoneProject(bool $capstoneProject): self
     {
-        $this->capstone_project = $capstone_project;
+        $this->capstoneProject = $capstoneProject;
         return $this;
     }
 

@@ -167,7 +167,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 );
 
                 $course->setModule(
-                    $this->getReference($data['moduleRef'], Module::class)
+                    $this->getReference($data['module'], Module::class)
                 );
 
                 // Relation ManyToMany (Instructor)

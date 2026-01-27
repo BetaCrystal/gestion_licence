@@ -16,6 +16,28 @@ class InstructorRepository extends ServiceEntityRepository
         parent::__construct($registry, Instructor::class);
     }
 
+    public function queryForInfoInstructor(int $id)
+    {
+        $qb = $this->createQueryBuilder('i');
+
+        $qb
+            ->select('u.firstName AS prenom')
+            ->addSelect('u.lastName AS nom')
+            ->addSelect('m.name AS module')
+            ->addSelect('m.hoursCount AS nbHeures')
+            ->addSelect('m.hoursCount - COALESCE(SUM(TIMESTAMPDIFF(HOUR, c.startDate, c.endDate)), 0) AS nbHeuresRestantes')
+            ->join('i.user', 'u')
+            ->join('i.moduleInstructors', 'mi')
+            ->join('mi.module', 'm')
+            ->leftJoin('m.courses', 'c', 'WITH', 'c.module = m')
+            ->where('u.id = :id')
+            ->setParameter('id', $id)
+            ->groupBy('u.firstName, u.lastName, m.name, m.hoursCount');
+
+        return $qb->getQuery()->getArrayResult();
+
+
+    }
 //    /**
 //     * @return Instructor[] Returns an array of Instructor objects
 //     */
