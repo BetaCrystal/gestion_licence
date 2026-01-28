@@ -38,6 +38,20 @@ class InstructorRepository extends ServiceEntityRepository
 
 
     }
+    public function queryForUserInstructor(int $id)
+    {
+        $qb = $this->createQueryBuilder('i');
+
+        $qb
+            ->select('u')
+            ->join('i.user_id', 'u')
+            ->where('u.id = :id')
+            ->setParameter('id', $id);
+
+        return $qb->getQuery()->getArrayResult();
+
+
+    }
 //    /**
 //     * @return Instructor[] Returns an array of Instructor objects
 //     */
