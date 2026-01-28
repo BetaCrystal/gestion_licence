@@ -26,10 +26,12 @@
             <tbody>
                 {% for i in instructor %}
                     <tr>
-                        <td>{{ i.lastName }}</td>
-                        <td>{{ i.firstName }}</td>
-                        <td>{{ i.name }}</td>
-                        <td>{{ i.hours_count }}h</td>
+                        <td>{{ i.userId.lastName }}</td>
+                        <td>{{ i.userId.firstName }}</td>
+                        <td>{% for module in i.moduleInstructors  %}
+                                {{module.module.name}}
+                            {% endfor %}</td>
+                        <td>h</td>
                     </tr>
                 {% endfor %}
             </tbody>
