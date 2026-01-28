@@ -44,7 +44,7 @@ final class InterventionController extends AbstractController
         }
 
         $page = $request->query->getInt('page', 1);
-        $limit = 8;
+        $limit = 10;
 
         $pagination = $paginator->paginate(
             $qb,
