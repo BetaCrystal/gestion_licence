@@ -28,13 +28,13 @@ class CourseRepository extends ServiceEntityRepository
                 'c.remotely',
                 'it.name AS interventionType',
                 'm.name AS moduleName',
-                'u.firstName',
-                'u.lastName'
+                "GROUP_CONCAT(CONCAT(SUBSTRING(u.firstName,1,1), '. ', u.lastName) SEPARATOR ', ') AS intervenants"
             )
             ->innerJoin('c.interventionType', 'it', 'c.intervention_type_id = it.id')
             ->innerJoin('c.module', 'm', 'c.module_id = m.id')
             ->innerJoin('c.CourseInstructor', 'ci', 'ci.course_id = c.id')
-            ->innerJoin('ci.user_id', 'u', 'i.user_id_id = u.id');
+            ->innerJoin('ci.user_id', 'u', 'ci.user_id = u.id')
+            ->groupBy('c.id,c.startDate,c.endDate,c.remotely,it.name,m.name');
 
             return $qb;
     }

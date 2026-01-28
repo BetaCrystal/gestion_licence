@@ -16,7 +16,7 @@ final class ModuleInstructorController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+            $form->getData();
             // Traitez les données du formulaire ici (par exemple, en les enregistrant dans la base de données)
             $this->addFlash('success', 'Informations de l\'intervenant enregistrées avec succès !');
         }

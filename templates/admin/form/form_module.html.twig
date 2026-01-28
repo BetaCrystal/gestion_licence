@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Form Module
+{% endblock %}
+
+{% block body %}
+
+	{{ form_start(form, { attr: { id: 'module_form'} } ) }}
+
+	{{ form_row(form.teaching_block) }}
+	{{ form_row(form.code) }}
+	{{ form_row(form.name) }}
+	{{ form_row(form.hours_count) }}
+	{{ form_row(form.parent) }}
+	{{ form_row(form.description) }}
+	{{ form_row(form.capstone_project)}}
+	{{ form_row(form.hours_count) }}
+
+	<button type="submit" class="btn">Ajouter</button>
+	{{ form_end(form) }}
+
+{% endblock %}
