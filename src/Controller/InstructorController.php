@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\InstructorFilterForm;  
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,6 +11,7 @@ use App\Repository\InstructorRepository;
 use App\Repository\UserRepository;
 use App\Entity\Instructor;
 
+#[Route('/twig/instructor')] // Route de classe (préfixe commun)  
 final class InstructorController extends AbstractController
 {
     #[Route(path: '/enseignant/infos/{instructorId}', name: 'enseignant_infos', methods: ['GET'])]
@@ -60,5 +62,26 @@ final class InstructorController extends AbstractController
             'results' => $results,
             'form' => $form->createView(),
         ]);
+      
+      #[Route('/list_instructor', name: 'instructors', methods: ['GET','POST'])] // Route de méthode
+      /*public function list(Request $request, InstructorRepository $repo): Response
+      {
+        $form = $this->createForm(InstructorFilterForm::class, null, [
+            'method' => 'GET',
+        ]);
+        $form->handleRequest($request);
+
+        $data = $form->getData();
+        //dd($data);
+        $lastName = $data['last_name'] ?? null;
+
+        if (empty($lastName)) {
+            $instructors = $repo->findAllInstructor();
+        } else {
+            $instructors = $repo->findByLastName($lastName);
+        }
+
+        return $this->render('instructor/instructor_list.html.twig', [
+            'instructor' => $instructors,*/
     }
 }

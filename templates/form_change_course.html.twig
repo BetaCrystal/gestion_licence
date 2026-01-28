@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Form Interventions{% endblock %}
+
+{% block body %}
+
+    <button class="btn"><a href="{{ path('app_calendar_calendar') }}">X</a></button>
+    <form method="post">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <a href="{{ path('app_calendar_calendar') }}" class="btn-danger"> {{ button_label|default('Annuler') }} </a>
+        <button class="btn">{{ button_label|default('supprimer') }}</button>
+        <button class="btn">{{ button_label|default('enregistrer les informations') }}</button>
+        {{ form_end(form) }}
+
+    </form>
+
+
+{% endblock %}

@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+  .btn-danger {
+    @apply bg-[#FF0004] text-white px-[20px] py-[14px] rounded-[8px];
+  }
+}

@@ -16,6 +16,31 @@ class InstructorRepository extends ServiceEntityRepository
         parent::__construct($registry, Instructor::class);
     }
 
+    public function findAllInstructor(): array
+    {
+        return $this->createQueryBuilder('i')
+            //->select('u.firstName, u.lastName, m.name, m.hours_count')
+            //->join('i.user_id', 'u') // param 1 = jointure de instructor vers user, param 2 = création d'un alias pour user 'u'
+            //->join('i.modules', 'm') //param 1 = jointure de instructor vers module, param 2 = création d'un alias pour module 'm'
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByLastName(?string $lastName): array
+    {
+        $qb = $this->createQueryBuilder('i')
+            ->join('i.user_id', 'u');
+
+        if ($lastName) {
+            $qb->andWhere('u.lastName LIKE :lastName')
+            ->setParameter('lastName', '%' . $lastName . '%');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+
     public function queryForInfoInstructor(int $id)
     {
         $qb = $this->createQueryBuilder('i');
