@@ -10,13 +10,21 @@ use App\Entity\Module;
 use App\Form\ModuleForm;
 use App\Entity\TeachingBlock;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\TeachingBlockRepository;
+use App\Repository\ModuleRepository;
 
 final class ModuleController extends AbstractController
 {
     #[Route(path:'/twig/modules', name:'app_modules', methods:['GET'])]
-    public function modules(): Response
+    public function modules(TeachingBlockRepository $teachingBlockRepository, ModuleRepository $moduleRepository): Response
     {
-        return $this->render('module/modules.html.twig');
+        $teachingBlocks = $teachingBlockRepository->findAll();
+        $modules = $moduleRepository->findAll();
+
+        return $this->render('module/modules.html.twig', [
+            'teachingBlocks' => $teachingBlocks,
+            'modules' => $modules,
+        ]);
     }
 
     #[Route(path:'/twig/view_module/{id}', name:'app_view_module', methods:['GET','POST'])]
