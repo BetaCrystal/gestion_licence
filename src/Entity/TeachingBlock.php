@@ -28,7 +28,7 @@ class TeachingBlock
     private ?string $description = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $hours_count = null;
+    private ?float $hoursCount = null;
 
     /**
      * @var Collection<int, Module>
@@ -81,12 +81,12 @@ class TeachingBlock
 
     public function getHoursCount(): ?float
     {
-        return $this->hours_count;
+        return $this->hoursCount;
     }
 
-    public function setHoursCount(?float $hours_count): self
+    public function setHoursCount(?float $hoursCount): self
     {
-        $this->hours_count = $hours_count;
+        $this->hoursCount = $hoursCount;
         return $this;
     }
 
