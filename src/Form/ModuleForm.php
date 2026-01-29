@@ -23,6 +23,7 @@ class ModuleForm extends AbstractType
             'class' => TeachingBlock::class,
             'disabled' => true,
             'label' => 'Bloc enseignement',
+            'choice_name' => 'name',
         ])
         ->add('code', TextType::class, [
             'label' => 'Code - champ obligatoire',
@@ -32,7 +33,7 @@ class ModuleForm extends AbstractType
             'label' => 'Nom - champ obligatoire',
             'required' => true,
         ])
-        ->add('amount_hours', NumberType::class, [
+        ->add('hours_count', NumberType::class, [
             'label' => 'Nombre d\'heures',
             'required' => false,
         ])

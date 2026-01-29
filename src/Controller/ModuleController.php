@@ -27,7 +27,7 @@ final class ModuleController extends AbstractController
         ]);
     }
 
-    #[Route(path:'/twig/view_module/{id}', name:'app_view_module', methods:['GET','POST'])]
+    #[Route(path:'/twig/view_module?id={id}', name:'app_view_module', methods:['GET','POST'])]
     public function viewModule(Request $request, Module $module): Response
     {
         $form = $this->createForm(ModuleForm::class, $module);
@@ -44,14 +44,17 @@ final class ModuleController extends AbstractController
         ]);
     }
 
-    #[Route(path:'/twig/add_module{block_id}', name:'app_add_module', methods:['GET','POST'])]
-    public function addModule(Request $request, ?int $block_id = null, EntityManagerInterface $entityManager): Response
+    #[Route(path:'/twig/add_module', name:'app_add_module', methods:['GET','POST'])]
+    public function addModule(Request $request, EntityManagerInterface $entityManager): Response
     {
         $module = new Module();
-        $block = new TeachingBlock();
+        $block_id = $request->query->getInt('block_id');
 
         if ($block_id) {
-            $module->setTeachingBlock($block);
+            $block = $entityManager->getRepository(TeachingBlock::class)->find($block_id);
+            if ($block) {
+                $module->setTeachingBlock($block);
+            }
         }
 
         $form = $this->createForm(ModuleForm::class, $module);
