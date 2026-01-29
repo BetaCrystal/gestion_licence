@@ -31,7 +31,11 @@
                         <td>{% for module in i.moduleInstructors  %}
                                 {{module.module.name}}
                             {% endfor %}</td>
-                        <td>h</td>
+                            {% set total = 0 %}
+                       <td> {% for hour in i.moduleInstructors %}
+                                {% set total = total + hour.module.hoursCount %}
+                        {% endfor %}
+                        {{ total }}h</td>
                     </tr>
                 {% endfor %}
             </tbody>
