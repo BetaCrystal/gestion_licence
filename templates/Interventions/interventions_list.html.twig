@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Interventions{% endblock %}
+
+{% block header %}
+    <img src= "">
+{% endblock %}
+{% block body %}
+    <div>
+        <h2>Informations générales</h2>
+        <a href = "{{ path('app_add_course')}}">Interventions</a>
+    </div>
+    {{ form_start(form) }}
+
+    {{ form_end(form) }}
+
+    <div class="interventions-container">
+        {% if pagination|length == 0 %}
+                <tr>
+                    <td colspan="6" class="center">
+                        Aucune intervention trouvée.
+                    </td>
+                </tr>
+        {% else %}
+        <h2>
+            {{ pagination.getTotalItemCount }}
+            intervention{{ pagination.getTotalItemCount > 1 ? 's' : '' }}
+            trouvée{{ pagination.getTotalItemCount > 1 ? 's' : '' }}
+            au total
+        </h2>
+
+        <div class="table-wrapper">
+            <table class="interventions-table">
+                <thead>
+                    <tr>
+                        <th>Date de l’intervention</th>
+                        <th>Module</th>
+                        <th>Type</th>
+                        <th>Intervenants</th>
+                        <th>En visio</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in pagination %}
+                        <tr>
+                            <td>{{ row.startDate|date('d/m/Y H:i') }}</td>
+                            <td>{{ row.moduleName }}</td>
+                            <td>{{ row.interventionType }}</td>
+                            <td>{{ row.intervenants }}</td>
+                            <td class="center">
+                                {% if row.remotely %}🎥{% endif %}
+                            </td>
+                            <td><a href="#">👁 Accéder à la fiche</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+        <div class="pagination">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    {% endblock %}
+
+

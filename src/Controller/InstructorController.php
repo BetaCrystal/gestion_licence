@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Form\InstructorFilterForm;  
+use App\Form\InstructorFilterForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +11,7 @@ use App\Repository\InstructorRepository;
 use App\Repository\UserRepository;
 use App\Entity\Instructor;
 
-#[Route('/twig/instructor')] // Route de classe (préfixe commun)  
+#[Route('/twig/instructor')] // Route de classe (préfixe commun)
 final class InstructorController extends AbstractController
 {
     #[Route(path: '/enseignant/infos/{instructorId}', name: 'enseignant_infos', methods: ['GET'])]
@@ -25,7 +25,7 @@ final class InstructorController extends AbstractController
 
         $qb = $repository->queryForInfoInstructor($instructorId);
         $results = $qb;
-                
+
         $form = $this->createForm(InstructorInformationsForm::class, $instructor);
         $form->handleRequest($request);
 
@@ -62,9 +62,10 @@ final class InstructorController extends AbstractController
             'results' => $results,
             'form' => $form->createView(),
         ]);
-      
-      #[Route('/list_instructor', name: 'instructors', methods: ['GET','POST'])] // Route de méthode
-      /*public function list(Request $request, InstructorRepository $repo): Response
+    }
+
+      #[Route('/liste/enseignant', name: 'instructors', methods: ['GET','POST'])] // Route de méthode
+      public function list(Request $request, InstructorRepository $repo): Response
       {
         $form = $this->createForm(InstructorFilterForm::class, null, [
             'method' => 'GET',
@@ -82,6 +83,8 @@ final class InstructorController extends AbstractController
         }
 
         return $this->render('instructor/instructor_list.html.twig', [
-            'instructor' => $instructors,*/
-    }
+            'instructor' => $instructors,
+            'form' => $form->createView(),
+        ]);
+}
 }

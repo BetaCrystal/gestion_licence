@@ -108,7 +108,7 @@ class Module
 
     public function getHoursCount(): ?int
     {
-        return $this->hoursCcount;
+        return $this->hoursCount;
     }
 
     public function setHoursCount(int $hoursCount): self
