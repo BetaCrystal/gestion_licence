@@ -74,4 +74,18 @@ final class ModuleController extends AbstractController
             'moduleForm' => $form->createView(),
         ]);
     }
+
+    #[Route(path:'/twig/delete_module?id={id}', name:'app_delete_module', methods:['GET','POST'])]
+    public function deleteModule(Request $request, EntityManagerInterface $entityManager, Module $module): Response
+    {
+        if ($this->isCsrfTokenValid('delete_module'.$module->getId(), $request->query->get('_token'))) {
+            $entityManager->remove($module);
+            $entityManager->flush();
+            $this->addFlash('success', 'Module supprimé avec succès !');
+        } else {
+            $this->addFlash('error', 'Jeton CSRF invalide. Suppression annulée.');
+        }
+
+        return $this->redirectToRoute('app_modules');
+    }
 }
