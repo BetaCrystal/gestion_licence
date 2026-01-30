@@ -50,15 +50,15 @@ final class ModuleController extends AbstractController
         $module = new Module();
         $block_id = $request->query->getInt('block_id');
 
+        $form = $this->createForm(ModuleForm::class, $module);
+        $form->handleRequest($request);
+
         if ($block_id) {
             $block = $entityManager->getRepository(TeachingBlock::class)->find($block_id);
             if ($block) {
                 $module->setTeachingBlock($block);
             }
         }
-
-        $form = $this->createForm(ModuleForm::class, $module);
-        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $module = $form->getData();

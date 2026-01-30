@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche Module
+{% endblock %}
+
+{% block body %}
+	<button class="btn">
+		<a href="{{ path('app_modules') }}">X</a>
+	</button>
+	<h1>Modifier un module</h1>
+	{{ include("admin/form/form_module.html.twig") }}
+
+	<a href="{{ path('app_modules') }}" class="btn">
+		Annuler
+	</a>
+	<a></a>
+
+{% endblock %}

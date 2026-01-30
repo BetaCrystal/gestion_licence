@@ -40,7 +40,7 @@ class TeachingBlock
     {
         $this->modules = new ArrayCollection();
     }
-    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -115,5 +115,10 @@ class TeachingBlock
             }
         }
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name ?? '';
     }
 }

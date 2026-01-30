@@ -1,28 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Form Interventions{% endblock %}
+{% block title %}Form Interventions
+{% endblock %}
 
 {% block body %}
 
-    {% for message in app.flashes('error') %}
-        <div class="alert alert-danger">{{ message }}</div>
-    {% endfor %}
-    {% for message in app.flashes('info') %}
-        <div class="alert alert-info">{{ message }}</div>
-    {% endfor %}
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-danger">{{ message }}</div>
+	{% endfor %}
+	{% for message in app.flashes('info') %}
+		<div class="alert alert-info">{{ message }}</div>
+	{% endfor %}
 
-        {{ form_start(form, { attr: { id: 'course_form'} } ) }}
+	{{ form_start(form, { attr: { id: 'course_form'} } ) }}
 
-        {{ form_row(form.title) }}
-        {{ form_row(form.startDate) }}
-        {{ form_row(form.endDate) }}
-        {{ form_row(form.module) }}
-        {{ form_row(form.interventionType) }}
-        {{ form_row(form.CourseInstructor) }}
-        {{ form_row(form.remotely) }}
-        <button type="submit" class="btn">Ajouter</button>
-        {{ form_end(form) }}
-
+	{{ form_row(form.title) }}
+	{{ form_row(form.startDate) }}
+	{{ form_row(form.endDate) }}
+	{{ form_row(form.module) }}
+	{{ form_row(form.interventionType) }}
+	{{ form_row(form.CourseInstructor) }}
+	{{ form_row(form.remotely) }}
+	<button type="submit" class="btn">Ajouter</button>
+	{{ form_end(form) }}
 
 
 {% endblock %}

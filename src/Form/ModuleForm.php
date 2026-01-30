@@ -23,7 +23,7 @@ class ModuleForm extends AbstractType
             'class' => TeachingBlock::class,
             'disabled' => true,
             'label' => 'Bloc enseignement',
-            'choice_name' => 'name',
+            'choice_label' => 'name',
         ])
         ->add('code', TextType::class, [
             'label' => 'Code - champ obligatoire',
