@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Corp enseignant
+{% endblock %}
+
+{% block body %}
+	<div>
+		<h2>Corp enseignant</h2>
+		<a href="">Ajouter un type</a>
+	</div>
+
+	<h2>Filtres</h2>
+	{{ include('admin/form/form_instructor.html.twig', { form: form }) }}
+
+
+	<div class="table-wrapper">
+		<table class="interventions-table">
+			<thead>
+				<tr>
+					<th>Nom de famille</th>
+					<th>Prénom</th>
+					<th>Modules enseignés</th>
+					<th>Nombre d'heures</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for i in instructor %}
+					<tr>
+						<td>{{ i.userId.lastName }}</td>
+						<td>{{ i.userId.firstName }}</td>
+						<td>
+							{% for module in i.moduleInstructors  %}
+								{{module.module.name}}
+							{% endfor %}
+						</td>
+						{% set total = 0 %}
+						<td>
+							{% for hour in i.moduleInstructors %}
+								{% set total = total + hour.module.hoursCount %}
+							{% endfor %}
+							{{ total }}h</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
