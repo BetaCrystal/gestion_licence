@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Form School Week
+{% endblock %}
+
+{% block body %}
+
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-danger">{{ message }}</div>
+	{% endfor %}
+	{% for message in app.flashes('info') %}
+		<div class="alert alert-info">{{ message }}</div>
+	{% endfor %}
+
+	{{ form_start(schoolWeekForm, { attr: { id: 'school_week_form'} } ) }}
+
+	{{ form_row(schoolWeekForm.name) }}
+	{{ form_row(schoolWeekForm.startDate) }}
+	{{ form_row(schoolWeekForm.endDate) }}
+	<button type="submit" class="btn">Ajouter</button>
+	{{ form_end(schoolWeekForm) }}
+
+{% endblock %}
