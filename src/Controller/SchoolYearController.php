@@ -23,5 +23,36 @@ final class SchoolYearController extends AbstractController
         ]);
     }
 
+    #[Route('/twig/add_schoolyear', name: 'app_add_schoolyear', methods: ['GET', 'POST'])]
+    public function addSchoolYear(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $schoolYear = new SchoolYear();
+        $form = $this->createForm(SchoolYearForm::class, $schoolYear);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($schoolYear);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_schoolyears');
+        }
+
+        return $this->render('schoolyear/add_schoolyear.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/twig/schoolyear?id={id}', name: 'app_view_schoolyear', methods: ['GET', 'POST'])]
+    public function viewSchoolYear(int $id, SchoolYearRepository $schoolYearRepository): Response
+    {
+        $schoolYear = $schoolYearRepository->find($id);
+
+        if (!$schoolYear) {
+            throw $this->createNotFoundException('School year not found');
+        }
+
+        return $this->render('schoolyear/view_schoolyear.html.twig', [
+            'schoolYear' => $schoolYear,
+        ]);
+    }
 }
