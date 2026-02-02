@@ -7,23 +7,23 @@
 					{% include 'module/module_child.html.twig' with {'module': module} %}
 				{# si le module a des enfants, les afficher en dessous #}
 					{#{% if module.children %}
-																																														<ul>
-																																									                        {% for child in module.children %}
-																																																<li>
-																																																	{{ include 'module/module_child.html.twig' with {'module':child} }}
-																																								                                </li>
-																																								                            {% endfor %}
-																																										                </ul>
-																																								                    {% endif %}#}
+																																																								<ul>
+																																																			                        {% for child in module.children %}
+																																																										<li>
+																																																											{{ include 'module/module_child.html.twig' with {'module':child} }}
+																																																		                                </li>
+																																																		                            {% endfor %}
+																																																				                </ul>
+																																																		                    {% endif %}#}
 					{# vérifier si le module a un parent (à faire) #}
 				</li>
 			{% endif %}
 		{% endfor %}
 	</ul>
 	{% if modules is not empty %}
-		<a href="add_module/{{ teaching_block.id }}">Ajouter un module</a>
+		<a href="add_module?block_id={{ teaching_block.id }}">Ajouter un module</a>
 	{% else %}
 		<p>Aucun module dans ce bloc d'enseignement.</p>
-		<a href="add_module/{{ teaching_block.id }}">Ajouter un module</a>
+		<a href="add_module?block_id={{ teaching_block.id }}">Ajouter un module</a>
 	{% endif %}
 {% endfor %}
