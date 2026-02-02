@@ -105,7 +105,7 @@ class CourseController extends AbstractController
 
             if (!$coursePeriod) {
                 $coursePeriod = new CoursePeriod();
-                $coursePeriod->setSchoolYearId($schoolYear);
+                $coursePeriod->setSchoolYear($schoolYear);
                 $coursePeriod->setStartDate($weekStart);
                 $coursePeriod->setEndDate($weekEnd);
                 $entityManager->persist($coursePeriod);
@@ -125,34 +125,104 @@ class CourseController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/twig/change_course', name: 'app_change_course', methods: ['GET'])]
-    public function changeCourse(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route(path: '/twig/{id}/edit_course/', name: 'app_edit_course', methods: ['GET','POST'])]
+    public function changeCourse(Request $request, EntityManagerInterface $entityManager, Course $course): Response
     {
-        $course = new Course();
 
         // Pre-fill dates if date parameter is provided
         $dateStr = $request->query->get('date');
         if ($dateStr) {
             $selectedDate = new \DateTime($dateStr);
             $course->setStartDate($selectedDate);
-            // Set end date to the same day or next day, adjust as needed
-            /*$endDate = clone $selectedDate;
-            $endDate->setTime(23, 59, 59); // End of the day
-            $course->setEndDate($endDate);*/
+            $course->setEndDate($selectedDate);
         }
 
         $form = $this->createForm(CourseForm::class, $course);
         $form->handleRequest($request);
 
+
+        $submitted = $form->isSubmitted();
+        //erreurs de champs vides
+        if ($submitted && !$form->isValid()) {
+            if (!$form->get('startDate')->getData()) {
+                $this->addFlash('error', 'La date de début est obligatoire.');
+            }
+            if (!$form->get('endDate')->getData()) {
+                $this->addFlash('error', 'La date de fin est obligatoire.');
+            }
+            if (!$form->get('module')->getData()) {
+                $this->addFlash('error', 'Le module est obligatoire.');
+            }
+            if (!$form->get('interventionType')->getData()) {
+                $this->addFlash('error', 'Le type d\'intervention est obligatoire.');
+            }
+            if ($form->get('CourseInstructor')->getData()->isEmpty()) {
+                $this->addFlash('error', 'Au moins un intervenant est obligatoire.');
+            }
+            if ($form->get('remotely')->getData() === null) {
+                $this->addFlash('error', 'Le mode (présentiel/à distance) est obligatoire.');
+            }
+            if ($form->get('startDate')->getData() && $form->get('endDate')->getData()) {
+                $startDate = $form->get('startDate')->getData();
+                $endDate = $form->get('endDate')->getData();
+                if ($startDate > $endDate) {
+                    $this->addFlash('error', 'La date de début doit être antérieure à la date de fin.');
+                }
+            }
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $startDate = $course->getStartDate();
+
+            // Find school year containing the start date
+            $qb = $entityManager->createQueryBuilder();
+            $schoolYear = $qb->select('sy')
+                ->from(SchoolYear::class, 'sy')
+                ->where('sy.startDate <= :date AND sy.endDate >= :date')
+                ->setParameter('date', $startDate)
+                ->getQuery()
+                ->getOneOrNullResult();
+
+            if (!$schoolYear) {
+                $this->addFlash('error', 'Aucune année scolaire trouvée à cette date.');
+                return $this->redirectToRoute('app_add_course');
+            }
+
+            // Calculate week start (Monday) and end (Sunday)
+            $weekStart = clone $startDate;
+            $weekStart->modify('monday this week');
+            $weekEnd = clone $weekStart;
+            $weekEnd->modify('+6 days');
+
+            // Find or create CoursePeriod
+            // Crée le courseperiod s'il n'existe pas. Obligatoire pour ajouter une course car ça doit être automatique
+            // (pas dans le formulaire) et la course doit y être rattachée.
+            $coursePeriod = $entityManager->getRepository(CoursePeriod::class)->findOneBy([
+                'schoolYear' => $schoolYear,
+                'startDate' => $weekStart,
+                'endDate' => $weekEnd
+            ]);
+
+            if (!$coursePeriod) {
+                $coursePeriod = new CoursePeriod();
+                $coursePeriod->setSchoolYear($schoolYear);
+                $coursePeriod->setStartDate($weekStart);
+                $coursePeriod->setEndDate($weekEnd);
+                $entityManager->persist($coursePeriod);
+            }
+
+            $course->setCoursePeriod($coursePeriod);
+            $this->addFlash('success', 'Intervention modifiée avec succès !');
+
             $entityManager->persist($course);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_course');
+            return $this->redirectToRoute('app_calendar_calendar');
         }
 
         return $this->render('admin/courses/change_course.html.twig', [
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
+
 }

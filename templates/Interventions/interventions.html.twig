@@ -51,7 +51,7 @@
                             <td class="center">
                                 {% if row.remotely %}🎥{% endif %}
                             </td>
-                            <td><a href="#">👁 Accéder à la fiche</a></td>
+                            <td><a href="{{ path('app_edit_course', {'id': row.id}) }}">👁 Accéder à la fiche</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
