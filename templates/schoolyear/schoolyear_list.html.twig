@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Années scolaires
+{% endblock %}
+
+{% block body %}
+	<div>
+		<h2>Années scolaires</h2>
+		<a href="">Ajouter une année</a>
+	</div>
+
+
+	<h2>Filtres</h2>
+	{{ include('admin/form/form_schoolyear.html.twig', { form: form }) }}
+
+
+	<div class="table-wrapper">
+		<table class="interventions-table">
+			<thead>
+				<tr>
+					<th>Année promotion</th>
+					<th>Saison</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for i in instructor %}
+					<tr>
+						<td>{{ i.userId.lastName }}</td>
+						<td>{{ i.userId.firstName }}</td>
+						<td>
+							{% for module in i.moduleInstructors  %}
+								{{module.module.name}}
+							{% endfor %}
+						</td>
+
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
