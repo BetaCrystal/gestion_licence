@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add School Year
+{% endblock %}
+
+{% block body %}
+
+	<h1>Ajouter une année scolaire</h1>
+	{{ include("admin/form/form_schoolyear.html.twig") }}
+
+	<a href="{{ path('app_schoolyears') }}" class="btn">
+		Retour à la liste
+	</a>
+
+{% endblock %}

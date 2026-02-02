@@ -25,7 +25,10 @@
 				{% for schoolYear in schoolYears %}
 					<tr>
 						<td>{{ schoolYear.name }}</td>
-						<td>{{ schoolYear.startDate|date('d/m/Y') }}/{{ schoolYear.endDate|date('d/m/Y') }}</td>
+						<td>{{ schoolYear.startDate|date('Y') }}/{{ schoolYear.endDate|date('Y') }}</td>
+						<td>
+							<a href="{{ path('app_view_schoolyear', {'id': schoolYear.id}) }}">Voir la fiche</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
