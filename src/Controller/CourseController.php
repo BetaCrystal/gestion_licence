@@ -105,7 +105,7 @@ class CourseController extends AbstractController
 
             if (!$coursePeriod) {
                 $coursePeriod = new CoursePeriod();
-                $coursePeriod->setSchoolYear($schoolYear);
+                $coursePeriod->setSchoolYearId($schoolYear);
                 $coursePeriod->setStartDate($weekStart);
                 $coursePeriod->setEndDate($weekEnd);
                 $entityManager->persist($coursePeriod);
@@ -128,7 +128,6 @@ class CourseController extends AbstractController
     #[Route(path: '/twig/{id}/edit_course/', name: 'app_edit_course', methods: ['GET','POST'])]
     public function changeCourse(Request $request, EntityManagerInterface $entityManager, Course $course): Response
     {
-
         // Pre-fill dates if date parameter is provided
         $dateStr = $request->query->get('date');
         if ($dateStr) {
@@ -141,38 +140,9 @@ class CourseController extends AbstractController
         $form->handleRequest($request);
 
 
-        $submitted = $form->isSubmitted();
-        //erreurs de champs vides
-        if ($submitted && !$form->isValid()) {
-            if (!$form->get('startDate')->getData()) {
-                $this->addFlash('error', 'La date de début est obligatoire.');
-            }
-            if (!$form->get('endDate')->getData()) {
-                $this->addFlash('error', 'La date de fin est obligatoire.');
-            }
-            if (!$form->get('module')->getData()) {
-                $this->addFlash('error', 'Le module est obligatoire.');
-            }
-            if (!$form->get('interventionType')->getData()) {
-                $this->addFlash('error', 'Le type d\'intervention est obligatoire.');
-            }
-            if ($form->get('CourseInstructor')->getData()->isEmpty()) {
-                $this->addFlash('error', 'Au moins un intervenant est obligatoire.');
-            }
-            if ($form->get('remotely')->getData() === null) {
-                $this->addFlash('error', 'Le mode (présentiel/à distance) est obligatoire.');
-            }
-            if ($form->get('startDate')->getData() && $form->get('endDate')->getData()) {
-                $startDate = $form->get('startDate')->getData();
-                $endDate = $form->get('endDate')->getData();
-                if ($startDate > $endDate) {
-                    $this->addFlash('error', 'La date de début doit être antérieure à la date de fin.');
-                }
-            }
-        }
-
         if ($form->isSubmitted() && $form->isValid()) {
             $startDate = $course->getStartDate();
+
 
             // Find school year containing the start date
             $qb = $entityManager->createQueryBuilder();
@@ -183,16 +153,26 @@ class CourseController extends AbstractController
                 ->getQuery()
                 ->getOneOrNullResult();
 
+
             if (!$schoolYear) {
                 $this->addFlash('error', 'Aucune année scolaire trouvée à cette date.');
                 return $this->redirectToRoute('app_add_course');
             }
+            if ($form->get('startDate')->getData() && $form->get('endDate')->getData()) {
+                $startDate = $form->get('startDate')->getData();
+                $endDate = $form->get('endDate')->getData();
+                if ($startDate > $endDate) {
+                    $this->addFlash('error', 'La date de début doit être antérieure à la date de fin.');
+                }
+            }
+
 
             // Calculate week start (Monday) and end (Sunday)
             $weekStart = clone $startDate;
             $weekStart->modify('monday this week');
             $weekEnd = clone $weekStart;
             $weekEnd->modify('+6 days');
+
 
             // Find or create CoursePeriod
             // Crée le courseperiod s'il n'existe pas. Obligatoire pour ajouter une course car ça doit être automatique
@@ -203,6 +183,7 @@ class CourseController extends AbstractController
                 'endDate' => $weekEnd
             ]);
 
+
             if (!$coursePeriod) {
                 $coursePeriod = new CoursePeriod();
                 $coursePeriod->setSchoolYear($schoolYear);
@@ -211,18 +192,33 @@ class CourseController extends AbstractController
                 $entityManager->persist($coursePeriod);
             }
 
-            $course->setCoursePeriod($coursePeriod);
-            $this->addFlash('success', 'Intervention modifiée avec succès !');
 
+            $course->setCoursePeriod($coursePeriod);
             $entityManager->persist($course);
             $entityManager->flush();
 
+
+            $this->addFlash('success', 'Intervention modifiée avec succès !');
             return $this->redirectToRoute('app_calendar_calendar');
         }
 
+
         return $this->render('admin/courses/change_course.html.twig', [
             'form' => $form->createView(),
+            'course' => $course,
         ]);
+    }
+    #[Route('/course/{id}', name: 'app_course_delete', methods: ['POST'])]
+    public function delete(Request $request, Course $course, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete_course', $request->request->get('_token'))) {
+            $entityManager->remove($course);
+            $entityManager->flush();
+            $this->addFlash('success', 'Intervention supprimée !');
+        }
+
+
+        return $this->redirectToRoute('liste_interventions');
     }
 
 }

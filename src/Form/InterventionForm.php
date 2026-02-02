@@ -36,7 +36,7 @@ class InterventionForm extends AbstractType
             'required' => false,
         ])
         ->add('submit', SubmitType::class, [
-            'label' => 'Enregistrer',
+            'label' => 'Filtrer',
         ]);
     }
 

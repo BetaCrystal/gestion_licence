@@ -1,19 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Form Interventions{% endblock %}
-
 {% block body %}
+    <button class="btn"><a href="{{ path('liste_interventions') }}">X</a></button>
 
-    <button class="btn"><a href="{{ path('app_calendar_calendar') }}">X</a></button>
-    <form method="post">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <a href="{{ path('app_calendar_calendar') }}" class="btn-danger"> {{ button_label|default('Annuler') }} </a>
-        <button class="btn">{{ button_label|default('supprimer') }}</button>
-        <button class="btn">{{ button_label|default('enregistrer les informations') }}</button>
-        {{ form_end(form) }}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <a href="{{ path('liste_interventions') }}" class="btn-danger">Annuler</a>
+    <button type="submit" class="btn btn-primary">Enregistrer les informations</button>
+    {{ form_end(form) }}
 
+    <form method="post" action="{{ path('app_course_delete', {'id': course.id}) }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete_course') }}">
+        <button type="submit" class="btn btn-danger">Supprimer</button>
     </form>
-
-
 {% endblock %}

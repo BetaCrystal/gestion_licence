@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: CourseRepository::class)]
 class Course
 {
@@ -16,10 +17,17 @@ class Course
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "La date de début est obligatoire.")]
     private ?\DateTime $startDate = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "La date de fin est obligatoire.")]
+    #[Assert\Expression(
+        expression: "this.getStartDate() <= this.getEndDate()",
+        message: "La date de début doit être antérieure à la date de fin."
+    )]
     private ?\DateTime $endDate = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
     #[ORM\JoinColumn(nullable: false)]
@@ -27,6 +35,7 @@ class Course
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: "Le type d\'intervention est obligatoire.")]
     private ?InterventionType $interventionType = null;
 
     #[ORM\Column]
@@ -37,6 +46,7 @@ class Course
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: "Le module est obligatoire.")]
     private ?Module $module = null;
 
     /**
