@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\InstructorFilterForm;  
+use App\Form\InstructorInformationsForm; 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,28 +11,24 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\InstructorRepository;
 use App\Repository\UserRepository;
 use App\Entity\Instructor;
+use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/twig/instructor')] // Route de classe (préfixe commun)  
 final class InstructorController extends AbstractController
 {
-    #[Route(path: '/enseignant/infos/{instructorId}', name: 'enseignant_infos', methods: ['GET'])]
-    public function listeInterventions(Request $request, InstructorRepository $repository, UserRepository $userRepository, int $instructorId): Response
+    #[Route(path: '/enseignant/infos/{id}', name: 'enseignant_infos', methods: ['GET','POST'])]
+    public function listeInterventions(Request $request, InstructorRepository $repository, Instructor $instructor,EntityManagerInterface $manager): Response
     {
-        // Temporairement pour pouvoir tester vu que y'a pas la page d'avant
-        $instructor = $userRepository->queryForUserInstructor($instructorId);
-        if (!$instructor) {
-            throw $this->createNotFoundException('Instructeur non trouvé');
-        }
 
-        $qb = $repository->queryForInfoInstructor($instructorId);
+        $qb = $repository->queryForInfoInstructor($instructor->getId());
         $results = $qb;
                 
         $form = $this->createForm(InstructorInformationsForm::class, $instructor);
         $form->handleRequest($request);
-
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 try {
+                    
                     // Afficher un message de succès
                     $this->addFlash(
                         'success',
@@ -40,8 +37,6 @@ final class InstructorController extends AbstractController
 
                     $manager->flush();
 
-                    // On redirige l'utilisateur sur la page d'ajout (avec les données vides)
-                    return $this->redirectToRoute('enseignant_infos', ['id' => $instructor->getId()]);
                 } catch (\Exception $exception) {
                     $this->addFlash(
                         'danger',
@@ -62,9 +57,9 @@ final class InstructorController extends AbstractController
             'results' => $results,
             'form' => $form->createView(),
         ]);
-      
+    }  
       #[Route('/list_instructor', name: 'instructors', methods: ['GET','POST'])] // Route de méthode
-      /*public function list(Request $request, InstructorRepository $repo): Response
+      public function list(Request $request, InstructorRepository $repo): Response
       {
         $form = $this->createForm(InstructorFilterForm::class, null, [
             'method' => 'GET',
@@ -76,12 +71,13 @@ final class InstructorController extends AbstractController
         $lastName = $data['last_name'] ?? null;
 
         if (empty($lastName)) {
-            $instructors = $repo->findAllInstructor();
+            $instructors = $repo->findAllInstructor();            
         } else {
             $instructors = $repo->findByLastName($lastName);
         }
-
         return $this->render('instructor/instructor_list.html.twig', [
-            'instructor' => $instructors,*/
+            'instructor' => $instructors,
+            'form' => $form->createView(),
+        ]);
     }
 }

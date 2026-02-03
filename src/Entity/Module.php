@@ -32,12 +32,6 @@ class Module
     #[ORM\Column]
     private ?bool $capstoneProject = null;
 
-    /**
-     * @var Collection<int, ModuleInstructor>
-     */
-    #[ORM\OneToMany(targetEntity: ModuleInstructor::class, mappedBy: 'module')]
-    private Collection $moduleInstructors;
-
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?self $parent = null;
@@ -58,12 +52,18 @@ class Module
     #[ORM\JoinColumn(name: 'teaching_block_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     private ?TeachingBlock $teachingBlock = null;
 
+    /**
+     * @var Collection<int, Instructor>
+     */
+    #[ORM\ManyToMany(targetEntity: Instructor::class, mappedBy: 'Module')]
+    private Collection $instructors;
+
 
     public function __construct()
     {
-        $this->moduleInstructors = new ArrayCollection();
         $this->children = new ArrayCollection();
         $this->courses = new ArrayCollection();
+        $this->instructors = new ArrayCollection();
     }
 
     // ------------------- GETTERS & SETTERS -------------------
@@ -108,7 +108,7 @@ class Module
 
     public function getHoursCount(): ?int
     {
-        return $this->hoursCcount;
+        return $this->hoursCount;
     }
 
     public function setHoursCount(int $hoursCount): self
@@ -127,28 +127,6 @@ class Module
         $this->capstoneProject = $capstoneProject;
         return $this;
     }
-
-    // ----------- Relation OneToMany ModuleInstructors ----------
-    public function getModuleInstructors(): Collection
-    {
-        return $this->moduleInstructors;
-    }
-
-    public function addModuleInstructor(ModuleInstructor $moduleInstructor): self
-    {
-        if (!$this->moduleInstructors->contains($moduleInstructor)) {
-            $this->moduleInstructors->add($moduleInstructor);
-            $moduleInstructor->setModule($this);
-        }
-        return $this;
-    }
-
-    public function removeModuleInstructor(ModuleInstructor $moduleInstructor): self
-    {
-        $this->moduleInstructors->removeElement($moduleInstructor);
-        return $this;
-    }
-
     // ----------- Self-relation Parent / Children ----------
     public function getParent(): ?self
     {
@@ -221,6 +199,33 @@ class Module
                 $course->setModule(null);
             }
         }
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Instructor>
+     */
+    public function getInstructors(): Collection
+    {
+        return $this->instructors;
+    }
+
+    public function addInstructor(Instructor $instructor): static
+    {
+        if (!$this->instructors->contains($instructor)) {
+            $this->instructors->add($instructor);
+            $instructor->addModule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInstructor(Instructor $instructor): static
+    {
+        if ($this->instructors->removeElement($instructor)) {
+            $instructor->removeModule($this);
+        }
+
         return $this;
     }
 }

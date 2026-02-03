@@ -3,7 +3,9 @@
 {% block title %}Fiche Enseignant{% endblock %}
 
 {% block body %}
-
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
     <div class="enseignant-card">
 
         <h2>
@@ -36,6 +38,6 @@
     {% endfor %}
 
         {{ form_start(form) }}
-        
+            {{ form_widget(form) }}
         {{ form_end(form) }}
 {% endblock %}

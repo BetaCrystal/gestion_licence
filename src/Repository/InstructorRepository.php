@@ -19,9 +19,10 @@ class InstructorRepository extends ServiceEntityRepository
     public function findAllInstructor(): array
     {
         return $this->createQueryBuilder('i')
-            //->select('u.firstName, u.lastName, m.name, m.hours_count')
-            //->join('i.user_id', 'u') // param 1 = jointure de instructor vers user, param 2 = création d'un alias pour user 'u'
-            //->join('i.modules', 'm') //param 1 = jointure de instructor vers module, param 2 = création d'un alias pour module 'm'
+            ->select('i.id,u.firstName, u.lastName, GROUP_CONCAT(m.name) AS modules, SUM(m.hoursCount) AS totalHours')
+            ->join('i.user', 'u') // param 1 = jointure de instructor vers user, param 2 = création d'un alias pour user 'u'
+            ->join('i.Module', 'm') //param 1 = jointure de instructor vers module, param 2 = création d'un alias pour module 'm'
+            ->groupBy('u.id')
             ->getQuery()
             ->getResult();
     }
@@ -29,7 +30,7 @@ class InstructorRepository extends ServiceEntityRepository
     public function findByLastName(?string $lastName): array
     {
         $qb = $this->createQueryBuilder('i')
-            ->join('i.user_id', 'u');
+            ->join('i.user', 'u');
 
         if ($lastName) {
             $qb->andWhere('u.lastName LIKE :lastName')
@@ -52,10 +53,9 @@ class InstructorRepository extends ServiceEntityRepository
             ->addSelect('m.hoursCount AS nbHeures')
             ->addSelect('m.hoursCount - COALESCE(SUM(TIMESTAMPDIFF(HOUR, c.startDate, c.endDate)), 0) AS nbHeuresRestantes')
             ->join('i.user', 'u')
-            ->join('i.moduleInstructors', 'mi')
-            ->join('mi.module', 'm')
+            ->join('i.Module', 'm')
             ->leftJoin('m.courses', 'c', 'WITH', 'c.module = m')
-            ->where('u.id = :id')
+            ->where('i.id = :id')
             ->setParameter('id', $id)
             ->groupBy('u.firstName, u.lastName, m.name, m.hoursCount');
 
@@ -69,7 +69,7 @@ class InstructorRepository extends ServiceEntityRepository
 
         $qb
             ->select('u')
-            ->join('i.user_id', 'u')
+            ->join('i.user', 'u')
             ->where('u.id = :id')
             ->setParameter('id', $id);
 
