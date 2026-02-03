@@ -10,6 +10,7 @@ use App\Entity\SchoolYear;
 use App\Form\SchoolYearForm;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\SchoolYearRepository;
+use App\Repository\CoursePeriodRepository;
 
 final class SchoolYearController extends AbstractController
 {
@@ -63,8 +64,10 @@ final class SchoolYearController extends AbstractController
     }
 
     #[Route('/twig/schoolyear?id={id}', name: 'app_view_schoolyear', methods: ['GET', 'POST'])]
-    public function viewSchoolYear(int $id, SchoolYearRepository $schoolYearRepository, Request $request): Response
+    public function viewSchoolYear(int $id, SchoolYearRepository $schoolYearRepository, Request $request, CoursePeriodRepository $coursePeriodRepository): Response
     {
+        $coursePeriods = $coursePeriodRepository->findAll();
+
         $schoolYear = $schoolYearRepository->find($id);
         $schoolYearForm = $this->createForm(SchoolYearForm::class, $schoolYear);
         $schoolYearForm->handleRequest($request);
@@ -80,7 +83,21 @@ final class SchoolYearController extends AbstractController
 
         return $this->render('schoolyear/view_schoolyear.html.twig', [
             'schoolYear' => $schoolYear,
+            'coursePeriods' => $coursePeriods,
             'schoolYearForm' => $schoolYearForm->createView(),
         ]);
+    }
+
+    #[Route('/twig/delete_schoolyear?id={id}', name: 'app_delete_schoolyear', methods: ['GET', 'POST'])]
+    public function deleteSchoolYear(int $id, EntityManagerInterface $entityManager, SchoolYearRepository $schoolYearRepository): Response
+    {
+        $schoolYear = $schoolYearRepository->find($id);
+        if (!$schoolYear) {
+            throw $this->createNotFoundException('School year not found');
+        }
+        $entityManager->remove($schoolYear);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_schoolyears');
     }
 }

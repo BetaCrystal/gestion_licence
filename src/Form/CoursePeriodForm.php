@@ -31,6 +31,7 @@ final class CoursePeriodForm extends AbstractType
                 'label' => 'Année scolaire associée - champ obligatoire',
                 'placeholder' => 'Sélectionnez une année scolaire',
                 'required' => true,
+                'disabled' => true,
             ]);
     }
 

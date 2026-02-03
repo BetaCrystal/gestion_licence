@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Course Period List
+{% endblock %}
+
+{% block body %}
+
+	<h2>Semaines de cours</h2>
+	<p>Les semaines de cours permettent de contrôler l’ajout des interventions. Une intervention a lieu uniquement
+																					pendant les semaines de cours.</p>
+	<table>
+		<thead>
+			<tr>
+				<th>Date de début</th>
+				<th>Date de fin</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for coursePeriod in coursePeriods %}
+				{% if schoolYear and coursePeriod.schoolYear.id == schoolYear.id %}
+					<tr>
+						<td>{{ coursePeriod.startDate|date('d/m/Y') }}</td>
+						<td>{{ coursePeriod.endDate|date('d/m/Y') }}</td>
+						<td>
+							<a href="{{ path('app_view_course_period', {'id': coursePeriod.id}) }}">Accéder à la fiche</a>
+						</td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+	<a href="{{ path('app_add_courseperiod') }}">Ajouter une semaine de cours</a>
+
+{% endblock %}

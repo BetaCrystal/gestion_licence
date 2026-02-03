@@ -31,13 +31,14 @@ class SchoolYearRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?SchoolYear
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findCurrent(): ?SchoolYear
+    {
+        $now = new \DateTime();
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.startDate <= :now')
+            ->andWhere('s.endDate >= :now')
+            ->setParameter('now', $now)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

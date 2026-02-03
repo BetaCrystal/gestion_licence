@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Course Period List
+{% endblock %}
+
+{% block body %}
+	{{ include('admin/form/form_course_period.html.twig', { 'form': form }) }}
+
+	<a href="{{ path('app_view_schoolyear', {'id': coursePeriod.schoolYear.id}) }}" class="btn btn-secondary">Retour à la liste</a>
+	<a href="{{ path('app_delete_course_period', {'id': coursePeriod.id })}}">Supprimer</a>
+{% endblock %}

@@ -12,12 +12,12 @@
 		<div class="alert alert-info">{{ message }}</div>
 	{% endfor %}
 
-	{{ form_start(schoolWeekForm, { attr: { id: 'school_week_form'} } ) }}
+	{{ form_start(form, { attr: { id: 'course_period_form'} } ) }}
 
-	{{ form_row(schoolWeekForm.name) }}
-	{{ form_row(schoolWeekForm.startDate) }}
-	{{ form_row(schoolWeekForm.endDate) }}
+	{{ form_row(form.schoolYear)}}
+	{{ form_row(form.startDate) }}
+	{{ form_row(form.endDate) }}
 	<button type="submit" class="btn">Ajouter</button>
-	{{ form_end(schoolWeekForm) }}
+	{{ form_end(form) }}
 
 {% endblock %}
