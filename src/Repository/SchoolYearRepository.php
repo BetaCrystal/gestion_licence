@@ -37,6 +37,8 @@ class SchoolYearRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('s')
             ->andWhere('s.startDate <= :now')
             ->andWhere('s.endDate >= :now')
+            ->orderBy('s.startDate', 'DESC')
+            ->setMaxResults(1)
             ->setParameter('now', $now)
             ->getQuery()
             ->getOneOrNullResult();

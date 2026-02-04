@@ -79,6 +79,7 @@ final class SchoolYearController extends AbstractController
         if ($schoolYearForm->isSubmitted() && $schoolYearForm->isValid()) {
             $schoolYearForm->getData();
             $this->addFlash('success', 'Année scolaire mise à jour avec succès !');
+            return $this->redirectToRoute('app_view_schoolyear', ['id' => $schoolYear->getId()]);
         }
 
         return $this->render('schoolyear/view_schoolyear.html.twig', [

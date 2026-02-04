@@ -27,9 +27,10 @@ final class CoursePeriodController extends AbstractController
         ]);
     }
 
-    #[Route('/twig/add_course_period', name: 'app_add_courseperiod', methods: ['GET', 'POST'])]
-    public function addCoursePeriod(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/twig/add_course_period?yearid={yearid}', name: 'app_add_courseperiod', methods: ['GET', 'POST'])]
+    public function addCoursePeriod(Request $request, EntityManagerInterface $entityManager, SchoolYearRepository $schoolYearRepository): Response
     {
+        $schoolYear = $schoolYearRepository->find($request->query->get('yearid'));
         $coursePeriod = new CoursePeriod();
         $form = $this->createForm(CoursePeriodForm::class, $coursePeriod);
         $form->handleRequest($request);
@@ -38,11 +39,12 @@ final class CoursePeriodController extends AbstractController
             $entityManager->persist($coursePeriod);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_courseperiods');
+            return $this->redirectToRoute('app_view_schoolyear', ['id' => $coursePeriod->getSchoolYear()->getId()]);
         }
 
         return $this->render('course_period/add_course_period.html.twig', [
-            'form' => $form,
+            'form' => $form->createView(),
+            'schoolYear' => $schoolYear,
         ]);
     }
 
@@ -61,13 +63,14 @@ final class CoursePeriodController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-            return $this->redirectToRoute('app_courseperiods');
+            $this->addFlash('success', 'Semaine de cours mise à jour avec succès !');
+            return $this->redirectToRoute('app_view_course_period', ['id' => $coursePeriod->getId()]);
         }
 
         return $this->render('course_period/view_course_period.html.twig', [
             'coursePeriod' => $coursePeriod,
             'schoolYear' => $schoolYear,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
