@@ -76,6 +76,34 @@ final class SchoolYearController extends AbstractController
             throw $this->createNotFoundException('School year not found');
         }
 
+        if ($schoolYearForm->isSubmitted() && !$schoolYearForm->isValid()) {
+            //Erreurs champs vides
+            if (!$schoolYearForm->get('name')->getData()) {
+                $this->addFlash('error', 'Le nom de l\'année scolaire est obligatoire.');
+            }
+            if (!$schoolYearForm->get('startDate')->getData()) {
+                $this->addFlash('error', 'La date de début est obligatoire.');
+            }
+            if (!$schoolYearForm->get('endDate')->getData()) {
+                $this->addFlash('error', 'La date de fin est obligatoire.');
+            }
+            if ($schoolYearForm->get('startDate')->getData() && $schoolYearForm->get('endDate')->getData()) {
+                $startDate = $schoolYearForm->get('startDate')->getData();
+                $endDate = $schoolYearForm->get('endDate')->getData();
+                if ($startDate >= $endDate) {
+                    $this->addFlash('error', 'La date de début doit être antérieure à la date de fin.');
+                }
+            }
+            if ($coursePeriods) {
+                foreach ($coursePeriods as $coursePeriod) {
+                    if ($coursePeriod->getSchoolYear()->getId() === $schoolYear->getId()) {
+                        $this->addFlash('error', 'Impossible de modifier l\'année scolaire car elle est associée à une semaine de cours.');
+                        return $this->redirectToRoute('app_view_schoolyear', ['id' => $schoolYear->getId()]);
+                    }
+                }
+            }
+        }
+
         if ($schoolYearForm->isSubmitted() && $schoolYearForm->isValid()) {
             $schoolYearForm->getData();
             $this->addFlash('success', 'Année scolaire mise à jour avec succès !');
@@ -90,12 +118,24 @@ final class SchoolYearController extends AbstractController
     }
 
     #[Route('/twig/delete_schoolyear?id={id}', name: 'app_delete_schoolyear', methods: ['GET', 'POST'])]
-    public function deleteSchoolYear(int $id, EntityManagerInterface $entityManager, SchoolYearRepository $schoolYearRepository): Response
+    public function deleteSchoolYear(int $id, EntityManagerInterface $entityManager, SchoolYearRepository $schoolYearRepository, CoursePeriodRepository $coursePeriodRepository): Response
     {
+        $coursePeriods = $coursePeriodRepository->findAll();
+
         $schoolYear = $schoolYearRepository->find($id);
         if (!$schoolYear) {
             throw $this->createNotFoundException('School year not found');
         }
+
+        if (count($coursePeriods) > 0) {
+            foreach ($coursePeriods as $coursePeriod) {
+                if ($coursePeriod->getSchoolYear()->getId() === $schoolYear->getId()) {
+                    $this->addFlash('error', 'Impossible de supprimer l\'année scolaire car elle est associée à une semaine de cours.');
+                    return $this->redirectToRoute('app_view_schoolyear', ['id' => $schoolYear->getId()]);
+                }
+            }
+        }
+
         $entityManager->remove($schoolYear);
         $entityManager->flush();
 
