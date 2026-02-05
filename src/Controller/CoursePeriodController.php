@@ -27,10 +27,10 @@ final class CoursePeriodController extends AbstractController
         ]);
     }
 
-    #[Route('/twig/add_course_period?yearid={yearid}', name: 'app_add_courseperiod', methods: ['GET', 'POST'])]
-    public function addCoursePeriod(Request $request, EntityManagerInterface $entityManager, SchoolYearRepository $schoolYearRepository): Response
+    #[Route('/twig/add_course_period?id={id}', name: 'app_add_courseperiod', methods: ['GET', 'POST'])]
+    public function addCoursePeriod(int $id, Request $request, EntityManagerInterface $entityManager, SchoolYearRepository $schoolYearRepository): Response
     {
-        $schoolYear = $schoolYearRepository->find($request->query->get('yearid'));
+        $schoolYear = $schoolYearRepository->find($id);
         $coursePeriod = new CoursePeriod();
         $form = $this->createForm(CoursePeriodForm::class, $coursePeriod);
         $form->handleRequest($request);
