@@ -33,7 +33,7 @@ class CourseRepository extends ServiceEntityRepository
             ->innerJoin('c.interventionType', 'it', 'c.intervention_type_id = it.id')
             ->innerJoin('c.module', 'm', 'c.module_id = m.id')
             ->innerJoin('c.CourseInstructor', 'ci', 'ci.course_id = c.id')
-            ->innerJoin('ci.user_id', 'u', 'ci.user_id = u.id')
+            ->innerJoin('ci.user', 'u', 'ci.user = u.id')
             ->groupBy('c.id,c.startDate,c.endDate,c.remotely,it.name,m.name');
 
             return $qb;
