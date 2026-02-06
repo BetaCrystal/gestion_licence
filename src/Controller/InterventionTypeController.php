@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\InterventionTypeRepository;
 use App\Entity\InterventionType;
+use Doctrine\ORM\EntityManagerInterface;
 
 final class InterventionTypeController extends AbstractController
 {
@@ -49,7 +50,7 @@ final class InterventionTypeController extends AbstractController
     }
 
     #[Route(path: '/add_intervention_type', name: 'app_add_intervention_type', methods: ['GET','POST'])]
-    public function addTypeIntervention(Request $request, InterventionTypeRepository $repository): Response
+    public function addTypeIntervention(Request $request, EntityManagerInterface $entityManager): Response
     {
         $interventionType = new InterventionType();
         $interventionTypeForm = $this->createForm(InterventionType::class, $interventionType);
@@ -57,6 +58,8 @@ final class InterventionTypeController extends AbstractController
 
         if ($interventionTypeForm->isSubmitted() && $interventionTypeForm->isValid()) {
             $interventionType = $interventionTypeForm->getData();
+            $entityManager->persist($interventionType);
+            $entityManager->flush();
 
             return $this->redirectToRoute('liste_types_interventions');
         }
