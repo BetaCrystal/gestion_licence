@@ -4,6 +4,10 @@
 {% endblock %}
 
 {% block body %}
+
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-danger">{{ message }}</div>
+	{% endfor %}
 	{{ include('admin/form/form_course_period.html.twig', { 'form': form }) }}
 
 	<a href="{{ path('app_view_schoolyear', {'id': coursePeriod.schoolYear.id}) }}" class="btn btn-secondary">Retour à la liste</a>

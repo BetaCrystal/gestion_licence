@@ -5,6 +5,10 @@
 
 {% block body %}
 
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-danger">{{ message }}</div>
+	{% endfor %}
+
 	<h1>{{ interventionType.name }}</h1>
 
 	{{ include('admin/form/form_intervention_type.html.twig', { 'form': form }) }}

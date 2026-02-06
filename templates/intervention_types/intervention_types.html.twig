@@ -5,6 +5,10 @@
 
 {% block body %}
 
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-danger">{{ message }}</div>
+	{% endfor %}
+
 	<div>
 		<h2>Types d'interventions</h2>
 		<a href="{{ path('app_add_intervention_type') }}">Ajouter</a>

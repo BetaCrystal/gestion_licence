@@ -5,9 +5,12 @@
 
 {% block body %}
 
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-danger">{{ message }}</div>
+	{% endfor %}
 	<h2>Semaines de cours</h2>
 	<p>Les semaines de cours permettent de contrôler l’ajout des interventions. Une intervention a lieu uniquement
-																													pendant les semaines de cours.</p>
+																															pendant les semaines de cours.</p>
 	<table>
 		<thead>
 			<tr>
