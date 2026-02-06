@@ -64,7 +64,7 @@ final class SchoolYearController extends AbstractController
     }
 
     #[Route('/twig/schoolyear?id={id}', name: 'app_view_schoolyear', methods: ['GET', 'POST'])]
-    public function viewSchoolYear(int $id, SchoolYearRepository $schoolYearRepository, Request $request, CoursePeriodRepository $coursePeriodRepository): Response
+    public function viewSchoolYear(int $id, SchoolYearRepository $schoolYearRepository, Request $request, CoursePeriodRepository $coursePeriodRepository, EntityManagerInterface $entityManager): Response
     {
         $coursePeriods = $coursePeriodRepository->findAll();
 
@@ -105,7 +105,7 @@ final class SchoolYearController extends AbstractController
         }
 
         if ($schoolYearForm->isSubmitted() && $schoolYearForm->isValid()) {
-            $schoolYearForm->getData();
+            $entityManager->flush();
             $this->addFlash('success', 'Année scolaire mise à jour avec succès !');
             return $this->redirectToRoute('app_view_schoolyear', ['id' => $schoolYear->getId()]);
         }
