@@ -5,7 +5,7 @@
 {% block body %}
     <div>
         <h2>Corp enseignant</h2>
-        <a href="">Ajouter un enseignant</a>
+        <a href="{{ path('enseignant_ajout') }}">Ajouter un enseignant</a>
     </div>
 
 
@@ -26,16 +26,11 @@
             <tbody>
                 {% for i in instructor %}
                     <tr>
-                        <td>{{ i.userId.lastName }}</td>
-                        <td>{{ i.userId.firstName }}</td>
-                        <td>{% for module in i.moduleInstructors  %}
-                                {{module.module.name}}
-                            {% endfor %}</td>
-                            {% set total = 0 %}
-                       <td> {% for hour in i.moduleInstructors %}
-                                {% set total = total + hour.module.hoursCount %}
-                        {% endfor %}
-                        {{ total }}h</td>
+                        <td>{{ i.lastName }}</td>
+                        <td>{{ i.firstName }}</td>
+                        <td>{{ i.modules }}</td>
+                        <td> {{ i.totalHours }}h</td>
+                        <td><a href="{{ path('enseignant_infos', { id: i.id }) }}">Modifier</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

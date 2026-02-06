@@ -15,7 +15,7 @@ class InstructorFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 1; $i <= 3; $i++) {
 
             $instructor = new Instructor();
-            $instructor->setUserId(
+            $instructor->setUser(
                 $this->getReference('user_'. $i, User::class)
             );
             $this->addReference('instructor_'. $i, $instructor);
