@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Form School Year
+{% endblock %}
+
+{% block body %}
+
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-danger">{{ message }}</div>
+	{% endfor %}
+	{% for message in app.flashes('info') %}
+		<div class="alert alert-info">{{ message }}</div>
+	{% endfor %}
+
+	{{ form_start(form, { attr: { id: 'intervention_type_form'} } ) }}
+
+	{{ form_row(form.name) }}
+	{{ form_row(form.description) }}
+	{{ form_row(form.color) }}
+	<button type="submit" class="btn">Enregistrer les informations</button>
+	{{ form_end(form) }}
+{% endblock %}

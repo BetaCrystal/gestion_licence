@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Types d'interventions
+{% endblock %}
+
+{% block body %}
+
+	<div>
+		<h2>Types d'interventions</h2>
+		<a href="{{ path('app_add_intervention_type') }}">Ajouter</a>
+	</div>
+
+
+	<h2>Filtres</h2>
+
+
+	<div class="table-wrapper">
+		<table class="interventions-table">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Description</th>
+					<th>Couleur</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for interventionType in interventionTypes %}
+					<tr>
+						<td>{{ interventionType.name }}</td>
+						<td>{{ interventionType.description }}</td>
+						<td style="background-color: {{ interventionType.color }};">{{ interventionType.color }}</td>
+						<td>
+							<a href="{{ path('app_view_intervention_type', {'id': interventionType.id}) }}">Voir la fiche</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}
