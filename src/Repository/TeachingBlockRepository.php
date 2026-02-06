@@ -16,6 +16,21 @@ class TeachingBlockRepository extends ServiceEntityRepository
         parent::__construct($registry, TeachingBlock::class);
     }
 
+    public function queryForListTeachingBlock()
+    {
+        $qb = $this->createQueryBuilder('tc');
+        $qb
+            ->select(
+                'tc.id',
+                'tc.code',
+                'tc.name',
+                'tc.description',
+                'tc.hoursCount',
+            );
+
+            return $qb;
+    }
+
     //    /**
     //     * @return TeachingBlock[] Returns an array of TeachingBlock objects
     //     */

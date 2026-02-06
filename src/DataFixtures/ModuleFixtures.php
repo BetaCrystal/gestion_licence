@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Module;
+use App\Entity\Instructor;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use App\Entity\TeachingBlock;
 
@@ -27,6 +28,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 16,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_1',
+                'instructor_id' => ['instructor_3']
             ],
             [
                 'code' => 'CADRE_LEGAL',
@@ -36,6 +38,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 12 ,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_1',
+                'instructor_id' => ['instructor_2']
             ],
             [
                 'code' => 'RGPD',
@@ -45,6 +48,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 12,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_1',
+                'instructor_id' => ['instructor_1']
             ],
             [
                 'code' => 'PROPRIETE_INTELLECTUELLE',
@@ -54,6 +58,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 14,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_1',
+                'instructor_id' => ['instructor_2','instructor_3']
             ],
             [
                 'code' => 'RSE',
@@ -63,6 +68,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 128,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_1',
+                'instructor_id' => ['instructor_1']
             ],
             [
                 'code' => 'ACCESSIBILITE',
@@ -72,6 +78,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 23,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_1',
+                'instructor_id' => ['instructor_1','instructor_2']
             ],
             [
                 'code' => 'ECO_CONCEPTION',
@@ -81,6 +88,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 8.5,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_1',
+                'instructor_id' => ['instructor_2']
             ],
 
             /*
@@ -96,6 +104,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 70,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_2',
+                'instructor_id' => ['instructor_3']
             ],
             [
                 'code' => 'COMMUNICATION_SOFT_SKILLS',
@@ -105,6 +114,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 28,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_2',
+                'instructor_id' => ['instructor_1']
             ],
             [
                 'code' => 'DEVOPS_CYBER',
@@ -114,6 +124,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 34,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_2',
+                'instructor_id' => ['instructor_1','instructor_2']
             ],
             [
                 'code' => 'DOCKER',
@@ -123,6 +134,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 14,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_2',
+                'instructor_id' => ['instructor_2']
             ],
             [
                 'code' => 'CI',
@@ -132,6 +144,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 7,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_2',
+                'instructor_id' => ['instructor_1','instructor_2']
             ],
             [
                 'code' => 'DEPLOY_SECURISE',
@@ -141,6 +154,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 21,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_2',
+                'instructor_id' => ['instructor_1']
             ],
 
             /*
@@ -156,6 +170,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 14,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_3',
+                'instructor_id' => ['instructor_1','instructor_2']
             ],
 
             /*
@@ -171,6 +186,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 28,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_4',
+                'instructor_id' => ['instructor_3']
             ],
             [
                 'code' => 'DEV_FRONT',
@@ -180,6 +196,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 102,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_4',
+                'instructor_id' => ['instructor_2','instructor_3']
             ],
             [
                 'code' => 'DEV_BACK',
@@ -189,6 +206,7 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
                 'hoursCount' => 170,
                 'capstone_project' => false,
                 'teachingBlock' => 'teachingBlock_4',
+                'instructor_id' => ['instructor_1','instructor_2']
             ],
         ];
     }   
@@ -227,6 +245,12 @@ class ModuleFixtures extends Fixture implements DependentFixtureInterface
             $a = $index + 1;
             $this->addReference('Module_'.$a, $module);
             
+            // Relation ManyToMany (Instructor)
+            foreach ($data['instructor_id'] as $instructorRef) {
+                $module->addInstructor(
+                    $this->getReference($instructorRef, Instructor::class)
+                );
+            }
         }
 
         $manager->flush();

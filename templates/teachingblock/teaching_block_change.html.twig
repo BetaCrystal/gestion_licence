@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification d'un bloc d'enseignement{% endblock %}
+
+{% block body %}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('info') %}
+        <div class="alert alert-info">{{ message }}</div>
+    {% endfor %}
+
+    <h1>Modifiez un bloc d'enseignement</h1>
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }} 
+
+        <div>
+            <a href="{{ path('teaching_block_liste') }}">
+                Retour à la liste
+            </a>
+
+            <button type="submit">
+                Enregistrer les informations
+            </button>
+        </div>
+        {{ form_end(form) }}
+{% endblock %}

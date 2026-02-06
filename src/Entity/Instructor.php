@@ -18,17 +18,17 @@ class Instructor
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $user_id = null;
+    private ?User $user = null;
 
     /**
-     * @var Collection<int, ModuleInstructor>
+     * @var Collection<int, Module>
      */
-    #[ORM\OneToMany(targetEntity: ModuleInstructor::class, mappedBy: 'instructor')]
-    private Collection $moduleInstructors;
+    #[ORM\ManyToMany(targetEntity: Module::class, inversedBy: 'instructors')]
+    private Collection $Module;
 
     public function __construct()
     {
-        $this->moduleInstructors = new ArrayCollection();
+        $this->Module = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -36,39 +36,38 @@ class Instructor
         return $this->id;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(User $user_id): static
+    public function setUser(User $user): static
     {
-        $this->user_id = $user_id;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, ModuleInstructor>
+     * @return Collection<int, Module>
      */
-    public function getModuleInstructors(): Collection
+    public function getModule(): Collection
     {
-        return $this->moduleInstructors;
+        return $this->Module;
     }
 
-    public function addModuleInstructor(ModuleInstructor $moduleInstructor): static
+    public function addModule(Module $module): static
     {
-        if (!$this->moduleInstructors->contains($moduleInstructor)) {
-            $this->moduleInstructors->add($moduleInstructor);
-            $moduleInstructor->setInstructor($this);
+        if (!$this->Module->contains($module)) {
+            $this->Module->add($module);
         }
 
         return $this;
     }
 
-    public function removeModuleInstructor(ModuleInstructor $moduleInstructor): static
+    public function removeModule(Module $module): static
     {
-        $this->moduleInstructors->removeElement($moduleInstructor);
+        $this->Module->removeElement($module);
 
         return $this;
     }
