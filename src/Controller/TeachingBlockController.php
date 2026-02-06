@@ -59,7 +59,13 @@ final class TeachingBlockController extends AbstractController
         ]);
     }
 
-
+    #[Route('/teaching-blocks', name: 'teaching_blocks')]
+    public function index(): Response
+    {
+        return $this->render('test/test.html.twig', [
+            'controller_name' => 'TeachingBlockController',
+        ]);
+    }
     #[Route(path: '/modifier/{id}', name: 'teaching_block_modifier', methods: ['GET','POST'])]
     public function teachingBlockModifier(Request $request, TeachingBlockRepository $repository, EntityManagerInterface $manager, TeachingBlock $teachingBlock): Response
     {

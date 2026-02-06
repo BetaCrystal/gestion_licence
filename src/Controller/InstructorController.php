@@ -13,7 +13,7 @@ use App\Repository\UserRepository;
 use App\Entity\Instructor;
 use Doctrine\ORM\EntityManagerInterface;
 
-#[Route('/twig/instructor')] // Route de classe (préfixe commun)  
+#[Route('/twig/instructor')] // Route de classe (préfixe commun)
 final class InstructorController extends AbstractController
 {
     #[Route(path: '/enseignant/infos/{id}', name: 'enseignant_infos', methods: ['GET','POST'])]
@@ -22,7 +22,7 @@ final class InstructorController extends AbstractController
 
         $qb = $repository->queryForInfoInstructor($instructor->getId());
         $results = $qb;
-                
+
         $form = $this->createForm(InstructorInformationsForm::class, $instructor);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
@@ -119,5 +119,5 @@ final class InstructorController extends AbstractController
             'instructor' => $instructors,
             'form' => $form->createView(),
         ]);
-    }
+}
 }

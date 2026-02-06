@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -23,6 +22,7 @@ class ModuleForm extends AbstractType
             'class' => TeachingBlock::class,
             'disabled' => true,
             'label' => 'Bloc enseignement',
+            'choice_label' => 'name',
         ])
         ->add('code', TextType::class, [
             'label' => 'Code - champ obligatoire',
@@ -32,7 +32,7 @@ class ModuleForm extends AbstractType
             'label' => 'Nom - champ obligatoire',
             'required' => true,
         ])
-        ->add('amount_hours', NumberType::class, [
+        ->add('hours_count', NumberType::class, [
             'label' => 'Nombre d\'heures',
             'required' => false,
         ])

@@ -7,8 +7,8 @@
 {% endblock %}
 {% block body %}
     <div>
-        <h2>Interventions</h2>
-        <a href = "{{ path('app_add_course')}}">Ajouter une nouvelle intervention</a>
+        <h2>Informations générales</h2>
+        <a href = "{{ path('app_add_course')}}">Interventions</a>
     </div>
     {{ form_start(form) }}
 
@@ -34,7 +34,7 @@
                 <thead>
                     <tr>
                         <th>Date de l’intervention</th>
-                        <th>Module & titre</th>
+                        <th>Module</th>
                         <th>Type</th>
                         <th>Intervenants</th>
                         <th>En visio</th>
@@ -51,7 +51,7 @@
                             <td class="center">
                                 {% if row.remotely %}🎥{% endif %}
                             </td>
-                            <td><a href="{{ path('app_edit_course', {'id': row.id}) }}">👁 Accéder à la fiche</a></td>
+                            <td><a href="#">👁 Accéder à la fiche</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

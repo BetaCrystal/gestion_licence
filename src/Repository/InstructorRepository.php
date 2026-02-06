@@ -65,7 +65,7 @@ class InstructorRepository extends ServiceEntityRepository
     }
     public function queryForUserInstructor(int $id)
     {
-        $qb = $this->createQueryBuilder('i');
+       /* $qb = $this->createQueryBuilder('i');
 
         $qb
             ->select('u')
@@ -73,7 +73,7 @@ class InstructorRepository extends ServiceEntityRepository
             ->where('u.id = :id')
             ->setParameter('id', $id);
 
-        return $qb->getQuery()->getArrayResult();
+        return $qb->getQuery()->getArrayResult();*/
 
 
     }

@@ -5,18 +5,24 @@
 
 {% block body %}
 
-	{{ form_start(form, { attr: { id: 'module_form'} } ) }}
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-danger">{{ message }}</div>
+	{% endfor %}
+	{% for message in app.flashes('info') %}
+		<div class="alert alert-info">{{ message }}</div>
+	{% endfor %}
 
-	{{ form_row(form.teaching_block) }}
-	{{ form_row(form.code) }}
-	{{ form_row(form.name) }}
-	{{ form_row(form.hours_count) }}
-	{{ form_row(form.parent) }}
-	{{ form_row(form.description) }}
-	{{ form_row(form.capstone_project)}}
-	{{ form_row(form.hours_count) }}
+	{{ form_start(moduleForm, { attr: { id: 'module_form'} } ) }}
+
+	{{ form_row(moduleForm.teaching_block) }}
+	{{ form_row(moduleForm.code) }}
+	{{ form_row(moduleForm.name) }}
+	{{ form_row(moduleForm.hours_count) }}
+	{{ form_row(moduleForm.parent) }}
+	{{ form_row(moduleForm.description) }}
+	{{ form_row(moduleForm.capstone_project)}}
 
 	<button type="submit" class="btn">Ajouter</button>
-	{{ form_end(form) }}
+	{{ form_end(moduleForm) }}
 
 {% endblock %}
