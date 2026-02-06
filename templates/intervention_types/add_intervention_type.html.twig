@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Types d'interventions
+{% endblock %}
+
+{% block body %}
+
+	<h1>{{ interventionType.name }}</h1>
+
+	{{ include('admin/form/form_intervention_type.html.twig', { 'form': form }) }}
+
+	<a href="{{ path('liste_types_interventions')}}">Annuler</a>
+
+{% endblock %}

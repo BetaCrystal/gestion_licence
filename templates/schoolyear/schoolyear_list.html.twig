@@ -6,12 +6,11 @@
 {% block body %}
 	<div>
 		<h2>Années scolaires</h2>
-		<a href="">Ajouter une année</a>
+		<a href="{{ path('app_add_schoolyear') }}">Ajouter une année</a>
 	</div>
 
 
 	<h2>Filtres</h2>
-	{{ include('admin/form/form_schoolyear.html.twig', { form: form }) }}
 
 
 	<div class="table-wrapper">
@@ -23,16 +22,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for i in instructor %}
+				{% for schoolYear in schoolYears %}
 					<tr>
-						<td>{{ i.userId.lastName }}</td>
-						<td>{{ i.userId.firstName }}</td>
+						<td>{{ schoolYear.name }}</td>
+						<td>{{ schoolYear.startDate|date('Y') }}/{{ schoolYear.endDate|date('Y') }}</td>
 						<td>
-							{% for module in i.moduleInstructors  %}
-								{{module.module.name}}
-							{% endfor %}
+							<a href="{{ path('app_view_schoolyear', {'id': schoolYear.id}) }}">Voir la fiche</a>
 						</td>
-
 					</tr>
 				{% endfor %}
 			</tbody>

@@ -144,7 +144,6 @@ final class ModuleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $module = $form->getData();
-            // Here you would typically save the new module to the database
             $this->addFlash('success', 'Nouveau module ajouté avec succès !');
 
             $entityManager->persist($module);

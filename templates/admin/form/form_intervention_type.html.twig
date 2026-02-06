@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Form School Week
+{% block title %}Form School Year
 {% endblock %}
 
 {% block body %}
@@ -12,12 +12,11 @@
 		<div class="alert alert-info">{{ message }}</div>
 	{% endfor %}
 
-	{{ form_start(form, { attr: { id: 'course_period_form'} } ) }}
+	{{ form_start(form, { attr: { id: 'intervention_type_form'} } ) }}
 
-	{{ form_row(form.schoolYear)}}
-	{{ form_row(form.startDate) }}
-	{{ form_row(form.endDate) }}
-	<button type="submit" class="btn">Ajouter</button>
+	{{ form_row(form.name) }}
+	{{ form_row(form.description) }}
+	{{ form_row(form.color) }}
+	<button type="submit" class="btn">Enregistrer les informations</button>
 	{{ form_end(form) }}
-
 {% endblock %}

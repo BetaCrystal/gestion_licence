@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Course Period Form
+{% endblock %}
+
+
+{% block body %}
+
+
+	{{ include('admin/form/form_course_period.html.twig', {'form': form}) }}
+
+	<a href="{{ path('app_view_schoolyear', {'id': schoolYear.id}) }}" class="btn btn-secondary">Annuler</a>
+
+{% endblock %}

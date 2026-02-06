@@ -78,7 +78,9 @@ class CourseController extends AbstractController
             $qb = $entityManager->createQueryBuilder();
             $schoolYear = $qb->select('sy')
                 ->from(SchoolYear::class, 'sy')
-                ->where('sy.start_date <= :date AND sy.end_date >= :date')
+                ->where('sy.startDate <= :date AND sy.endDate >= :date')
+                ->orderBy('sy.startDate', 'DESC')
+                ->setMaxResults(1)
                 ->setParameter('date', $startDate)
                 ->getQuery()
                 ->getOneOrNullResult();
@@ -179,6 +181,8 @@ class CourseController extends AbstractController
             $schoolYear = $qb->select('sy')
                 ->from(SchoolYear::class, 'sy')
                 ->where('sy.startDate <= :date AND sy.endDate >= :date')
+                ->orderBy('sy.startDate', 'DESC')
+                ->setMaxResults(1)
                 ->setParameter('date', $startDate)
                 ->getQuery()
                 ->getOneOrNullResult();

@@ -1304,16 +1304,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     }>,
  *     role_hierarchy?: array<string, string|list<scalar|Param|null>>,
  * }
- * @psalm-type WebpackEncoreConfig = array{
- *     output_path: scalar|Param|null, // The path where Encore is building the assets - i.e. Encore.setOutputPath()
- *     crossorigin?: false|"anonymous"|"use-credentials"|Param, // crossorigin value when Encore.enableIntegrityHashes() is used, can be false (default), anonymous or use-credentials // Default: false
- *     preload?: bool|Param, // preload all rendered script and link tags automatically via the http2 Link header. // Default: false
- *     cache?: bool|Param, // Enable caching of the entry point file(s) // Default: false
- *     strict_mode?: bool|Param, // Throw an exception if the entrypoints.json file is missing or an entry is missing from the data // Default: true
- *     builds?: array<string, scalar|Param|null>,
- *     script_attributes?: array<string, scalar|Param|null>,
- *     link_attributes?: array<string, scalar|Param|null>,
- * }
  * @psalm-type DebugConfig = array{
  *     max_items?: int|Param, // Max number of displayed items past the first level, -1 means no limit. // Default: 2500
  *     min_depth?: int|Param, // Minimum tree depth to clone all the items, 1 is default. // Default: 1
@@ -1329,6 +1319,38 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     intercept_redirects?: bool|Param, // Default: false
  *     excluded_ajax_paths?: scalar|Param|null, // Default: "^/((index|app(_[\\w]+)?)\\.php/)?_wdt"
  * }
+ * @psalm-type KnpPaginatorConfig = array{
+ *     default_options?: array{
+ *         sort_field_name?: scalar|Param|null, // Default: "sort"
+ *         sort_direction_name?: scalar|Param|null, // Default: "direction"
+ *         filter_field_name?: scalar|Param|null, // Default: "filterField"
+ *         filter_value_name?: scalar|Param|null, // Default: "filterValue"
+ *         page_name?: scalar|Param|null, // Default: "page"
+ *         distinct?: bool|Param, // Default: true
+ *         page_out_of_range?: scalar|Param|null, // Default: "ignore"
+ *         default_limit?: scalar|Param|null, // Default: 10
+ *     },
+ *     template?: array{
+ *         pagination?: scalar|Param|null, // Default: "@KnpPaginator/Pagination/sliding.html.twig"
+ *         rel_links?: scalar|Param|null, // Default: "@KnpPaginator/Pagination/rel_links.html.twig"
+ *         filtration?: scalar|Param|null, // Default: "@KnpPaginator/Pagination/filtration.html.twig"
+ *         sortable?: scalar|Param|null, // Default: "@KnpPaginator/Pagination/sortable_link.html.twig"
+ *     },
+ *     page_range?: scalar|Param|null, // Default: 5
+ *     page_limit?: scalar|Param|null, // Default: null
+ *     convert_exception?: bool|Param, // Default: false
+ *     remove_first_page_param?: bool|Param, // Default: false
+ * }
+ * @psalm-type WebpackEncoreConfig = array{
+ *     output_path: scalar|Param|null, // The path where Encore is building the assets - i.e. Encore.setOutputPath()
+ *     crossorigin?: false|"anonymous"|"use-credentials"|Param, // crossorigin value when Encore.enableIntegrityHashes() is used, can be false (default), anonymous or use-credentials // Default: false
+ *     preload?: bool|Param, // preload all rendered script and link tags automatically via the http2 Link header. // Default: false
+ *     cache?: bool|Param, // Enable caching of the entry point file(s) // Default: false
+ *     strict_mode?: bool|Param, // Throw an exception if the entrypoints.json file is missing or an entry is missing from the data // Default: true
+ *     builds?: array<string, scalar|Param|null>,
+ *     script_attributes?: array<string, scalar|Param|null>,
+ *     link_attributes?: array<string, scalar|Param|null>,
+ * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -1341,6 +1363,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     twig_extra?: TwigExtraConfig,
  *     twig_component?: TwigComponentConfig,
  *     security?: SecurityConfig,
+ *     knp_paginator?: KnpPaginatorConfig,
  *     webpack_encore?: WebpackEncoreConfig,
  *     "when@dev"?: array{
  *         imports?: ImportsConfig,
@@ -1355,9 +1378,10 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_extra?: TwigExtraConfig,
  *         twig_component?: TwigComponentConfig,
  *         security?: SecurityConfig,
- *         webpack_encore?: WebpackEncoreConfig,
  *         debug?: DebugConfig,
  *         web_profiler?: WebProfilerConfig,
+ *         knp_paginator?: KnpPaginatorConfig,
+ *         webpack_encore?: WebpackEncoreConfig,
  *     },
  *     "when@prod"?: array{
  *         imports?: ImportsConfig,
@@ -1371,6 +1395,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_extra?: TwigExtraConfig,
  *         twig_component?: TwigComponentConfig,
  *         security?: SecurityConfig,
+ *         knp_paginator?: KnpPaginatorConfig,
  *         webpack_encore?: WebpackEncoreConfig,
  *     },
  *     "when@test"?: array{
@@ -1385,8 +1410,9 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_extra?: TwigExtraConfig,
  *         twig_component?: TwigComponentConfig,
  *         security?: SecurityConfig,
- *         webpack_encore?: WebpackEncoreConfig,
  *         web_profiler?: WebProfilerConfig,
+ *         knp_paginator?: KnpPaginatorConfig,
+ *         webpack_encore?: WebpackEncoreConfig,
  *     },
  *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
  *         imports?: ImportsConfig,
