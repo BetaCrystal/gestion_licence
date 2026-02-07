@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Calendar{% endblock %}
+{% block title %}Calendar
+{% endblock %}
 
 {% block body %}
-    <h1>Calendar</h1>
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-danger">{{ message }}</div>
+	{% endfor %}
+	<h1>Calendar</h1>
 
-    <div id="calendar"></div>
-
+	<div id="calendar"></div>
 
 
 {% endblock %}

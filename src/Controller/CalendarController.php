@@ -6,6 +6,8 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Course;
+use App\Repository\CourseRepository;
 
 #[Route('/twig/calendar', name: 'app_calendar')]
 final class CalendarController extends AbstractController
@@ -19,45 +21,22 @@ final class CalendarController extends AbstractController
     }
 
     #[Route('/events', name: '_events')]
-    public function events(): Response
+    public function events(CourseRepository $courseRepository): Response
     {
-        $events = [
-            [
-                'id' => 0,
-                'title' => 'Event 1',
-                'start' => '2026-01-10T10:00:00',
-                'end' => '2026-01-10T12:00:00',
-                'extendedProps' => [ // ne fonctionne pas, obligé de passer par une fonction en javascript
-                    'module' => 'javascript',
-                    'instructor' => 'John Doe',
-                    'intervention' => 'cours'
-                ]
-            ],
-            [
-                'id' => 1,
-                'title' => 'Event 2',
-                'start' => '2026-01-15T10:00:00',
-                'end' => '2026-01-15T12:00:00',
-                'extendedProps' => [
-                    'module' => 'php',
-                    'instructor' => 'Jane Smith',
-                    'intervention' => 'tp'
-                ]
-            ],
-            [
-                'id' => 2,
-                'title' => 'Event 3',
-                'start' => '2026-01-20T10:00:00',
-                'end' => '2026-01-20T12:00:00',
-                'extendedProps' => [
-                    'module' => 'symfony',
-                    'instructor' => 'Alice Johnson',
-                    'intervention' => 'cours'
-                ]
-            ],
-        ];
+        $courses = $courseRepository->findAll();
+        $list = [];
+        foreach ($courses as $course) {
+            $list[] = [
+                'id' => $course->getId(),
+                'title' => $course->getTitle(),
+                'instructor' => implode(', ', $course->getCourseInstructor()->map(fn($instructor) => $instructor->getUser()->getLastName())->toArray()),
+                'module' => $course->getModule()->getName(),
+                'start' => $course->getStartDate()->format('Y-m-d H:i:s'),
+                'end' => $course->getEndDate()->format('Y-m-d H:i:s'),
+            ];
+        }
 
-        return $this->json($events);
+        return $this->json(data:$list);
     }
 
     /*#[Route('/event-content', name: '_event_content')]
