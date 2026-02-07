@@ -39,33 +39,5 @@ final class CalendarController extends AbstractController
         return $this->json(data:$list);
     }
 
-    /*#[Route('/event-content', name: '_event_content')]
-    public function eventContent(Request $request): Response
-    {
-        $eventContent = [
-            0 => [
-                'module' => 'javascript',
-                'instructor' => 'John Doe',
-                'intervention' => 'cours',
-            ],
-            1 => [
-                'module' => 'php',
-                'instructor' => 'Jane Smith',
-                'intervention' => 'tp',
-            ],
-            2 => [
-                'module' => 'symfony',
-                'instructor' => 'Alice Johnson',
-                'intervention' => 'cours',
-            ],
-        ];
-        $id = $request->query->get('id');
-        $content = $eventContent[(int)$id];
 
-        $html = $this->renderView('calendar/_event_content.html.twig', [
-            'content' => $content,
-        ]);
-
-        return new Response($html);
-    }*/
 }
