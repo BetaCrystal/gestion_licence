@@ -11,16 +11,28 @@ use App\Form\SchoolYearForm;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\SchoolYearRepository;
 use App\Repository\CoursePeriodRepository;
+use Knp\Component\Pager\PaginatorInterface;
+
+
 
 final class SchoolYearController extends AbstractController
 {
     #[Route(path:'/twig/schoolyears', name:'app_schoolyears', methods:['GET'])]
-    public function schoolYears(SchoolYearRepository $schoolYearRepository): Response
+    public function schoolYears(Request $request, SchoolYearRepository $schoolYearRepository, PaginatorInterface $paginator): Response
     {
         $schoolYears = $schoolYearRepository->findAll();
 
+        $page = $request->query->getInt('page', 1);
+        $limit = 10;
+
+        $pagination = $paginator->paginate(
+            $schoolYears,
+            $page,
+            $limit
+        );
+
         return $this->render('schoolyear/schoolyear_list.html.twig', [
-            'schoolYears' => $schoolYears,
+            'pagination' => $pagination,
         ]);
     }
 
