@@ -8,6 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Course;
 use App\Repository\CourseRepository;
+use App\Repository\SchoolYearRepository;
+use App\Repository\CoursePeriodRepository;
+use Shuchkin\SimpleXLSXGen;
 
 #[Route('/twig/calendar', name: 'app_calendar')]
 final class CalendarController extends AbstractController
@@ -39,5 +42,32 @@ final class CalendarController extends AbstractController
         return $this->json(data:$list);
     }
 
+    #[Route('/week_convert?weekid={weekid}', name: '_week_convert', methods: ['GET'])]
+    public function weekConvert(Request $request, CoursePeriodRepository $coursePeriodRepository, CourseRepository $courseRepository): Response
+    {
+        $weekId = $request->query->get('weekid');
+        $courses = $courseRepository->findBy(['coursePeriod' => $weekId]);
+        $list = [
+            ['ID', 'Date de début', 'Date de fin', 'Instructeur', 'Module', 'Distanciel']
+        ];
+        $coursePeriod = $coursePeriodRepository->find($weekId);
+        if (!$coursePeriod) {
+            $this->addFlash('error', 'Période de cours non trouvée.');
+            return $this->redirectToRoute('app_calendar_calendar');
+        }
+        foreach ($courses as $course) {
+            $list[] = [
+                $course->getId(),
+                $course->getStartDate()->format('Y-m-d H:i:s'),
+                $course->getEndDate()->format('Y-m-d H:i:s'),
+                implode(', ', $course->getCourseInstructor()->map(fn($instructor) => $instructor->getUser()->getLastName())->toArray()),
+                $course->getModule()->getName(),
+                $course->isRemotely() ? 'Oui' : 'Non',
+            ];
+        }
+        $xlsx = SimpleXLSXGen::fromArray( $list );
+        $xlsx->downloadAs('books.xlsx');
+        return $this->redirectToRoute('app_calendar_calendar');
+    }
 
 }

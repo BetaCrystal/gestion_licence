@@ -7,9 +7,10 @@
 	{% for message in app.flashes('error') %}
 		<div class="alert alert-danger">{{ message }}</div>
 	{% endfor %}
-	<h1>Calendar</h1>
+	<h1 class="text-red-500">Calendar</h1>
 
 	<div id="calendar"></div>
-
+	<a>Exporter le calendrier de l'année (.xls)</a>
+	<a href="{{ path('app_calendar_week_convert', {'weekid': 1}) }}">Exporter le planning de la semaine (fichier .xls)</a>
 
 {% endblock %}
