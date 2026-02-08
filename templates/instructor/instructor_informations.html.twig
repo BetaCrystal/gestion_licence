@@ -29,13 +29,18 @@
         </a>
 
     </div>
-    
+
     {% for message in app.flashes('error') %}
         <div class="alert alert-danger">{{ message }}</div>
     {% endfor %}
     {% for message in app.flashes('info') %}
         <div class="alert alert-info">{{ message }}</div>
     {% endfor %}
+
+    <hr>
+    <button class="btn active" active><a href="{{ path('enseignant_infos', {id: instructor.id}) }}"  >Informations générales</a></button>
+     <button class="btn"><a href="{{ path('liste_interventions_enseignant', {id: instructor.id}) }}">Interventions</a></button>
+    <h3 class="section-title">Informations générales</h3>
 
         {{ form_start(form) }}
             {{ form_widget(form) }}

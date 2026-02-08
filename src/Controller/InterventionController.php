@@ -10,6 +10,8 @@ use App\Form\InterventionForm;
 use Doctrine\DBAL\Connection;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\CourseRepository;
+use App\Repository\InstructorRepository;
+
 
 final class InterventionController extends AbstractController
 {
@@ -59,10 +61,12 @@ final class InterventionController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/listeInterventions/enseignant/{IntervenantId}', name: 'liste_interventions_enseignant', methods: ['GET','POST'])]
-    public function AffichchagelisteInterventions(Request $request, CourseRepository $repository, PaginatorInterface $paginator, int $IntervenantId): Response
+    #[Route(path: '/listeInterventions/enseignant/{id}', name: 'liste_interventions_enseignant', methods: ['GET','POST'])]
+    public function listeInterventionsEnseignant(Request $request, CourseRepository $repository, PaginatorInterface $paginator,InstructorRepository $instructorRepo, int $id): Response
         {
-            $qb = $repository->queryForList1($IntervenantId);
+            $qb = $repository->queryForList1($id);
+            $instructor = $instructorRepo->find($id);
+             $results = $instructorRepo->queryForInfoInstructor($instructor->getId());
 
             $form = $this->createForm(InterventionForm::class);
             $form->handleRequest($request);
@@ -103,6 +107,8 @@ final class InterventionController extends AbstractController
         return $this->render('interventions/interventions_list.html.twig', [
             'form' => $form->createView(),
             'pagination' => $pagination,
+            'instructor' => $instructor,
+            'results' => $results,
         ]);
     }
 }
