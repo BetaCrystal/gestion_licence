@@ -1,75 +1,22 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
-		<title>
-			{% block title %}Welcome!
+		{% block head %}
+			<meta charset="UTF-8">
+			<title>
+				{% block title %}Welcome!
+				{% endblock %}
+			</title>
+			<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+			{% block stylesheets %}
+				<link rel="stylesheet" href="{{ asset('styles/app.css') }}">
 			{% endblock %}
-		</title>
-		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-		{% block stylesheets %}
-			<link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+
+			{% block javascripts %}
+				{{ encore_entry_script_tags('app') }}
+				<script src="https://cdn.tailwindcss.com"></script>
+			{% endblock %}
 		{% endblock %}
-
-		{% block javascripts %}
-
-
-			{{ encore_entry_script_tags('app') }}
-		{% endblock %}
-		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js'></script>
-		<script>
-
-			document.addEventListener('DOMContentLoaded', function () {
-var calendarEl = document.getElementById('calendar');
-var calendar = new FullCalendar.Calendar(calendarEl, {
-timeZone: 'UTC+1',
-initialView: 'timeGridWeek',
-slotMinTime: "08:00:00",
-slotMaxTime: "19:00:00",
-firstDay: 1,
-dateClick: function (info) {
-window.location.href = '{{ path("app_add_course") }}?date=' + info.dateStr;
-},
-headerToolbar: {
-left: 'prev,next',
-center: 'title',
-right: 'dayGridMonth,timeGridWeek,timeGridDay'
-},
-events: '{{ path("app_calendar_events") }}',
-eventContent: function (info) {
-return {
-html: `
-                <div>
-                    <strong>${
-info.event.extendedProps.module
-}</strong><br>
-                    <small>${
-info.event.extendedProps.instructor
-}</small><br>
-<small>${
-info.event.id
-}</small><br>
-<small>${
-info.event.start
-}</small><br>
-<small>${
-info.event.end
-}</small><br>
-                    <small>${
-info.event.title
-}</small>
-                </div>
-            `
-};
-}
-
-
-});
-
-calendar.render();
-
-});
-		</script>
 	</head>
 
 	<body>
