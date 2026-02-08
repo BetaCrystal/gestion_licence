@@ -18,7 +18,7 @@ class ModuleForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('teaching_block', EntityType::class, [
+        ->add('teachingBlock', EntityType::class, [
             'class' => TeachingBlock::class,
             'disabled' => true,
             'label' => 'Bloc enseignement',
