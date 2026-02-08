@@ -10,9 +10,9 @@
 		{% for message in app.flashes('error') %}
 			<div class="alert alert-danger">{{ message }}</div>
 		{% endfor %}
-		<h2>Semaines de cours</h2>
+		<h2 class="text-blue-950 text-3xl font-medium">Semaines de cours</h2>
 		<p>Les semaines de cours permettent de contrôler l’ajout des interventions. Une intervention a lieu uniquement
-																																							pendant les semaines de cours.</p>
+																																													pendant les semaines de cours.</p>
 		<table>
 			<thead>
 				<tr>
@@ -34,6 +34,6 @@
 				{% endfor %}
 			</tbody>
 		</table>
-		<a class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl" href="{{ path('app_add_courseperiod', {'id': schoolYear.id }) }}">Ajouter une semaine de cours</a>
+		<a href="{{ path('app_add_courseperiod', {'id': schoolYear.id }) }}">Ajouter une semaine de cours</a>
 	</div>
 {% endblock %}
