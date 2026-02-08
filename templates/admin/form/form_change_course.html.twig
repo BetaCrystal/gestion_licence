@@ -1,16 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <button class="btn"><a href="{{ path('liste_interventions') }}">X</a></button>
+	<button class="btn">
+		<a href="{{ path('liste_interventions') }}">X</a>
+	</button>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <a href="{{ path('liste_interventions') }}" class="btn-danger">Annuler</a>
-    <button type="submit" class="btn btn-primary">Enregistrer les informations</button>
-    {{ form_end(form) }}
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	<a href="{{ path('liste_interventions') }}" class="px-4 py-2.5 text-white bg-red-800 font-medium text-base rounded-xl">Annuler</a>
+	<button type="submit" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl">Enregistrer les informations</button>
+	{{ form_end(form) }}
 
-    <form method="post" action="{{ path('app_course_delete', {'id': course.id}) }}">
-        <input type="hidden" name="_token" value="{{ csrf_token('delete_course') }}">
-        <button type="submit" class="btn btn-danger">Supprimer</button>
-    </form>
+	<form method="post" action="{{ path('app_course_delete', {'id': course.id}) }}">
+		<input type="hidden" name="_token" value="{{ csrf_token('delete_course') }}">
+		<button type="submit" class="px-4 py-2.5 text-white bg-red-800 font-medium text-base rounded-xl">Supprimer</button>
+	</form>
 {% endblock %}

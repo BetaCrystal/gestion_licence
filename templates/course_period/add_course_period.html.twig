@@ -8,7 +8,7 @@
 	<div>
 		{% include "Components/sidebar.html.twig" %}
 		{% for message in app.flashes('error') %}
-			<div class="alert alert-danger">{{ message }}</div>
+			<div class="text-red-800">{{ message }}</div>
 		{% endfor %}
 
 		{{ include('admin/form/form_course_period.html.twig', {'form': form}) }}

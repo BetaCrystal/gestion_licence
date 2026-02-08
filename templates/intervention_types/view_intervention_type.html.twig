@@ -15,7 +15,7 @@
 
 		{{ include('admin/form/form_intervention_type.html.twig', { 'form': form }) }}
 
-		<a href="{{ path('liste_types_interventions')}}">Retour à la liste</a>
+		<a href="{{ path('liste_types_interventions')}}" class="px-4 py-2.5 text-black bg-slate-200 font-medium text-base rounded-xl">Retour à la liste</a>
 
 		{{ include('intervention_types/delete_intervention_type.html.twig') }}
 	</div>
