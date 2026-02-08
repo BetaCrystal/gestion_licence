@@ -17,6 +17,8 @@ timeZone: 'UTC+1',
 initialView: 'timeGridWeek',
 slotMinTime: "08:00:00",
 slotMaxTime: "19:00:00",
+height: 'auto',
+locale: 'fr',
 firstDay: 1,
 dateClick: function (info) {
 window.location.href = '{{ path("app_add_course") }}?date=' + info.dateStr;
@@ -66,13 +68,16 @@ calendar.render();
 {% endblock %}
 
 {% block body %}
-	{% for message in app.flashes('error') %}
-		<div class="alert alert-danger">{{ message }}</div>
-	{% endfor %}
-	<h1 class="text-red-600">Calendar</h1>
+	<div>
+		{% include "Components/sidebar.html.twig" %}
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-danger">{{ message }}</div>
+		{% endfor %}
+		<h1 class="text-blue-950 text-2xl">Calendrier</h1>
+		<a href="{{ path('app_add_course') }}" class="text-white bg-blue-950">Ajouter une intervention</a>
 
-	<div id="calendar"></div>
-	<a>Exporter le calendrier de l'année (.xls)</a>
-	<a href="{{ path('app_calendar_week_convert', {'weekid': 1}) }}">Exporter le planning de la semaine (fichier .xls)</a>
-
+		<div id="calendar"></div>
+		<a>Exporter le calendrier de l'année (.xls)</a>
+		<a href="{{ path('app_calendar_week_convert', {'weekid': 1}) }}">Exporter le planning de la semaine (fichier .xls)</a>
+	</div>
 {% endblock %}

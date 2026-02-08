@@ -4,17 +4,19 @@
 {% endblock %}
 
 {% block body %}
+	<div>
+		{% include "Components/sidebar.html.twig" %}
 
-	{% for message in app.flashes('error') %}
-		<div class="alert alert-danger">{{ message }}</div>
-	{% endfor %}
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-danger">{{ message }}</div>
+		{% endfor %}
 
-	<h1>{{ interventionType.name }}</h1>
+		<h1>{{ interventionType.name }}</h1>
 
-	{{ include('admin/form/form_intervention_type.html.twig', { 'form': form }) }}
+		{{ include('admin/form/form_intervention_type.html.twig', { 'form': form }) }}
 
-	<a href="{{ path('liste_types_interventions')}}">Retour à la liste</a>
+		<a href="{{ path('liste_types_interventions')}}">Retour à la liste</a>
 
-	{{ include('intervention_types/delete_intervention_type.html.twig') }}
-
+		{{ include('intervention_types/delete_intervention_type.html.twig') }}
+	</div>
 {% endblock %}

@@ -4,12 +4,15 @@
 {% endblock %}
 
 {% block body %}
+	<div>
+		{% include "Components/sidebar.html.twig" %}
 
-	{% for message in app.flashes('error') %}
-		<div class="alert alert-danger">{{ message }}</div>
-	{% endfor %}
-	{{ include('admin/form/form_course_period.html.twig', { 'form': form }) }}
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-danger">{{ message }}</div>
+		{% endfor %}
+		{{ include('admin/form/form_course_period.html.twig', { 'form': form }) }}
 
-	<a href="{{ path('app_view_schoolyear', {'id': coursePeriod.schoolYear.id}) }}" class="btn btn-secondary">Retour à la liste</a>
-	{{  include('course_period/delete_course_period.html.twig') }}
+		<a href="{{ path('app_view_schoolyear', {'id': coursePeriod.schoolYear.id}) }}" class="btn btn-secondary">Retour à la liste</a>
+		{{  include('course_period/delete_course_period.html.twig') }}
+	</div>
 {% endblock %}

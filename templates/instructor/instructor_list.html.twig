@@ -1,39 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Corp enseignant{% endblock %}
+{% block title %}Corp enseignant
+{% endblock %}
 
 {% block body %}
-    <div>
-        <h2>Corp enseignant</h2>
-        <a href="{{ path('enseignant_ajout') }}">Ajouter un enseignant</a>
-    </div>
+	<div>
+		{% include "Components/sidebar.html.twig" %}
+		<div>
+			<h2>Corp enseignant</h2>
+			<a href="{{ path('enseignant_ajout') }}">Ajouter un enseignant</a>
+		</div>
 
 
-    <h2>Filtres</h2>
-    {{ include('admin/form/form_instructor.html.twig', { form: form }) }}
+		<h2>Filtres</h2>
+		{{ include('admin/form/form_instructor.html.twig', { form: form }) }}
 
 
-    <div class="table-wrapper">
-        <table class="interventions-table">
-            <thead>
-                <tr>
-                    <th>Nom de famille</th>
-                    <th>Prénom</th>
-                    <th>Modules enseignés</th>
-                    <th>Nombre d'heures</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for i in instructor %}
-                    <tr>
-                        <td>{{ i.lastName }}</td>
-                        <td>{{ i.firstName }}</td>
-                        <td>{{ i.modules }}</td>
-                        <td> {{ i.totalHours }}h</td>
-                        <td><a href="{{ path('enseignant_infos', { id: i.id }) }}">Modifier</a></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+		<div class="table-wrapper">
+			<table class="interventions-table">
+				<thead>
+					<tr>
+						<th>Nom de famille</th>
+						<th>Prénom</th>
+						<th>Modules enseignés</th>
+						<th>Nombre d'heures</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for i in instructor %}
+						<tr>
+							<td>{{ i.lastName }}</td>
+							<td>{{ i.firstName }}</td>
+							<td>{{ i.modules }}</td>
+							<td>
+								{{ i.totalHours }}h</td>
+							<td>
+								<a href="{{ path('enseignant_infos', { id: i.id }) }}">Modifier</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
 {% endblock %}

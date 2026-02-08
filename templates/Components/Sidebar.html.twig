@@ -1,37 +1,40 @@
 <div>
-    <img src="../img/logo.png" alt="test">
-    <div>
-        <h1>Lycée Saint-Vincent</h1>
-        <h2>Enseignement supérieur</h2>
-    </div>
+	<img src="../img/logo.png" alt="test">
+	<div>
+		<h1>Lycée Saint-Vincent</h1>
+		<h2>Enseignement supérieur</h2>
+	</div>
 </div>
 
-<nav class="sidebar">
-    {% for section in this.menuStructure %}
-        <h3 class = "Sidebar font-[Poppins] font-normal text-[11px] leading-[11px] tracking-[1px] text-[#082431]">{{ section.titre }} </h3>
-
-        <ul>
-            {% for lien in section.liens %}
-                <li class = "Sidebar " >
-                    <a href="">
-
-                        <span class=" "></span>
-                        {{ lien.label }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endfor %}
+<nav class="bg-slate-50">
+	<ul>
+		<h2 class="text-slate-700">MENU</h2>
+		<ul>
+			<li>
+				<a class="text-slate-700" href="{{path('app_calendar_calendar')}}"><img src="calendar.png">Calendrier</a>
+			</li>
+			<li>
+				<a class="text-slate-700" href="{{path('liste_interventions')}}">Interventions</a>
+			</li>
+			<li>
+				<a class="text-slate-700" href="{{path('instructors')}}">Corps enseignant</a>
+			</li>
+		</ul>
+		<h2 class="text-slate-700">PARAMETRAGE</h2>
+		<ul>
+			<li><a class="text-slate-700"href="{{path('app_modules')}}">Modules</a></li>
+			<li><a class="text-slate-700"href="{{path('teaching_block_liste')}}">Blocs d'enseignement</a></li>
+			<li><a class="text-slate-700"href="{{path('app_schoolyears')}}">Année scolaire</a></li>
+			<li><a class="text-slate-700"href="{{path('liste_types_interventions')}}">Types d'intervention</a></li>
+		</ul>
+	</ul>
 </nav>
-
-{% if is_granted('ROLE_ADMIN') %}
-    <div class="">
-        <div class="">
-            <img src="../img/photo.png" />
-                </div>
-            <div class="">
-
-        </div>
-</div>
-{% endif %}
-
+<!--
+{% if ('ROLE_ADMIN') %}
+	<div class="">
+		<div class="">
+			<img src="../img/photo.png"/>
+		</div>
+		<div class=""></div>
+	</div>
+{% endif %}-->
