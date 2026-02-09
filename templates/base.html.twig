@@ -1,66 +1,34 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-            {#{{ encore_entry_link_tags('app') }}
-            <link rel="stylesheet" href="{{ asset('styles/app.css') }}">#}
-        {% endblock %}
+	<head>
+		{% block head %}
+			<meta charset="UTF-8">
+			<title>
+				{% block title %}Welcome!
+				{% endblock %}
+			</title>
+			<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+			{% block stylesheets %}
+				<link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+			{% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js'></script>
-        <script>
+			{% block javascripts %}
+				{{ encore_entry_script_tags('app') }}
+				<script src="https://cdn.tailwindcss.com"></script>
+			{% endblock %}
+		{% endblock %}
+	</head>
 
-            document.addEventListener('DOMContentLoaded', function() {
-                var calendarEl = document.getElementById('calendar');
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    timeZone: 'UTC+1',
-                    initialView: 'timeGridWeek',
-                    slotMinTime: "08:00:00",
-                    slotMaxTime: "19:00:00",
-                    firstDay: 1,
-                    dateClick: function(info) {
-                        window.location.href = '{{ path("app_add_course") }}?date=' + info.dateStr;
-                    },
-                    headerToolbar: {
-                    left: 'prev,next',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                    },
-                    events: {
-                        url: '{{ path("app_calendar_events") }}'
-                    },
-                    eventContent: function(arg, createElement){
-                        console.log(arg.extendedProps);
-                        var innerText;
-
-                        innerText = '<div>Loading...</div>';
-
-                        return createElement('i', {}, innerText)
-                    },
-                    });
-
-                calendar.render();
-
-            });
-    </script>
-    </head>
-
-    <body>
-        {% block body %}
-            <h1>
-                {% block body_title %}
-                    CONTENU DE LA BASE.HTML.TWIG
-                {% endblock %}
-            </h1>
-            {% block body_content %}
-                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aspernatur atque autem culpa deleniti enim eum, iure laboriosam minima, nam numquam possimus provident quaerat ratione reprehenderit sapiente sit vero voluptatum?</div>
-            {% endblock %}
-        {% endblock %}
-    </body>
+	<body>
+		{% block body %}
+			<h1>
+				{% block body_title %}
+					CONTENU DE LA BASE.HTML.TWIG
+				{% endblock %}
+			</h1>
+			{% block body_content %}
+				<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aspernatur atque autem culpa deleniti enim eum, iure laboriosam minima, nam numquam possimus provident quaerat ratione reprehenderit sapiente sit vero voluptatum?</div>
+			{% endblock %}
+		{% endblock %}
+	</body>
 </html>

@@ -5,10 +5,14 @@
 
 
 {% block body %}
+	<div>
+		{% include "Components/sidebar.html.twig" %}
+		{% for message in app.flashes('error') %}
+			<div class="text-red-800">{{ message }}</div>
+		{% endfor %}
 
+		{{ include('admin/form/form_course_period.html.twig', {'form': form}) }}
 
-	{{ include('admin/form/form_course_period.html.twig', {'form': form}) }}
-
-	<a href="{{ path('app_view_schoolyear', {'id': schoolYear.id}) }}" class="btn btn-secondary">Annuler</a>
-
+		<a href="{{ path('app_view_schoolyear', {'id': schoolYear.id}) }}" class="btn btn-secondary">Annuler</a>
+	</div>
 {% endblock %}
