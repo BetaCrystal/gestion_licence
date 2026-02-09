@@ -20,6 +20,7 @@ class UserType extends AbstractType
         $builder
             ->add('lastName', TextType::class, [
                 'label' => 'Nom de famille',
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
                 'constraints' => [
                     new NotBlank(message: 'Le nom de famille est obligatoire.'),
                     new Regex(
@@ -34,6 +35,7 @@ class UserType extends AbstractType
             ])
             ->add('firstName', TextType::class, [
                 'label' => 'Prénom',
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
                 'constraints' => [
                     new NotBlank(message: 'Le prénom est obligatoire.'),
                     new Regex(
@@ -48,6 +50,7 @@ class UserType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
                 'constraints' => [
                     new NotBlank(message: 'L\'email est obligatoire.'),
                     new Length(

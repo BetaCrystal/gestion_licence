@@ -15,13 +15,22 @@
 	{{ form_start(form, { attr: { id: 'course_form'} } ) }}
 
 	{{ form_row(form.title) }}
-	{{ form_row(form.startDate) }}
-	{{ form_row(form.endDate) }}
-	{{ form_row(form.module) }}
-	{{ form_row(form.interventionType) }}
+	<div class="flex flex-row">
+		{{ form_row(form.startDate) }}
+		{{ form_row(form.endDate) }}
+	</div>
+	<div class="flex flex-row">
+		{{ form_row(form.module) }}
+		{{ form_row(form.interventionType) }}
+	</div>
 	{{ form_row(form.CourseInstructor) }}
 	{{ form_row(form.remotely) }}
-	<button class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl" type="submit" class="btn">Ajouter</button>
+	<div class="flex flex-row">
+		<button class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl" type="submit" class="btn">Enregistrer les informations</button>
+		<a href="{{ path('app_calendar_calendar') }}" class="px-4 py-2.5 text-blue-950 bg-slate-300 font-medium text-base rounded-xl ml-2.5">
+			Annuler
+		</a>
+	</div>
 	{{ form_end(form) }}
 
 

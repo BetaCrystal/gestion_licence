@@ -23,18 +23,22 @@ class ModuleForm extends AbstractType
             'disabled' => true,
             'label' => 'Bloc enseignement',
             'choice_label' => 'name',
+            'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
         ])
         ->add('code', TextType::class, [
             'label' => 'Code - champ obligatoire',
             'required' => true,
+            'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
         ])
         ->add('name', TextType::class, [
             'label' => 'Nom - champ obligatoire',
             'required' => true,
+            'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
         ])
         ->add('hours_count', NumberType::class, [
             'label' => 'Nombre d\'heures',
             'required' => false,
+            'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
         ])
         ->add('parent', EntityType::class, [
             'class' => Module::class,
@@ -42,10 +46,12 @@ class ModuleForm extends AbstractType
             'label' => 'Module parent',
             'placeholder' => 'Sélectionnez le module parent',
             'required' => false,
+            'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
         ])
         ->add('description', TextareaType::class, [
             'label' => 'Description - champ obligatoire',
             'required' => true,
+            'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
         ])
         ->add('capstone_project', CheckboxType::class, [
             'label' => 'Module effectué sur le projet fil rouge',

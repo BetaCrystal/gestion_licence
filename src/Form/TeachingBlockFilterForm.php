@@ -23,10 +23,12 @@ class TeachingBlockFilterForm extends AbstractType
         ->add('code', TextType::class, [
                 'label' => 'Code',
                 'required' => false,
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
             ])
         ->add('name', TextType::class, [
                 'label' => 'Nom du bloc',
                 'required' => false,
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
             ])
         ->add('submit', SubmitType::class, [
             'label' => 'Filtrer',
