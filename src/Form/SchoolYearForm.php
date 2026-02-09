@@ -17,16 +17,19 @@ final class SchoolYearForm extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom de l\'année scolaire - champ obligatoire',
                 'required' => true,
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
             ])
             ->add('startDate', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date de début - champ obligatoire',
                 'required' => true,
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
             ])
             ->add('endDate', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date de fin - champ obligatoire',
                 'required' => true,
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
             ]);
     }
 

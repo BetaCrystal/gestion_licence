@@ -4,43 +4,46 @@
 {% endblock %}
 
 {% block body %}
-	<div>
+	<div class="flex items-center w-full h-full">
 		{% include "Components/sidebar.html.twig" %}
-		<div>
-			<h2 class="text-blue-950 text-3xl font-medium">Corps enseignant</h2>
-			<a href="{{ path('enseignant_ajout') }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl">Ajouter un enseignant</a>
-		</div>
+		<div class="h-full mt-32 mx-24">
+			<div class="flex flex-row w-full justify-between mb-10">
+				<h2 class="text-blue-950 text-3xl font-medium mb-6">Corps enseignant</h2>
+				<a href="{{ path('enseignant_ajout') }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl h-fit">Ajouter un enseignant</a>
+			</div>
 
 
-		<h2>Filtres</h2>
-		{{ include('admin/form/form_instructor.html.twig', { form: form }) }}
+			<h2 class="text-yellow-500 text-xl">Filtres</h2>
+			{{ include('admin/form/form_instructor.html.twig', { form: form }) }}
+			<div class="bg-yellow-500 w-full h-0.5 rounded-xs my-6"></div>
 
 
-		<div class="table-wrapper">
-			<table class="interventions-table">
-				<thead>
-					<tr>
-						<th>Nom de famille</th>
-						<th>Prénom</th>
-						<th>Modules enseignés</th>
-						<th>Nombre d'heures</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for i in instructor %}
+			<div class="table-wrapper">
+				<table class="interventions-table">
+					<thead>
 						<tr>
-							<td>{{ i.lastName }}</td>
-							<td>{{ i.firstName }}</td>
-							<td>{{ i.modules }}</td>
-							<td>
-								{{ i.totalHours }}h</td>
-							<td>
-								<a href="{{ path('enseignant_infos', { id: i.id }) }}">Modifier</a>
-							</td>
+							<th class="border border-slate-300 px-6 py-4 bg-slate-300">Nom de famille</th>
+							<th class="border border-slate-300 px-6 py-4 bg-slate-300">Prénom</th>
+							<th class="border border-slate-300 px-6 py-4 bg-slate-300">Modules enseignés</th>
+							<th class="border border-slate-300 px-6 py-4 bg-slate-300">Nombre d'heures</th>
 						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{% for i in instructor %}
+							<tr>
+								<td class="border border-slate-300 px-6 py-4 ">{{ i.lastName }}</td>
+								<td class="border border-slate-300 px-6 py-4 ">{{ i.firstName }}</td>
+								<td class="border border-slate-300 px-6 py-4 ">{{ i.modules }}</td>
+								<td class="border border-slate-300 px-6 py-4 ">
+									{{ i.totalHours }}h</td>
+								<td class="border border-slate-300 px-6 py-4 ">
+									<a href="{{ path('enseignant_infos', { id: i.id }) }}">Accéder à la fiche</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 {% endblock %}

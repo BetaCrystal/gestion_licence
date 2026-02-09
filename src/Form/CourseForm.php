@@ -21,26 +21,31 @@ final class CourseForm extends AbstractType
             ->add('title', TextType::class, [
                 'label' => 'Titre',
                 'required' => false,
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1 mb-5 mt-10'],
             ])
             ->add('startDate', DateTimeType::class, [
                 'label' => 'Date de début - champ obligatoire',
                 'required' => true,
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1 mb-5 mr-5'],
             ])
             ->add('endDate', DateTimeType::class, [
                 'label' => 'Date de fin - champ obligatoire',
                 'required' => true,
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1 mb-5'],
             ])
             ->add('module', EntityType::class, [
                 'class' => Module::class,
                 'label' => 'Module - champ obligatoire',
                 'required' => true,
                 'choice_label' => 'name',
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1 mb-5 mr-5'],
             ])
             ->add('interventionType', EntityType::class, [
                 'class' => InterventionType::class,
                 'label' => 'Type d\'intervention - champ obligatoire',
                 'required' => true,
                 'choice_label' => 'name',
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1 mb-5'],
             ])
             ->add('CourseInstructor', EntityType::class, [
                 'class' => Instructor::class,
@@ -49,6 +54,7 @@ final class CourseForm extends AbstractType
                 'multiple' => true,
                 'choice_label' => 'user.lastName',
                 'expanded' => true,
+                'attr' => ['class' => 'mb-5'],
             ])
             /*->add('coursePeriodId', EntityType::class, [
                 'class' => CoursePeriod::class,
@@ -61,6 +67,7 @@ final class CourseForm extends AbstractType
             ->add('remotely', CheckboxType::class, [
                 'label' => 'Intervention effectuée en visio',
                 'required' => false,
+                'attr' => ['class' => 'mb-10'],
             ]);
     }
 }

@@ -4,16 +4,19 @@
 {% endblock %}
 
 {% block body %}
-	<div>
+	<div class="flex items-center w-full h-full">
 		{% include "Components/sidebar.html.twig" %}
-		{% for message in app.flashes('error') %}
-			<div class="alert alert-danger">{{ message }}</div>
-		{% endfor %}
+		<div class="h-full mt-32 mx-24">
+			{% for message in app.flashes('error') %}
+				<div class="alert alert-danger">{{ message }}</div>
+			{% endfor %}
 
-		<h1>{{ interventionType.name }}</h1>
+			<h1 class="text-blue-950 text-3xl font-medium">Ajouter une intervention</h1>
 
-		{{ include('admin/form/form_intervention_type.html.twig', { 'form': form }) }}
+			{{ include('admin/form/form_intervention_type.html.twig', { 'form': form }) }}
+			<br>
 
-		<a href="{{ path('liste_types_interventions')}}" class="px-4 py-2.5 text-black bg-slate-200 font-medium text-base rounded-xl">Annuler</a>
+			<a href="{{ path('liste_types_interventions')}}" class="px-4 py-2.5 text-black bg-slate-200 font-medium text-base rounded-xl">Annuler</a>
+		</div>
 	</div>
 {% endblock %}

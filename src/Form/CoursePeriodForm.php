@@ -19,11 +19,13 @@ final class CoursePeriodForm extends AbstractType
                 'widget' => 'single_text',
                 'label' => 'Date de début - champ obligatoire',
                 'required' => true,
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
             ])
             ->add('endDate', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date de fin - champ obligatoire',
                 'required' => true,
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
             ])
             ->add('schoolYear', EntityType::class, [
                 'class' => SchoolYear::class,
@@ -32,6 +34,7 @@ final class CoursePeriodForm extends AbstractType
                 'placeholder' => 'Sélectionnez une année scolaire',
                 'required' => true,
                 'disabled' => true,
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
             ]);
     }
 

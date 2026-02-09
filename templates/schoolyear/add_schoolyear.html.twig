@@ -4,14 +4,15 @@
 {% endblock %}
 
 {% block body %}
-	<div>
+	<div class="flex items-center w-full h-full">
 		{% include "Components/sidebar.html.twig" %}
+		<div class="h-full mt-32 mx-24">
 
-		<h1>Ajouter une année scolaire</h1>
-		{{ include("admin/form/form_schoolyear.html.twig") }}
-
-		<a href="{{ path('app_schoolyears') }}" class="btn">
+			<h1 class="text-blue-950 text-3xl font-medium mb-6">Ajouter une année scolaire</h1>
+			{{ include("admin/form/form_schoolyear.html.twig") }}
+		</br>
+		<a href="{{ path('app_schoolyears') }}" class="px-4 py-2.5 text-black bg-slate-200 font-medium text-base rounded-xl">
 			Retour à la liste
 		</a>
 	</div>
-{% endblock %}
+</div>{% endblock %}

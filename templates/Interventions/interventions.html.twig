@@ -4,66 +4,69 @@
 {% endblock %}
 
 {% block body %}
-	<div>
+	<div class="flex items-center w-full h-full">
 		{% include "Components/sidebar.html.twig" %}
-		<div>
-			<h2 class="text-blue-950 text-3xl font-medium">Interventions</h2>
-			<a href="{{ path('app_add_course')}}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl">Ajouter une nouvelle intervention</a>
-		</div>
-		{{ form_start(form) }}
+		<div class="h-full mt-32 mx-24">
+			<div class="flex flex-row w-full justify-between mb-10">
+				<h2 class="text-blue-950 text-3xl font-medium mb-6">Interventions</h2>
+				<a href="{{ path('app_add_course')}}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl h-fit">Ajouter une nouvelle intervention</a>
+			</div>
+			<h2 class="text-yellow-500 text-xl">Filtres</h2>
+			{{ form_start(form) }}
 
-		{{ form_end(form) }}
+			{{ form_end(form) }}
+			<div class="bg-yellow-500 w-full h-0.5 rounded-xs my-6"></div>
+			<div class="interventions-container">
+				{% if pagination|length == 0 %}
+					<tr>
+						<td colspan="6" class="center">
+							Aucune intervention trouvée.
+						</td>
+					</tr>
+				{% else %}
+					<h2 class="text-xl font-medium mb-6">
+						{{ pagination.getTotalItemCount }}
+						intervention{{ pagination.getTotalItemCount > 1 ? 's' : '' }}
+						trouvée{{ pagination.getTotalItemCount > 1 ? 's' : '' }}
+						au total
+					</h2>
 
-		<div class="interventions-container">
-			{% if pagination|length == 0 %}
-				<tr>
-					<td colspan="6" class="center">
-						Aucune intervention trouvée.
-					</td>
-				</tr>
-			{% else %}
-				<h2>
-					{{ pagination.getTotalItemCount }}
-					intervention{{ pagination.getTotalItemCount > 1 ? 's' : '' }}
-					trouvée{{ pagination.getTotalItemCount > 1 ? 's' : '' }}
-					au total
-				</h2>
-
-				<div class="table-wrapper">
-					<table class="interventions-table">
-						<thead>
-							<tr>
-								<th>Date de l’intervention</th>
-								<th>Module & titre</th>
-								<th>Type</th>
-								<th>Intervenants</th>
-								<th>En visio</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for row in pagination %}
+					<div class="table-wrapper">
+						<table class="interventions-table">
+							<thead>
 								<tr>
-									<td>{{ row.startDate|date('d/m/Y H:i') }}</td>
-									<td>{{ row.moduleName }}</td>
-									<td>{{ row.interventionType }}</td>
-									<td>{{ row.intervenants }}</td>
-									<td class="center">
-										{% if row.remotely %}🎥
-										{% endif %}
-									</td>
-									<td>
-										<a href="{{ path('app_edit_course', {'id': row.id}) }}">👁 Accéder à la fiche</a>
-									</td>
+									<th class="border border-slate-300 px-6 py-4 bg-slate-300">Date de l’intervention</th>
+									<th class="border border-slate-300 px-6 py-4 bg-slate-300">Module & titre</th>
+									<th class="border border-slate-300 px-6 py-4 bg-slate-300">Type</th>
+									<th class="border border-slate-300 px-6 py-4 bg-slate-300">Intervenants</th>
+									<th class="border border-slate-300 px-6 py-4 bg-slate-300">En visio</th>
+									<th></th>
 								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
-			{% endif %}
-		</div>
-		<div class="pagination">
-			{{ knp_pagination_render(pagination) }}
+							</thead>
+							<tbody>
+								{% for row in pagination %}
+									<tr>
+										<td class="border border-slate-300 px-6 py-4">{{ row.startDate|date('d/m/Y H:i') }}</td>
+										<td class="border border-slate-300 px-6 py-4">{{ row.moduleName }}</td>
+										<td class="border border-slate-300 px-6 py-4">{{ row.interventionType }}</td>
+										<td class="border border-slate-300 px-6 py-4">{{ row.intervenants }}</td>
+										<td class="border border-slate-300 px-6 py-4">
+											{% if row.remotely %}🎥
+											{% endif %}
+										</td>
+										<td class="border border-slate-300 px-6 py-4">
+											<a href="{{ path('app_edit_course', {'id': row.id}) }}">👁 Accéder à la fiche</a>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				{% endif %}
+			</div>
+			<div class="pagination">
+				{{ knp_pagination_render(pagination) }}
+			</div>
 		</div>
 	</div>
 {% endblock %}

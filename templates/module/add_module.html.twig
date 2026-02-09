@@ -4,16 +4,15 @@
 {% endblock %}
 
 {% block body %}
-	<div>
+	<div class="flex items-center w-full h-full">
 		{% include "Components/sidebar.html.twig" %}
-		<button class="btn">
-			<a href="{{ path('app_modules') }}">X</a>
-		</button>
-		<h1>Ajouter un module</h1>
-		{{ include("admin/form/form_module.html.twig") }}
+		<div class="h-full mt-32 mx-24">
+			<h1 class="text-blue-950 text-3xl font-medium mb-6">Ajouter un module</h1>
+			{{ include("admin/form/form_module.html.twig") }}
+		</br>
 
 		<a href="{{ path('app_modules') }}" class="px-4 py-2.5 text-black bg-slate-200 font-medium text-base rounded-xl">
 			Annuler
 		</a>
 	</div>
-{% endblock %}
+</div>{% endblock %}

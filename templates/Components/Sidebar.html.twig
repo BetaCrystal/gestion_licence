@@ -1,5 +1,5 @@
-<div class="bg-slate-200 h-full w-fit">
-	<div class="flex items-center mt-14">
+<div class="bg-slate-200 h-full w-fit px-12 mt-0 pt-0 min-w-fit">
+	<div class="flex items-center mt-10 mb-7">
 		<img class="w-6 h-auto mr-1" src="{{ asset('img/logo.png') }}" alt="test">
 		<div>
 			<h1 class="font-bold text-blue-950 text-xs">Lycée Saint-Vincent</h1>
@@ -9,45 +9,45 @@
 
 	<nav>
 		<ul>
-			<h2 class="text-slate-700 text-xs">MENU</h2>
+			<h2 class="text-slate-700 text-xs mb-1.5">MENU</h2>
 			<ul>
 				<li>
-					<a class="text-slate-700 flex items-center" href="{{path('app_calendar_calendar')}}"><img class="w-3xs h-auto mr-2" src="{{ asset('img/calendar.png') }}">Calendrier</a>
+					<a class="text-slate-700 flex items-center" href="{{path('app_calendar_calendar')}}"><img class="w-3.5 h-auto mr-2 ml-2" src="{{ asset('img/calendar.png') }}">Calendrier</a>
 				</li>
 				<li>
-					<a class="text-slate-700 flex items-center" href="{{path('liste_interventions')}}"><img class="w-3xs h-auto mr-2" src="{{ asset('img/stats.png') }}">Interventions</a>
+					<a class="text-slate-700 flex items-center" href="{{path('liste_interventions')}}"><img class="w-3.5 h-auto mr-2 ml-2" src="{{ asset('img/stats.png') }}">Interventions</a>
 				</li>
 				<li>
-					<a class="text-slate-700 flex items-center" href="{{path('instructors')}}"><img class="w-3xs h-auto mr-2" src="{{ asset('img/instructor.png') }}">Corps enseignant</a>
+					<a class="text-slate-700 flex items-center" href="{{path('instructors')}}"><img class="w-3.5 h-auto mr-2 ml-2" src="{{ asset('img/instructor.png') }}">Corps enseignant</a>
 				</li>
 			</ul>
-			<h2 class="text-slate-700 text-xs">PARAMETRAGE</h2>
+			<h2 class="text-slate-700 text-xs mb-1.5 mt-4">PARAMETRAGE</h2>
 			<ul>
 				<li>
 					<a class="text-slate-700 flex items-center" href="{{path('app_modules')}}">
-						<img class="w-3xs h-auto mr-2" src="{{asset('img/jigsaw.png')}}">Modules</a>
+						<img class="w-3.5 h-auto mr-2 ml-2" src="{{asset('img/jigsaw.png')}}">Modules</a>
 				</li>
 			</li>
 			<li>
 				<a class="text-slate-700 flex items-center" href="{{path('teaching_block_liste')}}">
-					<img class="w-3xs h-auto mr-2" src="{{asset('img/book.png')}}">Blocs d'enseignement</a>
+					<img class="w-3.5 h-auto mr-2 ml-2" src="{{asset('img/book.png')}}">Blocs d'enseignement</a>
 			</li>
 		</li>
 		<li>
 			<a class="text-slate-700 flex items-center" href="{{path('app_schoolyears')}}">
-				<img class="w-3xs h-auto mr-2" src="{{asset('img/schedule.png')}}">Année scolaire</a>
+				<img class="w-3.5 h-auto mr-2 ml-2" src="{{asset('img/schedule.png')}}">Année scolaire</a>
 		</li>
 	</li>
 	<li>
 		<a class="text-slate-700 flex items-center" href="{{path('liste_types_interventions')}}">
-			<img class="w-3xs h-auto mr-2" src="{{asset('img/stats.png')}}">Types d'intervention</a>
+			<img class="w-3.5 h-auto mr-2 ml-2" src="{{asset('img/stats.png')}}">Types d'intervention</a>
 	</li>
 </li></ul></ul></nav></div><!--
-						{% if ('ROLE_ADMIN') %}
-							<div class="">
-								<div class="">
-									<img src="../img/photo.png"/>
-								</div>
-								<div class=""></div>
-							</div>
-						{% endif %}-->
+																						{% if ('ROLE_ADMIN') %}
+																							<div class="">
+																								<div class="">
+																									<img src="../img/photo.png"/>
+																								</div>
+																								<div class=""></div>
+																							</div>
+																						{% endif %}-->
