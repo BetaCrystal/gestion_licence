@@ -208,7 +208,7 @@ class CourseController extends AbstractController
         }
 
 
-        return $this->render('admin/courses/change_course.html.twig', [
+        return $this->render('admin/courses/view_course.html.twig', [
             'form' => $form->createView(),
             'course' => $course,
         ]);

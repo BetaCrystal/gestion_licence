@@ -3,49 +3,55 @@
 {% block title %}Interventions
 {% endblock %}
 {% block body %}
+<div>
+	{% include "Components/sidebar.html.twig" %}
+	{#{include('instructor/instructor_informations.html.twig', { form: form })}#}
+	<div class="enseignant-card">
 
-{#{include('instructor/instructor_informations.html.twig', { form: form })}#}
- <div class="enseignant-card">
+		<h2>
+			{{ results[0].prenom }}
+			{{ results[0].nom }}
+		</h2>
 
-        <h2>
-            {{ results[0].prenom }} {{ results[0].nom }}
-        </h2>
+		<h3 class="section-title">Modules enseignés</h3>
 
-        <h3 class="section-title">Modules enseignés</h3>
+		<ul class="modules-list">
+			{% for row in results %}
+				<li class="module-item">
+					<strong>{{ row.module }}</strong>
+					:
+					{{ row.nbHeures }}h
+										                    (dont
+					{{ row.nbHeuresRestantes }}
+					restantes pour cette année)
+				</li>
+			{% endfor %}
+		</ul>
 
-        <ul class="modules-list">
-            {% for row in results %}
-                <li class="module-item">
-                    <strong>{{ row.module }}</strong> :
-                    {{ row.nbHeures }}h
-                    (dont {{ row.nbHeuresRestantes }} restantes pour cette année)
-                </li>
-            {% endfor %}
-        </ul>
+		<a href="" class="btn-export">
+			Exporter le récapitulatif (fichier .xls)
+		</a>
 
-        <a href="" class="btn-export">
-            Exporter le récapitulatif (fichier .xls)
-        </a>
-
-    </div>
-<hr>
-    <div>
-        <button class="btn active" active><a href="{{ path('enseignant_infos', {id: instructor.id}) }}"  >Informations générales</a></button>
-        <button class="btn"><a href="#">Interventions</a></button>
-    </div>
-    <br>
-
-
-    {{ form_start(form) }}
-
-    {{ form_end(form) }}
-
-{% block body %}
+	</div>
+	<hr>
 	<div>
-		{% include "Components/sidebar.html.twig" %}
+		<button class="btn active" active>
+			<a href="{{ path('enseignant_infos', {id: instructor.id}) }}">Informations générales</a>
+		</button>
+		<a href="{{ path('app_add_course')}}" class="text-blue-950 text-3xl font-medium">Interventions</a>
+	</div>
+	<br>
+
+
+	{{ form_start(form) }}
+
+	{{ form_end(form) }}
+
+	{% block body %}
+
 		<div>
 			<h2>Informations générales</h2>
-			<a href="{{ path('app_add_course')}}" class="text-blue-950 text-3xl font-medium">Interventions</a>
+
 		</div>
 		{{ form_start(form) }}
 
