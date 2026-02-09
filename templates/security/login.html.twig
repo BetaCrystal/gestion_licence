@@ -1,26 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}Connexion
+{% endblock %}
 
 {% block body %}
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">Mot de passe ou email invalide</div>
-        {% endif %}
+	<div class="flex items-center w-full h-full">
+		{% include "Components/login_sidebar.html.twig" %}
+		<form method="post">
+			{% if error %}
+				<div class="alert alert-danger">Mot de passe ou email invalide</div>
+			{% endif %}
 
-        <h1>Gestion du supérieur</h1>
-        <h2>Connexion au portail</h2>
+			<h1 class="text-2xl font-bold text-blue-950">Gestion du supérieur</h1>
+			<h2 class="text-xl font-bold text-blue-900">Connexion au portail</h2>
 
-        <div class="formulaire">
-            <label class = "label">Email - champ obligatoire</label>
-            <input type="email" name="email" class="form-champ" value="{{ last_username }}" required>
+			<div class="formulaire">
+				<label>Email - champ obligatoire</label>
+				<input type="email" name="email" class="border border-slate-300 rounded-md " value="{{ last_username }}" required>
 
-            <label class = "label">Mot de passe - champ obligatoire</label>
-            <input type="password" name="password" class="form-champ" required>
+				<label>Mot de passe - champ obligatoire</label>
+				<input type="password" name="password" class="border border-slate-300 rounded-md " required>
 
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        </div>
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			</div>
 
-        <button class="bouton" type="submit">Accéder au portail</button>
-    </form>
+			<button class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl" type="submit">Accéder au portail</button>
+		</form>
+	</div>
 {% endblock %}

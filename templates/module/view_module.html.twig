@@ -4,15 +4,17 @@
 {% endblock %}
 
 {% block body %}
-	<button class="btn">
-		<a href="{{ path('app_modules') }}">X</a>
-	</button>
-	<h1>Modifier un module</h1>
-	{{ include("admin/form/form_module.html.twig") }}
+	<div>
+		{% include "Components/sidebar.html.twig" %}
+		<button class="px-4 py-2.5 text-slate-600 bg-slate-200 font-medium text-base rounded-xl">
+			<a href="{{ path('app_modules') }}">X</a>
+		</button>
+		<h1>Modifier un module</h1>
+		{{ include("admin/form/form_module.html.twig") }}
 
-	<a href="{{ path('app_modules') }}" class="btn">
-		Retour à la liste
-	</a>
-	{{  include('module/delete_module.html.twig') }}
-
+		<a href="{{ path('app_modules') }}" class="px-4 py-2.5 text-black bg-slate-200 font-medium text-base rounded-xl">
+			Annuler
+		</a>
+		{{  include('module/delete_module.html.twig') }}
+	</div>
 {% endblock %}

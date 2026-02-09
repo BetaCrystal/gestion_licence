@@ -1,4 +1,4 @@
 <form method="post" action="{{ path('app_delete_course_period', {'id': coursePeriod.id}) }}" onsubmit="return confirm('Confirmez-vous la suppression ?');">
 	<input type="hidden" name="_token" value="{{ csrf_token('delete_courseperiod' ~ coursePeriod.id) }}">
-	<button type="submit" class="btn btn-danger">Supprimer</button>
+	<button type="submit" class="px-4 py-2.5 text-white bg-red-800 font-medium text-base rounded-xl">Supprimer</button>
 </form>

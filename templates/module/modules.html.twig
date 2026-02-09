@@ -5,5 +5,8 @@
 
 
 {% block body %}
-	{% include 'module/module_block.html.twig' %}
+	<div>
+		{% include "Components/sidebar.html.twig" %}
+		{% include 'module/module_block.html.twig' %}
+	</div>
 {% endblock %}

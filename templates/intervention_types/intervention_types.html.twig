@@ -4,38 +4,44 @@
 {% endblock %}
 
 {% block body %}
-
 	<div>
-		<h2>Types d'interventions</h2>
-		<a href="{{ path('app_add_intervention_type') }}">Ajouter</a>
-	</div>
+		{% include "Components/sidebar.html.twig" %}
+
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-danger">{{ message }}</div>
+		{% endfor %}
+
+		<div>
+			<h2 class="text-blue-950 text-3xl font-medium">Types d'interventions</h2>
+			<a href="{{ path('app_add_intervention_type') }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl">Ajouter</a>
+		</div>
 
 
-	<h2>Filtres</h2>
+		<h2>Filtres</h2>
 
 
-	<div class="table-wrapper">
-		<table class="interventions-table">
-			<thead>
-				<tr>
-					<th>Nom</th>
-					<th>Description</th>
-					<th>Couleur</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for interventionType in interventionTypes %}
+		<div class="table-wrapper">
+			<table class="interventions-table">
+				<thead>
 					<tr>
-						<td>{{ interventionType.name }}</td>
-						<td>{{ interventionType.description }}</td>
-						<td style="background-color: {{ interventionType.color }};">{{ interventionType.color }}</td>
-						<td>
-							<a href="{{ path('app_view_intervention_type', {'id': interventionType.id}) }}">Voir la fiche</a>
-						</td>
+						<th>Nom</th>
+						<th>Description</th>
+						<th>Couleur</th>
 					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					{% for interventionType in interventionTypes %}
+						<tr>
+							<td>{{ interventionType.name }}</td>
+							<td>{{ interventionType.description }}</td>
+							<td style="background-color: {{ interventionType.color }};">{{ interventionType.color }}</td>
+							<td>
+								<a href="{{ path('app_view_intervention_type', {'id': interventionType.id}) }}">Voir la fiche</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
 	</div>
-
 {% endblock %}

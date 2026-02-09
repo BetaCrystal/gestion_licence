@@ -162,7 +162,7 @@ final class ModuleController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete_module'.$module->getId(), $request->request->get('_token'))) {
             // Check for dependencies
-            if (!$module->getModuleInstructors()->isEmpty()) {
+            if (!$module->getInstructors()->isEmpty()) {
                 $this->addFlash('error', 'Impossible de supprimer le module car il est associé à des instructeurs.');
                 return $this->redirectToRoute('app_view_module', ['id' => $module->getId()]);
             }

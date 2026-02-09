@@ -1,12 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajout Interventions{% endblock %}
+{% block title %}Ajout Interventions
+{% endblock %}
 
 {% block body %}
-    <button class="btn"><a href="{{ path('app_calendar_calendar') }}">X</a></button>
-    <h1>Ajouter une intervention</h1>
-    {{ include("admin/form/form_course.html.twig") }}
+	<div class="flex items-center w-full h-full">
+		{% include "Components/sidebar.html.twig" %}
+		<div>
+			<button class="btn">
+				<a href="{{ path('app_calendar_calendar') }}" class="px-2.5 py-1 text-slate-600 bg-slate-200 font-medium text-base rounded-2xl">X</a>
+			</button>
+			<h1>Ajouter une intervention</h1>
+			{{ include("admin/form/form_course.html.twig") }}
 
-    <a href="{{ path('app_calendar_calendar') }}" class="btn"> Annuler </a>
-
+			<a href="{{ path('app_calendar_calendar') }}" class="px-4 py-2.5 text-black bg-slate-200 font-medium text-base rounded-xl">
+				Annuler
+			</a>
+		</div>
+	</div>
 {% endblock %}

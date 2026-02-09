@@ -47,7 +47,7 @@ final class CourseForm extends AbstractType
                 'label' => 'Intervenants - champ obligatoire',
                 'required' => true,
                 'multiple' => true,
-                'choice_label' => 'user_id.lastName',
+                'choice_label' => 'user.lastName',
                 'expanded' => true,
             ])
             /*->add('coursePeriodId', EntityType::class, [

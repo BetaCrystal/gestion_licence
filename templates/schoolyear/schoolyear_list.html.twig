@@ -5,34 +5,37 @@
 
 {% block body %}
 	<div>
-		<h2>Années scolaires</h2>
-		<a href="{{ path('app_add_schoolyear') }}">Ajouter une année</a>
-	</div>
+		{% include "Components/sidebar.html.twig" %}
+		<div>
+			<h2>Années scolaires</h2>
+			<a href="{{ path('app_add_schoolyear') }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl">Ajouter une année</a>
+		</div>
 
 
-	<h2>Filtres</h2>
+		<h2>Filtres</h2>
 
 
-	<div class="table-wrapper">
-		<table class="interventions-table">
-			<thead>
-				<tr>
-					<th>Année promotion</th>
-					<th>Saison</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for schoolYear in pagination %}
+		<div class="table-wrapper">
+			<table class="interventions-table">
+				<thead>
 					<tr>
-						<td>{{ schoolYear.name }}</td>
-						<td>{{ schoolYear.startDate|date('Y') }}/{{ schoolYear.endDate|date('Y') }}</td>
-						<td>
-							<a href="{{ path('app_view_schoolyear', {'id': schoolYear.id}) }}">Voir la fiche</a>
-						</td>
+						<th>Année promotion</th>
+						<th>Saison</th>
 					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					{% for schoolYear in schoolYears %}
+						<tr>
+							<td>{{ schoolYear.name }}</td>
+							<td>{{ schoolYear.startDate|date('Y') }}/{{ schoolYear.endDate|date('Y') }}</td>
+							<td>
+								<a href="{{ path('app_view_schoolyear', {'id': schoolYear.id}) }}">Voir la fiche</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
 	</div>
     <div class="pagination">
             {{ knp_pagination_render(pagination) }}

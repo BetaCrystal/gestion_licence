@@ -1,24 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Form Instructor Filter{% endblock %}
+{% block title %}Form Instructor Filter
+{% endblock %}
 
 {% block body %}
 
-    {% for message in app.flashes('error') %}
-        <div class="alert alert-danger">{{ message }}</div>
-    {% endfor %}
-    {% for message in app.flashes('info') %}
-        <div class="alert alert-info">{{ message }}</div>
-    {% endfor %}
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-danger">{{ message }}</div>
+	{% endfor %}
+	{% for message in app.flashes('info') %}
+		<div class="alert alert-info">{{ message }}</div>
+	{% endfor %}
 
-        {{ form_start(form, { method: 'GET' }) }}
+	{{ form_start(form, { method: 'GET' }) }}
 
-        {{ form_row(form.last_name) }}
-        {{ form_row(form.first_name) }}
-        {{ form_row(form.email) }}
-        <button type="submit" class="btn">Filtrer</button>
-        {{ form_end(form) }}
-
+	{{ form_row(form.last_name) }}
+	{{ form_row(form.first_name) }}
+	{{ form_row(form.email) }}
+	<button class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl" type="submit" class="btn">Filtrer</button>
+	{{ form_end(form) }}
 
 
 {% endblock %}
