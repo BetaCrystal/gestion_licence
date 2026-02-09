@@ -32,6 +32,7 @@ class TeachingBlockFilterForm extends AbstractType
             ])
         ->add('submit', SubmitType::class, [
             'label' => 'Filtrer',
+            'attr' => ['class' => 'px-4 py-2.5 text-blue-950 bg-yellow-500 font-medium text-base rounded-xl'],
         ]);
     }
 

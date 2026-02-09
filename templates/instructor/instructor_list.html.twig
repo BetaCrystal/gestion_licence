@@ -31,12 +31,12 @@
 					<tbody>
 						{% for i in instructor %}
 							<tr>
-								<td class="border border-slate-300 px-6 py-4 bg-slate-300">{{ i.lastName }}</td>
-								<td class="border border-slate-300 px-6 py-4 bg-slate-300">{{ i.firstName }}</td>
-								<td class="border border-slate-300 px-6 py-4 bg-slate-300">{{ i.modules }}</td>
-								<td class="border border-slate-300 px-6 py-4 bg-slate-300">
+								<td class="border border-slate-300 px-6 py-4 ">{{ i.lastName }}</td>
+								<td class="border border-slate-300 px-6 py-4 ">{{ i.firstName }}</td>
+								<td class="border border-slate-300 px-6 py-4 ">{{ i.modules }}</td>
+								<td class="border border-slate-300 px-6 py-4 ">
 									{{ i.totalHours }}h</td>
-								<td class="border border-slate-300 px-6 py-4 bg-slate-300">
+								<td class="border border-slate-300 px-6 py-4 ">
 									<a href="{{ path('enseignant_infos', { id: i.id }) }}">Accéder à la fiche</a>
 								</td>
 							</tr>

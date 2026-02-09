@@ -4,40 +4,46 @@
 {% endblock %}
 
 {% block body %}
-	<div>
+	<div class="flex items-center w-full h-full">
 		{% include "Components/sidebar.html.twig" %}
-		<div>
-			<h2>Années scolaires</h2>
-			<a href="{{ path('app_add_schoolyear') }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl">Ajouter une année</a>
-		</div>
+		<div class="h-full mt-32 mx-24">
+			<div class="flex flex-row w-full justify-between mb-2">
+				<h2 class="text-blue-950 text-3xl font-medium mb-6">Années scolaires</h2>
+				<a href="{{ path('app_add_schoolyear') }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl h-fit">Ajouter une année</a>
+			</div>
+			<p class="mb-6">Les années scolaires permettent de garder en mémoire les interventions réalisées sur les années antérieures.
+												La dernière période de cours sur l’année permet de déterminer la fin de l’année. Lorsque cette dernière période de cours est passée, le programme passe automatiquement à l’année suivante (prochaine saison).</p>
 
 
-		<h2>Filtres</h2>
+			<h2 class="text-yellow-500 text-xl">Filtres</h2>
+			<div class="bg-yellow-500 w-full h-0.5 rounded-xs my-6"></div>
 
-
-		<div class="table-wrapper">
-			<table class="interventions-table">
-				<thead>
-					<tr>
-						<th>Année promotion</th>
-						<th>Saison</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for schoolYear in schoolYears %}
+			<div class="table-wrapper">
+				<table class="interventions-table">
+					<thead>
 						<tr>
-							<td>{{ schoolYear.name }}</td>
-							<td>{{ schoolYear.startDate|date('Y') }}/{{ schoolYear.endDate|date('Y') }}</td>
-							<td>
-								<a href="{{ path('app_view_schoolyear', {'id': schoolYear.id}) }}">Voir la fiche</a>
-							</td>
+							<th class="border border-slate-300 px-6 py-4 bg-slate-300">Année promotion</th>
+							<th class="border border-slate-300 px-6 py-4 bg-slate-300">Saison</th>
 						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{% for schoolYear in pagination %}
+							<tr>
+								<td class="border border-slate-300 px-6 py-4 ">{{ schoolYear.name }}</td>
+								<td class="border border-slate-300 px-6 py-4 ">{{ schoolYear.startDate|date('Y') }}/{{ schoolYear.endDate|date('Y') }}</td>
+								<td class="border border-slate-300 px-6 py-4 ">
+									<a href="{{ path('app_view_schoolyear', {'id': schoolYear.id}) }}">Voir la fiche</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<div class="pagination">
+				{{ knp_pagination_render(pagination) }}
+			</div>
 		</div>
+
 	</div>
-    <div class="pagination">
-            {{ knp_pagination_render(pagination) }}
-        </div>
+
 {% endblock %}
