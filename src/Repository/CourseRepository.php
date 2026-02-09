@@ -39,6 +39,32 @@ class CourseRepository extends ServiceEntityRepository
             return $qb;
     }
 
+    public function queryForList1(int $instructorId)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb
+            ->select(
+                'c.id',
+                'c.startDate',
+                'c.endDate',
+                'c.remotely',
+                'it.name AS interventionType',
+                'm.name AS moduleName',
+                "GROUP_CONCAT(CONCAT(SUBSTRING(u.firstName,1,1), '. ', u.lastName) SEPARATOR ', ') AS intervenants"
+            )
+            ->innerJoin('c.interventionType', 'it', 'c.intervention_type_id = it.id')
+            ->innerJoin('c.module', 'm', 'c.module_id = m.id')
+            ->innerJoin('c.CourseInstructor', 'ci', 'ci.course_id = c.id')
+            ->innerJoin('ci.user', 'u', 'ci.user = u.id')
+             ->where('ci.user = :id')
+            ->setParameter('id', $instructorId)
+            ->groupBy('c.id,c.startDate,c.endDate,c.remotely,it.name,m.name');
+
+            return $qb;
+    }
+
+
+
     //    /**
     //     * @return Course[] Returns an array of Course objects
     //     */
