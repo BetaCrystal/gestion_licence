@@ -3,7 +3,15 @@
 {% block title %}Modification Interventions
 {% endblock %}
 
+
 {% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+     {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+
 	<div>
 		{% include "Components/sidebar.html.twig" %}
 		<h1>Modififier une intervention</h1>
