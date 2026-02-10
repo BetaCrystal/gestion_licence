@@ -211,5 +211,3 @@ final class InstructorController extends AbstractController
         ]);
     }
 }
-
-

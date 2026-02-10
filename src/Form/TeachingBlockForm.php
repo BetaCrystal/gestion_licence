@@ -27,12 +27,18 @@ class TeachingBlockForm extends AbstractType
                 'required' => false,
                 'disabled' => true,
                 'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
+                'constraints' => [
+                    new NotBlank(message: 'Le code est obligatoire.'),
+                ]
             ])
         ->add('name', TextType::class, [
                 'label' => 'Nom du bloc - champ obligatoire',
                 'required' => false,
                 'disabled' => true,
                 'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
+                'constraints' => [
+                    new NotBlank(message: 'Le bloc est obligatoire.'),
+                ]
             ])
         ->add('hoursCount', NumberType::class, [
                 'label' => 'Nombre d\'heures - champ obligatoire',

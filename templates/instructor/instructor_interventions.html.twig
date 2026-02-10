@@ -4,21 +4,29 @@
 {% endblock %}
 
 {% block body %}
-	<div>
+	<div class="flex items-center w-full h-full">
 		{% include "Components/sidebar.html.twig" %}
-		<h2></h2>
-		<p>Modules enseignés</p>
+		<div class="h-full mt-32 mx-24">
+			{% include "instructor/instructor_sheet.html.twig" %}
+			<button class="btn active" active>
+				<a href="{{ path('enseignant_infos', {id: instructor.id}) }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl">Informations générales</a>
+			</button>
+			<button class="btn">
+				<a href="{{ path('liste_interventions_enseignant', {id: instructor.id}) }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl">Interventions</a>
+			</button>
+			<h3 class="text-blue-950 text-3xl font-medium mt-4">Modules enseignés</h3>
 
-		{% for row in Module %}
-			<p>
-				Module.nom
-			</p>
-			<p>
-				Module.temps
-			</p>
-			<p>
-				Module.nbRestants
-			</p>
-		{% endfor %}
+			{% for row in Module %}
+				<p>
+					Module.nom
+				</p>
+				<p>
+					Module.temps
+				</p>
+				<p>
+					Module.nbRestants
+				</p>
+			{% endfor %}
+		</div>
 	</div>
-{% endblock body %}
+{% endblock %}
