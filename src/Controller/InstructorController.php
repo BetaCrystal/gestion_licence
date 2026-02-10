@@ -102,7 +102,7 @@ final class InstructorController extends AbstractController
         ]);
     }
       #[Route('/list_instructor', name: 'instructors', methods: ['GET','POST'])] // Route de méthode
-      public function list(Request $request, InstructorRepository $repo): Response
+      public function list(Request $request, InstructorRepository $repo, PaginatorInterface $paginator): Response
       {
         $form = $this->createForm(InstructorFilterForm::class, null, [
             'method' => 'GET',
@@ -118,9 +118,19 @@ final class InstructorController extends AbstractController
         } else {
             $instructors = $repo->findByLastName($lastName);
         }
+
+        $page = $request->query->getInt('page', 1);
+        $limit = 10;
+
+        $pagination = $paginator->paginate(
+            $instructors,
+            $page,
+            $limit
+        );
         return $this->render('instructor/instructor_list.html.twig', [
             'instructor' => $instructors,
             'form' => $form->createView(),
+            'pagination' => $pagination,
         ]);
 }
 
