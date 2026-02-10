@@ -57,7 +57,7 @@ class CourseController extends AbstractController
         $submitted = $form->isSubmitted();
         //erreurs de champs vides
         if ($submitted && !$form->isValid()) {
-            if (!$form->get('startDate')->getData()) {
+            /*if (!$form->get('startDate')->getData()) {
                 $this->addFlash('error', 'La date de début est obligatoire.');
             }
             if (!$form->get('endDate')->getData()) {
@@ -74,7 +74,7 @@ class CourseController extends AbstractController
             }
             if ($form->get('remotely')->getData() === null) {
                 $this->addFlash('error', 'Le mode (présentiel/à distance) est obligatoire.');
-            }
+            }*/
             if ($form->get('startDate')->getData() && $form->get('endDate')->getData()) {
                 $startDate = $form->get('startDate')->getData();
                 $endDate = $form->get('endDate')->getData();
@@ -161,6 +161,19 @@ class CourseController extends AbstractController
             if ($startDate > $endDate) {
                 $this->addFlash('error', 'La date de début doit être antérieure à la date de fin.');
                 $hasErrors = true;
+        $submitted = $form->isSubmitted();
+        if ($submitted && !$form->isValid()) {
+            /*if (!$form->get('startDate')->getData()) {
+                $this->addFlash('error', 'La date de début est obligatoire.');
+            }
+            if (!$form->get('endDate')->getData()) {
+                $this->addFlash('error', 'La date de fin est obligatoire.');
+            }
+            if (!$form->get('module')->getData()) {
+                $this->addFlash('error', 'Le module est obligatoire.');
+            }
+            if (!$form->get('interventionType')->getData()) {
+                $this->addFlash('error', 'Le type d\'intervention est obligatoire.');
             }
             $interval = $startDate->diff($endDate);
             if ($interval->h > 4) {
@@ -176,6 +189,15 @@ class CourseController extends AbstractController
             if (!$instructor->getModule()->contains($module)) {
                 $this->addFlash('error', 'L\'intervenant ' . $instructor->getUser()->getLastName() . ' n\'intervient pas sur le module ' . $module->getName() . '. Veuillez choisir un intervenant qui intervient sur ce module.');
                 $hasErrors = true;
+            if ($form->get('remotely')->getData() === null) {
+                $this->addFlash('error', 'Le mode (présentiel/à distance) est obligatoire.');
+            }*/
+            if ($form->get('startDate')->getData() && $form->get('endDate')->getData()) {
+                $startDate = $form->get('startDate')->getData();
+                $endDate = $form->get('endDate')->getData();
+                if ($startDate > $endDate) {
+                    $this->addFlash('error', 'La date de début doit être antérieure à la date de fin.');
+                }
             }
         }
 

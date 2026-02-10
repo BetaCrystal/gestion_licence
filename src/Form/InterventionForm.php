@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Module;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class InterventionForm extends AbstractType
 {

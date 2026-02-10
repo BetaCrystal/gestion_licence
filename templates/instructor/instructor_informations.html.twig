@@ -4,90 +4,34 @@
 {% endblock %}
 
 {% block body %}
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-danger">{{ message }}</div>
-    {% endfor %}
-    <div class="enseignant-card">
+	<div class="flex items-center w-full h-full">
 
-        <h2>
-            {{ results[0].prenom }} {{ results[0].nom }}
-        </h2>
-
-        <h3 class="section-title">Modules enseignés</h3>
-
-        <ul class="modules-list">
-            {% for row in results %}
-                <li class="module-item">
-                    <strong>{{ row.module }}</strong> :
-                    {{ row.nbHeures }}h
-                    (dont {{ row.nbHeuresRestantes }} restantes pour cette année)
-                </li>
-            {% endfor %}
-        </ul>
-
-        <a href="" class="btn-export">
-            Exporter le récapitulatif (fichier .xls)
-        </a>
-
-    </div>
-
-    {% for message in app.flashes('error') %}
-        <div class="alert alert-danger">{{ message }}</div>
-    {% endfor %}
-    {% for message in app.flashes('info') %}
-        <div class="alert alert-info">{{ message }}</div>
-    {% endfor %}
-
-    <hr>
-    <button class="btn active" active><a href="{{ path('enseignant_infos', {id: instructor.id}) }}"  >Informations générales</a></button>
-     <button class="btn"><a href="{{ path('liste_interventions_enseignant', {id: instructor.id}) }}">Interventions</a></button>
-    <h3 class="section-title">Informations générales</h3>
-
-        {{ form_start(form) }}
-            {{ form_widget(form) }}
-        {{ form_end(form) }}
-	<div>
 		{% include "Components/sidebar.html.twig" %}
-		{% for message in app.flashes('success') %}
-			<div class="alert alert-danger">{{ message }}</div>
-		{% endfor %}
-		<div class="enseignant-card">
+		<div class="h-full mt-32 mx-24">
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-danger">{{ message }}</div>
+			{% endfor %}
 
-			<h2>
-				{{ results[0].prenom }}
-				{{ results[0].nom }}
-			</h2>
+			{% include "instructor/instructor_sheet.html.twig" %}
 
-			<h3 class="section-title">Modules enseignés</h3>
+			{% for message in app.flashes('error') %}
+				<div class="alert alert-danger">{{ message }}</div>
+			{% endfor %}
+			{% for message in app.flashes('info') %}
+				<div class="alert alert-info">{{ message }}</div>
+			{% endfor %}
 
-			<ul class="modules-list">
-				{% for row in results %}
-					<li class="module-item">
-						<strong>{{ row.module }}</strong>
-						:
-						{{ row.nbHeures }}h
-											                    (dont
-						{{ row.nbHeuresRestantes }}
-						restantes pour cette année)
-					</li>
-				{% endfor %}
-			</ul>
+			<button class="btn active" active>
+				<a href="{{ path('enseignant_infos', {id: instructor.id}) }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl">Informations générales</a>
+			</button>
+			<button class="btn">
+				<a href="{{ path('liste_interventions_enseignant', {id: instructor.id}) }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl">Interventions</a>
+			</button>
+			<h3 class="text-yellow-500 text-xl">Informations générales</h3>
 
-			<a href="" class="btn-export">
-				Exporter le récapitulatif (fichier .xls)
-			</a>
-
+			{{ form_start(form) }}
+			{{ form_widget(form) }}
+			{{ form_end(form) }}
 		</div>
-
-		{% for message in app.flashes('error') %}
-			<div class="alert alert-danger">{{ message }}</div>
-		{% endfor %}
-		{% for message in app.flashes('info') %}
-			<div class="alert alert-info">{{ message }}</div>
-		{% endfor %}
-
-		{{ form_start(form) }}
-		{#{ form_widget(form) }#}
-		{{ form_end(form) }}
 	</div>
 {% endblock %}

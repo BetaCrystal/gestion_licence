@@ -14,6 +14,9 @@ use App\Entity\Instructor;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CourseRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Shuchkin\SimpleXLSXGen;
+use App\Form\InterventionForm;
 
 #[Route('/twig/instructor')] // Route de classe (préfixe commun)
 final class InstructorController extends AbstractController
@@ -138,6 +141,44 @@ public function list(Request $request, InstructorRepository $repo, PaginatorInte
         'pagination' => $pagination,
     ]);
 }
+    #[Route('/{id}', name: 'instructor_excel_export', methods: ['GET','POST'])] // Route de méthode
+    public function excelExport(InstructorRepository $repository, Instructor $instructor)
+    {
+        $qb = $repository->queryForInfoExcel($instructor->getId());
+        $results = $qb;
+
+        $prenom = $results[0]['prenom'] ?? '';
+        $nom = $results[0]['nom'] ?? '';
+        $sheet = [];
+
+        // Ligne 1 : nom de l'instructeur
+        $sheet[] = ["Instructeur :", "$prenom $nom"];
+
+        // Ligne 2 : ligne vide (aération)
+        $sheet[] = [];
+
+        // Ligne 3 : en-têtes du tableau
+        $sheet[] = ['Module', 'Heure de début', 'Heure de fin'];
+
+        // Lignes suivantes : données
+        foreach ($results as $row) {
+            $sheet[] = [
+                $row['module'],
+                $row['startDate'],
+                $row['endDate'],
+            ];
+        }
+        $xlsx = SimpleXLSXGen::fromArray($sheet)->__toString();
+
+        return new Response(
+            $xlsx,
+            200,
+            [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'Content-Disposition' => 'attachment; filename="fiche_instructeur.xlsx"',
+            ]
+        );
+    }
 
     #[Route(path: '/listeInterventions/enseignant/{id}', name: 'liste_interventions_enseignant', methods: ['GET','POST'])]
     public function listeInterventionsEnseignant(Request $request, InstructorRepository $repository, PaginatorInterface $paginator, int $id): Response
@@ -186,5 +227,3 @@ public function list(Request $request, InstructorRepository $repo, PaginatorInte
         ]);
     }
 }
-
-

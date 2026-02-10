@@ -52,6 +52,28 @@ class InstructorRepository extends ServiceEntityRepository
 
 
     }
+
+    public function queryForInfoExcel(int $id)
+    {
+        $qb = $this->createQueryBuilder('i');
+
+        $qb
+            ->select('u.firstName AS prenom')
+            ->addSelect('u.lastName AS nom')
+            ->addSelect('m.name AS module')
+            ->addSelect('m.hoursCount AS nbHeures')
+            ->addSelect('c.startDate AS startDate')
+            ->addSelect('c.endDate AS endDate')
+            ->join('i.user', 'u')
+            ->join('i.Module', 'm')
+            ->join('m.courses', 'c')
+            ->where('i.id = :id')
+            ->setParameter('id', $id);
+
+        return $qb->getQuery()->getArrayResult();
+
+
+    }
     public function queryForUserInstructor(int $id)
     {
        /* $qb = $this->createQueryBuilder('i');

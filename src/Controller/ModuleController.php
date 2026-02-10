@@ -35,7 +35,7 @@ final class ModuleController extends AbstractController
 
         if ($form->isSubmitted() && !$form->isValid()) {
             //Erreurs champs vides
-            if (!$form->get('name')->getData()) {
+            /*if (!$form->get('name')->getData()) {
                 $this->addFlash('error', 'Le nom du module est obligatoire.');
             }
             if (!$form->get('code')->getData()) {
@@ -46,7 +46,7 @@ final class ModuleController extends AbstractController
             }
             if (!$form->get('description')->getData()) {
                 $this->addFlash('error', 'La description du module est obligatoire.');
-            }
+            }*/
             //Erreurs de prérequis
             /*if ($form->get('teachingBlock')->getData() && $block_id) {
                 $selectedBlock = $form->get('teachingBlock')->getData();
@@ -103,7 +103,7 @@ final class ModuleController extends AbstractController
 
         if ($form->isSubmitted() && !$form->isValid()) {
             //Erreurs champs vides
-            if (!$form->get('name')->getData()) {
+            /*if (!$form->get('name')->getData()) {
                 $this->addFlash('error', 'Le nom du module est obligatoire.');
             }
             if (!$form->get('code')->getData()) {
@@ -114,7 +114,7 @@ final class ModuleController extends AbstractController
             }
             if (!$form->get('description')->getData()) {
                 $this->addFlash('error', 'La description du module est obligatoire.');
-            }
+            }*/
             //Erreurs de prérequis
             if ($form->get('teachingBlock')->getData() && $block_id) {
                 $selectedBlock = $form->get('teachingBlock')->getData();

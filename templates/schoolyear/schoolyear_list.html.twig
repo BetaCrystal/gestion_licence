@@ -12,34 +12,33 @@
 				<a href="{{ path('app_add_schoolyear') }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl h-fit">Ajouter une année</a>
 			</div>
 			<p class="mb-6">Les années scolaires permettent de garder en mémoire les interventions réalisées sur les années antérieures.
-																La dernière période de cours sur l’année permet de déterminer la fin de l’année. Lorsque cette dernière période de cours est passée, le programme passe automatiquement à l’année suivante (prochaine saison).</p>
+																												La dernière période de cours sur l’année permet de déterminer la fin de l’année. Lorsque cette dernière période de cours est passée, le programme passe automatiquement à l’année suivante (prochaine saison).</p>
+
 
 			<div class="table-wrapper">
 				<table class="interventions-table">
-					<thead>
+					<tbody>
 						<tr>
 							<th class="border border-slate-300 px-6 py-4 bg-slate-300">Année promotion</th>
 							<th class="border border-slate-300 px-6 py-4 bg-slate-300">Saison</th>
 						</tr>
-					</thead>
-					<tbody>
-						{% for schoolYear in pagination %}
-							<tr>
-								<td class="border border-slate-300 px-6 py-4 ">{{ schoolYear.name }}</td>
-								<td class="border border-slate-300 px-6 py-4 ">{{ schoolYear.startDate|date('Y') }}/{{ schoolYear.endDate|date('Y') }}</td>
-								<td class="border border-slate-300 px-6 py-4 ">
-									<a href="{{ path('app_view_schoolyear', {'id': schoolYear.id}) }}">Voir la fiche</a>
-								</td>
-							</tr>
-						{% endfor %}
 					</tbody>
-				</table>
-			</div>
-			<div class="pagination">
-				{{ knp_pagination_render(pagination) }}
-			</div>
-		</div>
-
+				</thead>
+			</tbody>
+			<tbody>
+				{% for schoolYear in pagination %}
+					<tr>
+						<td class="border border-slate-300 px-6 py-4 ">{{ schoolYear.name }}</td>
+						<td class="border border-slate-300 px-6 py-4 ">{{ schoolYear.startDate|date('Y') }}/{{ schoolYear.endDate|date('Y') }}</td>
+						<td class="border border-slate-300 px-6 py-4 ">
+							<a href="{{ path('app_view_schoolyear', {'id': schoolYear.id}) }}">Voir la fiche</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 	</div>
-
-{% endblock %}
+	<div class="pagination">
+		{{ knp_pagination_render(pagination) }}
+	</div>
+</div></div>{% endblock %}

@@ -9,6 +9,7 @@ use App\Entity\CoursePeriod;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\SchoolYear;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class CoursePeriodForm extends AbstractType
 {
@@ -20,12 +21,18 @@ final class CoursePeriodForm extends AbstractType
                 'label' => 'Date de début - champ obligatoire',
                 'required' => true,
                 'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
+                'constraints' => [
+                    new NotBlank(message: 'La date de début est obligatoire.'),
+                ]
             ])
             ->add('endDate', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date de fin - champ obligatoire',
                 'required' => true,
                 'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
+                'constraints' => [
+                    new NotBlank(message: 'La date de fin est obligatoire.'),
+                ]
             ])
             ->add('schoolYear', EntityType::class, [
                 'class' => SchoolYear::class,
@@ -35,6 +42,9 @@ final class CoursePeriodForm extends AbstractType
                 'required' => true,
                 'disabled' => true,
                 'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
+                'constraints' => [
+                    new NotBlank(message: 'L\'année scolaire est obligatoire.'),
+                ]
             ]);
     }
 
