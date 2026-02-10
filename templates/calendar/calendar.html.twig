@@ -70,16 +70,15 @@ calendar.render();
 {% block body %}
 	<div class="flex items-center w-full h-full">
 		{% include "Components/sidebar.html.twig" %}
-		<div>
+		<div class="h-full mt-32 mx-24">
 			{% for message in app.flashes('error') %}
 				<div class="alert alert-danger">{{ message }}</div>
 			{% endfor %}
-			<h1 class="text-blue-950 text-3xl font-medium">Calendrier</h1>
-			<a href="{{ path('app_add_course') }}" class="px-4 py-2.5 text-black bg-slate-200 font-medium text-base rounded-xl">Ajouter une intervention</a>
+			<h1 class="text-blue-950 text-3xl font-medium mb-6">Calendrier</h1>
 
-			<div id="calendar"></div>
+			<div id="calendar" class="mb-6"></div>
 			<a class="px-4 py-2.5 text-blue-950 bg-yellow-500 font-medium text-base rounded-xl">Exporter le calendrier de l'année (.xls)</a>
-			<a class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl" href="{{ path('app_calendar_week_convert', {'weekid': 1}) }}">Exporter le planning de la semaine (fichier .xls)</a>
+			<a class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl ml-3" href="{{ path('app_calendar_week_convert', {'weekid': 1}) }}">Exporter le planning de la semaine (fichier .xls)</a>
 		</div>
 	</div>
 {% endblock %}

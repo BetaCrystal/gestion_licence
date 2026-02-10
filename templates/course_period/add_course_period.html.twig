@@ -5,14 +5,17 @@
 
 
 {% block body %}
-	<div>
+	<div class="flex items-center w-full h-full">
 		{% include "Components/sidebar.html.twig" %}
-		{% for message in app.flashes('error') %}
-			<div class="text-red-800">{{ message }}</div>
-		{% endfor %}
+		<div class="h-full mt-32 mx-24">
+			{% for message in app.flashes('error') %}
+				<div class="text-red-800">{{ message }}</div>
+			{% endfor %}
+			<h1 class="text-blue-950 text-3xl font-medium mb-6">Ajouter une semaine de cours</h1>
 
-		{{ include('admin/form/form_course_period.html.twig', {'form': form}) }}
+			{{ include('admin/form/form_course_period.html.twig', {'form': form}) }}
+		</br>
 
-		<a href="{{ path('app_view_schoolyear', {'id': schoolYear.id}) }}" class="btn btn-secondary">Annuler</a>
+		<a href="{{ path('app_view_schoolyear', {'id': schoolYear.id}) }}" class="px-4 py-2.5 text-black bg-slate-200 font-medium text-base rounded-xl mr-3">Annuler</a>
 	</div>
-{% endblock %}
+</div>{% endblock %}

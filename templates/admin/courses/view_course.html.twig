@@ -14,12 +14,12 @@
 
 	<div>
 		{% include "Components/sidebar.html.twig" %}
-		<h1>Modififier une intervention</h1>
-		<h2>Remplissez les informations ci-dessous.</h2>
+		<div class="h-full mt-32 mx-24">
+			<h1 class="text-blue-950 text-3xl font-medium mb-6">Modifier une intervention</h1>
+			<h2 class="text-sm text-slate-300">Remplissez les informations ci-dessous.</h2>
 
-		{{ include("admin/form/form_course.html.twig") }}
-		<a href="{{ path('app_calendar_calendar') }}" class="btn">
-			Annuler
-		</a>
+			{{ include("admin/form/form_course.html.twig") }}
+
+		</div>
 	</div>
 {% endblock %}

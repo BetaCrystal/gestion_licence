@@ -4,18 +4,21 @@
 {% endblock %}
 
 {% block body %}
-	<div>
+	<div class="flex items-center w-full h-full">
 		{% include "Components/sidebar.html.twig" %}
+		<div class="h-full mt-32 mx-24">
 
-		<h1>Promotion
-			{{ schoolYear.name}}</h1>
-		{{ include("admin/form/form_schoolyear.html.twig") }}
-		<a href="{{ path('app_schoolyears') }}" class="btn">
-			Retour à la liste
-		</a>
-		{{  include('schoolyear/delete_schoolyear.html.twig') }}
+			<h1 class="text-blue-950 text-3xl font-medium">Promotion
+				{{ schoolYear.name}}</h1>
+			{{ include("admin/form/form_schoolyear.html.twig") }}
+		</br>
+		<div class="flex flex-row mr-3">
+			<a href="{{ path('app_schoolyears') }}" class="px-4 py-2.5 text-black bg-slate-200 font-medium text-base rounded-xl mr-3">
+				Retour à la liste
+			</a>
+			{{  include('schoolyear/delete_schoolyear.html.twig') }}
+		</div>
 
 		{{ include('course_period/course_period_list.html.twig', {'schoolYear':schoolYear}, {'coursePeriods': coursePeriods} ) }}
-
 	</div>
-{% endblock %}
+</div>{% endblock %}

@@ -6,16 +6,11 @@
 {% block body %}
 	<div class="flex items-center w-full h-full">
 		{% include "Components/sidebar.html.twig" %}
-		<div>
-			<button class="btn">
-				<a href="{{ path('app_calendar_calendar') }}" class="px-2.5 py-1 text-slate-600 bg-slate-200 font-medium text-base rounded-2xl">X</a>
-			</button>
-			<h1>Ajouter une intervention</h1>
+		<div class="h-full mt-32 mx-24">
+			<h1 class="text-blue-950 text-3xl font-medium mb-6">Ajouter une intervention</h1>
+			<h2 class="text-sm text-slate-300">Remplissez les informations ci-dessous.</h2>
 			{{ include("admin/form/form_course.html.twig") }}
 
-			<a href="{{ path('app_calendar_calendar') }}" class="px-4 py-2.5 text-black bg-slate-200 font-medium text-base rounded-xl">
-				Annuler
-			</a>
 		</div>
 	</div>
 {% endblock %}

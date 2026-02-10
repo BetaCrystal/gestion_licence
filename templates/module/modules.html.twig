@@ -5,8 +5,11 @@
 
 
 {% block body %}
-	<div>
+	<div class="flex items-center w-full h-full">
 		{% include "Components/sidebar.html.twig" %}
-		{% include 'module/module_block.html.twig' %}
+		<div class="h-full mt-32 mx-24">
+			<h1 class="text-blue-950 text-3xl font-medium">Modules</h1>
+			{% include 'module/module_block.html.twig' %}
+		</div>
 	</div>
 {% endblock %}
