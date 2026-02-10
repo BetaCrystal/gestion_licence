@@ -45,7 +45,7 @@ final class SchoolYearController extends AbstractController
 
         if ($schoolYearForm->isSubmitted() && !$schoolYearForm->isValid()) {
             //Erreurs champs vides
-            if (!$schoolYearForm->get('name')->getData()) {
+            /*if (!$schoolYearForm->get('name')->getData()) {
                 $this->addFlash('error', 'Le nom de l\'année scolaire est obligatoire.');
             }
             if (!$schoolYearForm->get('startDate')->getData()) {
@@ -53,7 +53,7 @@ final class SchoolYearController extends AbstractController
             }
             if (!$schoolYearForm->get('endDate')->getData()) {
                 $this->addFlash('error', 'La date de fin est obligatoire.');
-            }
+            }*/
             if ($schoolYearForm->get('startDate')->getData() && $schoolYearForm->get('endDate')->getData()) {
                 $startDate = $schoolYearForm->get('startDate')->getData();
                 $endDate = $schoolYearForm->get('endDate')->getData();
@@ -90,7 +90,7 @@ final class SchoolYearController extends AbstractController
 
         if ($schoolYearForm->isSubmitted() && !$schoolYearForm->isValid()) {
             //Erreurs champs vides
-            if (!$schoolYearForm->get('name')->getData()) {
+            /*if (!$schoolYearForm->get('name')->getData()) {
                 $this->addFlash('error', 'Le nom de l\'année scolaire est obligatoire.');
             }
             if (!$schoolYearForm->get('startDate')->getData()) {
@@ -98,7 +98,7 @@ final class SchoolYearController extends AbstractController
             }
             if (!$schoolYearForm->get('endDate')->getData()) {
                 $this->addFlash('error', 'La date de fin est obligatoire.');
-            }
+            }*/
             if ($schoolYearForm->get('startDate')->getData() && $schoolYearForm->get('endDate')->getData()) {
                 $startDate = $schoolYearForm->get('startDate')->getData();
                 $endDate = $schoolYearForm->get('endDate')->getData();

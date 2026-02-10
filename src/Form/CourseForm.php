@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class CourseForm extends AbstractType
 {
@@ -27,11 +28,17 @@ final class CourseForm extends AbstractType
                 'label' => 'Date de début - champ obligatoire',
                 'required' => true,
                 'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1 mb-5 mr-5'],
+                'constraints' => [
+                    new NotBlank(message: 'La date de début est obligatoire.'),
+                ]
             ])
             ->add('endDate', DateTimeType::class, [
                 'label' => 'Date de fin - champ obligatoire',
                 'required' => true,
                 'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1 mb-5'],
+                'constraints' => [
+                    new NotBlank(message: 'La date de fin est obligatoire.'),
+                ]
             ])
             ->add('module', EntityType::class, [
                 'class' => Module::class,
@@ -39,6 +46,9 @@ final class CourseForm extends AbstractType
                 'required' => true,
                 'choice_label' => 'name',
                 'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1 mb-5 mr-5'],
+                'constraints' => [
+                    new NotBlank(message: 'Le module est obligatoire.'),
+                ]
             ])
             ->add('interventionType', EntityType::class, [
                 'class' => InterventionType::class,
@@ -46,6 +56,9 @@ final class CourseForm extends AbstractType
                 'required' => true,
                 'choice_label' => 'name',
                 'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1 mb-5'],
+                'constraints' => [
+                    new NotBlank(message: 'Le type d\'intervention est obligatoire.'),
+                ]
             ])
             ->add('CourseInstructor', EntityType::class, [
                 'class' => Instructor::class,
@@ -55,6 +68,9 @@ final class CourseForm extends AbstractType
                 'choice_label' => 'user.lastName',
                 'expanded' => true,
                 'attr' => ['class' => 'mb-5'],
+                'constraints' => [
+                    new NotBlank(message: 'Au moins un intervenant est obligatoire.'),
+                ]
             ])
             /*->add('coursePeriodId', EntityType::class, [
                 'class' => CoursePeriod::class,

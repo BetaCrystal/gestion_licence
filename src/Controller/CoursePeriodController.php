@@ -39,7 +39,7 @@ final class CoursePeriodController extends AbstractController
 
         if ($form->isSubmitted() && !$form->isValid()) {
             //Erreurs champs vides
-            if (!$form->get('name')->getData()) {
+            /*if (!$form->get('name')->getData()) {
                 $this->addFlash('error', 'Le nom de la semaine de cours est obligatoire.');
             }
             if (!$form->get('startDate')->getData()) {
@@ -47,7 +47,7 @@ final class CoursePeriodController extends AbstractController
             }
             if (!$form->get('endDate')->getData()) {
                 $this->addFlash('error', 'La date de fin est obligatoire.');
-            }
+            }*/
             if ($form->get('startDate')->getData() && $form->get('endDate')->getData()) {
                 $startDate = $form->get('startDate')->getData();
                 $endDate = $form->get('endDate')->getData();
@@ -93,7 +93,7 @@ final class CoursePeriodController extends AbstractController
 
         if ($form->isSubmitted() && !$form->isValid()) {
             //Erreurs champs vides
-            if (!$form->get('name')->getData()) {
+            /*if (!$form->get('name')->getData()) {
                 $this->addFlash('error', 'Le nom de la semaine de cours est obligatoire.');
             }
             if (!$form->get('startDate')->getData()) {
@@ -101,7 +101,7 @@ final class CoursePeriodController extends AbstractController
             }
             if (!$form->get('endDate')->getData()) {
                 $this->addFlash('error', 'La date de fin est obligatoire.');
-            }
+            }*/
             if ($form->get('startDate')->getData() && $form->get('endDate')->getData()) {
                 $startDate = $form->get('startDate')->getData();
                 $endDate = $form->get('endDate')->getData();
