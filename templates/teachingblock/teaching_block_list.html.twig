@@ -1,60 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Blocs d'enseignements{% endblock %}
-
-{% block header %}
-    <img src= "">
+{% block title %}Blocs d'enseignements
 {% endblock %}
+
 {% block body %}
-    <div>
-        <h2>Blocs d’enseignement</h2>
-        <p><Ces blocs sont les piliers du programme. Étant donné qu’ils sont similaires chaque année, ils ne sont pas modifiables 
-(on peut simplement faire varier le nombre d’heure et leur description)./p>
-    </div>
-    {{ form_start(form) }}
+	<div class="flex items-center w-full h-full">
+		{% include "Components/sidebar.html.twig" %}
+		<div class="h-full mt-32 mx-24">
+			<div class="flex flex-col w-full justify-between mb-10">
+				<h2 class="text-blue-950 text-3xl font-medium mb-6">Blocs d’enseignement</h2>
+				<p>Ces blocs sont les piliers du programme. Étant donné qu’ils sont similaires chaque année, ils ne sont pas modifiables
+																				                (on peut simplement faire varier le nombre d’heure et leur description).</p>
+			</div>
+			<h2 class="text-yellow-500 text-xl">Filtres</h2>
+			{{ form_start(form) }}
 
-    {{ form_end(form) }}
+			{{ form_end(form) }}
+			<div class="bg-yellow-500 w-full h-0.5 rounded-xs my-6"></div>
 
-    <div class="interventions-container">
-        {% if pagination|length == 0 %}
-                <tr>
-                    <td colspan="6" class="center">
-                        Aucun bloc d'enseignement trouvé.
-                    </td>
-                </tr>
-        {% else %}
-        <h2>
-            {{ pagination.getTotalItemCount }}
-            Bloc{{ pagination.getTotalItemCount > 1 ? 's' : '' }}
-        </h2>
+			<div class="interventions-container">
+				{% if pagination|length == 0 %}
+					<tr>
+						<td colspan="6" class="center">
+							Aucun bloc d'enseignement trouvé.
+						</td>
+					</tr>
+				{% else %}
+					<h2>
+						{{ pagination.getTotalItemCount }}
+						Bloc{{ pagination.getTotalItemCount > 1 ? 's' : '' }}
+					</h2>
 
-        <div class="table-wrapper">
-            <table class="interventions-table">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Nom</th>
-                        <th>Description</th>
-                        <th>Nombre d'heures</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for row in pagination %}
-                        <tr>
-                            <td>{{ row.code }}</td>
-                            <td>{{ row.name }}</td>
-                            <td>{{ row.description }}</td>
-                            <td>{{ row.hoursCount }}</td>
-                            <td><a href=" {{ path('teaching_block_modifier', { id: row.id }) }}">👁 Accéder à la fiche</a></td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        {% endif %}
-    </div>
-        <div class="pagination">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-    {% endblock %}
-
+					<div class="table-wrapper">
+						<table class="interventions-table">
+							<thead>
+								<tr>
+									<th class="border border-slate-300 px-6 py-4 bg-slate-300">Code</th>
+									<th class="border border-slate-300 px-6 py-4 bg-slate-300">Nom</th>
+									<th class="border border-slate-300 px-6 py-4 bg-slate-300">Description</th>
+									<th class="border border-slate-300 px-6 py-4 bg-slate-300">Nombre d'heures</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for row in pagination %}
+									<tr>
+										<td class="border border-slate-300 px-6 py-4 ">{{ row.code }}</td>
+										<td class="border border-slate-300 px-6 py-4 ">{{ row.name }}</td>
+										<td class="border border-slate-300 px-6 py-4 ">{{ row.description }}</td>
+										<td class="border border-slate-300 px-6 py-4 ">{{ row.hoursCount }}</td>
+										<td class="border border-slate-300 px-6 py-4 ">
+											<a href=" {{ path('teaching_block_modifier', { id: row.id }) }}">👁 Accéder à la fiche</a>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				{% endif %}
+			</div>
+			<div class="pagination">
+				{{ knp_pagination_render(pagination) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

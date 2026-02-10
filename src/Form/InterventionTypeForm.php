@@ -16,14 +16,17 @@ class InterventionTypeForm extends AbstractType
         ->add('name', TextType::class, [
             'label' => 'Nom - champ obligatoire',
             'required' => true,
+            'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
         ])
         ->add('description', TextType::class, [
             'label' => 'Description - champ obligatoire',
             'required' => true,
+            'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
         ])
         ->add('color', TextType::class, [
             'label' => 'Code couleur (hexadécimal) - champ obligatoire',
             'required' => true,
+            'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
         ]);
     }
 

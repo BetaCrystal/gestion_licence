@@ -4,36 +4,34 @@
 {% endblock %}
 
 {% block body %}
-	<div>
-		{% include "Components/sidebar.html.twig" %}
-
-		{% for message in app.flashes('error') %}
-			<div class="alert alert-danger">{{ message }}</div>
-		{% endfor %}
-		<h2 class="text-blue-950 text-3xl font-medium">Semaines de cours</h2>
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-danger">{{ message }}</div>
+	{% endfor %}
+	<div class="mt-10">
+		<h2 class="text-xl text-yellow-500 mt-5">Semaines de cours</h2>
 		<p>Les semaines de cours permettent de contrôler l’ajout des interventions. Une intervention a lieu uniquement
-																																													pendant les semaines de cours.</p>
-		<table>
-			<thead>
-				<tr>
-					<th>Date de début</th>
-					<th>Date de fin</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for coursePeriod in coursePeriods %}
-					{% if schoolYear and coursePeriod.schoolYear.id == schoolYear.id %}
-						<tr>
-							<td>{{ coursePeriod.startDate|date('d/m/Y') }}</td>
-							<td>{{ coursePeriod.endDate|date('d/m/Y') }}</td>
-							<td>
-								<a href="{{ path('app_view_course_period', {'id': coursePeriod.id}) }}">Accéder à la fiche</a>
-							</td>
-						</tr>
-					{% endif %}
-				{% endfor %}
-			</tbody>
-		</table>
-		<a href="{{ path('app_add_courseperiod', {'id': schoolYear.id }) }}">Ajouter une semaine de cours</a>
+																																																																																									pendant les semaines de cours.</p>
 	</div>
-{% endblock %}
+	<table>
+		<thead>
+			<tr>
+				<th class="border border-slate-300 px-6 py-4 bg-slate-300">Date de début</th>
+				<th class="border border-slate-300 px-6 py-4 bg-slate-300">Date de fin</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for coursePeriod in coursePeriods %}
+				{% if schoolYear and coursePeriod.schoolYear.id == schoolYear.id %}
+					<tr>
+						<td class="border border-slate-300 px-6 py-4 ">{{ coursePeriod.startDate|date('d/m/Y') }}</td>
+						<td class="border border-slate-300 px-6 py-4 ">{{ coursePeriod.endDate|date('d/m/Y') }}</td>
+						<td class="border border-slate-300 px-6 py-4 ">
+							<a href="{{ path('app_view_course_period', {'id': coursePeriod.id}) }}">Accéder à la fiche</a>
+						</td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+</br>
+<a href="{{ path('app_add_courseperiod', {'id': schoolYear.id }) }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl h-fit">Ajouter une semaine de cours</a>{% endblock %}

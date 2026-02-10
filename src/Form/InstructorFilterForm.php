@@ -18,14 +18,17 @@ final class InstructorFilterForm extends AbstractType
             ->add('last_name', TextType::class, [
                 'label' => 'Nom de famille',
                 'required' => false,
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
             ])
             ->add('first_name', TextType::class, [
                 'label' => 'Prénom',
                 'required' => false,
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'required' => false,
+                'attr' => ['class' => 'border border-slate-300 rounded-md px-3 py-1'],
             ]);
 
 

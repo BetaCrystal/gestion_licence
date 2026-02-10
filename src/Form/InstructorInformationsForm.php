@@ -36,7 +36,8 @@ final class InstructorInformationsForm extends AbstractType
                 ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Enregistrer',
+                'label' => 'Enregistrer les informations',
+                'attr' => ['class' => 'px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl'],
             ]);
     }
 

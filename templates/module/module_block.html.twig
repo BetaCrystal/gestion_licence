@@ -1,29 +1,28 @@
 {% for teaching_block in teachingBlocks %}
-	<h1>{{ teaching_block.name }}</h1>
-	<ul>
+	<h1 class="text-xl text-yellow-500 mt-5">{{ teaching_block.name }}</h1>
+	<ul class="mb-5">
 		{% for module in modules %}
 			{% if module.teachingBlock.id == teaching_block.id %}
-				<li>
+				<li class="ml-5">
 					{% include 'module/module_child.html.twig' with {'module': module} %}
 				{# si le module a des enfants, les afficher en dessous #}
-					{#{% if module.children %}
-																																																								<ul>
-																																																			                        {% for child in module.children %}
-																																																										<li>
-																																																											{{ include 'module/module_child.html.twig' with {'module':child} }}
-																																																		                                </li>
-																																																		                            {% endfor %}
-																																																				                </ul>
-																																																		                    {% endif %}#}
+					{#{% if module.children%}																																													<ul>
+																																																									                        {% for child in module.children %}
+																						<li>
+																				{{ include 'module/module_child.html.twig' with {'module':child} }}
+															            </li>
+																																																																																															                            {% endfor %}
+																																																																																																	                </ul>
+																																																																																															                    {% endif %}#}
 					{# vérifier si le module a un parent (à faire) #}
 				</li>
 			{% endif %}
 		{% endfor %}
 	</ul>
 	{% if modules is not empty %}
-		<a href="add_module?block_id={{ teaching_block.id }}">Ajouter un module</a>
+		<a href="add_module?block_id={{ teaching_block.id }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl h-fit">Ajouter un module</a>
 	{% else %}
 		<p>Aucun module dans ce bloc d'enseignement.</p>
-		<a href="add_module?block_id={{ teaching_block.id }}">Ajouter un module</a>
+		<a href="add_module?block_id={{ teaching_block.id }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl h-fit">Ajouter un module</a>
 	{% endif %}
 {% endfor %}
