@@ -16,6 +16,7 @@ use App\Repository\CourseRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Shuchkin\SimpleXLSXGen;
+use App\Form\InterventionForm;
 
 #[Route('/twig/instructor')] // Route de classe (préfixe commun)
 final class InstructorController extends AbstractController
