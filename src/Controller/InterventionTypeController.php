@@ -10,7 +10,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\InterventionTypeRepository;
 use App\Entity\InterventionType;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Form\InterventionTypeForm;
+use App\Form\InterventionTypeFilterForm;
 use App\Entity\Course;
 use App\Repository\CourseRepository;
 
@@ -19,11 +19,22 @@ final class InterventionTypeController extends AbstractController
     #[Route(path: '/listeTypesInterventions', name: 'liste_types_interventions', methods: ['GET','POST'])]
     public function listeTypesInterventions(Request $request, InterventionTypeRepository $repository, PaginatorInterface $paginator): Response
     {
-        $interventionTypes = $repository->findAll();
+        $form = $this->createForm(InterventionTypeFilterForm::class);
+        $form->handleRequest($request);
 
-         // Pagination
-         $qb = $repository->createQueryBuilder('it');
-        $qb = $repository->findAll();
+        $qb = $repository->findAllInterventionTypes();
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()){
+                $data = $form->getData();
+
+                if (!empty($data['name'])) {
+                    $qb->andWhere('it.name = :name')
+                    ->setParameter('name', $data['name']);
+                }
+            }
+        }
+
 
         $page = $request->query->getInt('page', 1);
         $limit = 10;
@@ -36,7 +47,7 @@ final class InterventionTypeController extends AbstractController
 
         return $this->render('intervention_types/intervention_types.html.twig', [
             'pagination' => $pagination,
-            'interventionTypes' => $interventionTypes,
+            'form' => $form->createView(),
         ]);
     }
 

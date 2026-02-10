@@ -16,6 +16,12 @@ class InterventionTypeRepository extends ServiceEntityRepository
         parent::__construct($registry, InterventionType::class);
     }
 
+    public function findAllInterventionTypes()
+    {
+        $qb =$this->createQueryBuilder('it')
+            ->select('it.id, it.name, it.description, it.color');
+        return $qb;
+    }
     //    /**
     //     * @return InterventionType[] Returns an array of InterventionType objects
     //     */
