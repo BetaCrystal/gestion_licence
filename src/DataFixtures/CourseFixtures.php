@@ -111,16 +111,6 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
                 'title' => 'Méthode agile'
             ],
             [
-                'startDate' => '2026-10-06 08:30:00',
-                'endDate' => '2026-10-06 12:30:00',
-                'coursePeriodRef' => 'course_period_2',
-                'interventionTypeRef' => 'intervention_type_3',
-                'instructors' => ['instructor_3'],
-                'remotely' => FALSE,
-                'module' => 'Module_7',
-                'title' => 'Éco-conception'
-            ],
-            [
                 'startDate' => '2026-11-02 13:30:00',
                 'endDate' => '2026-11-02 17:30:00',
                 'coursePeriodRef' => 'course_period_1',

@@ -11,7 +11,7 @@ use Doctrine\DBAL\Connection;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\CourseRepository;
 use App\Repository\InstructorRepository;
-
+use App\Entity\Instructor;
 
 final class InterventionController extends AbstractController
 {
@@ -62,11 +62,10 @@ final class InterventionController extends AbstractController
     }
 
     #[Route(path: '/listeInterventions/enseignant/{id}', name: 'liste_interventions_enseignant', methods: ['GET','POST'])]
-    public function listeInterventionsEnseignant(Request $request, CourseRepository $repository, PaginatorInterface $paginator,InstructorRepository $instructorRepo, int $id): Response
+    public function listeInterventionsEnseignant(Request $request, CourseRepository $repository, PaginatorInterface $paginator,InstructorRepository $instructorRepo, Instructor $instructor): Response
         {
-            $qb = $repository->queryForList1($id);
-            $instructor = $instructorRepo->find($id);
-             $results = $instructorRepo->queryForInfoInstructor($instructor->getId());
+            $qb = $repository->queryForList1($instructor->getId());
+            $results = $instructorRepo->queryForInfoInstructor($instructor->getId());
 
             $form = $this->createForm(InterventionForm::class);
             $form->handleRequest($request);
