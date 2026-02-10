@@ -1,8 +1,27 @@
-{% extends 'base.html.twig' %}
+<div class="enseignant-card">
 
-{% block title %}Enseignant{% endblock %}
+	<h2 class="text-blue-950 text-3xl font-medium">
+		{{ results[0].prenom }}
+		{{ results[0].nom }}
+	</h2>
 
-{% block body %}
+	<h3 class="text-yellow-500 text-xl">Modules enseignés</h3>
 
+	<ul class="mb-2.5">
+		{% for row in results %}
+			<li class="module-item">
+				<strong>{{ row.module }}</strong>
+				:
+				{{ row.nbHeures }}h
+																																																																										                    (dont
+				{{ row.nbHeuresRestantes }}
+				restantes pour cette année)
+			</li>
+		{% endfor %}
+	</ul>
 
-{% endblock %}
+	<a href="{{ path("instructor_excel_export",{id: instructor.id})}}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl">
+		Exporter le récapitulatif (fichier .xls)
+	</a>
+	<div class="bg-yellow-500 w-full h-0.5 rounded-xs my-6"></div>
+</div>

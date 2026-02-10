@@ -16,6 +16,18 @@
 			<h2 class="text-yellow-500 text-xl">Filtres</h2>
 			{{ include('admin/form/form_instructor.html.twig', { form: form }) }}
 			<div class="bg-yellow-500 w-full h-0.5 rounded-xs my-6"></div>
+            <div class="interventions-container">
+				{% if pagination|length == 0 %}
+					<tr>
+						<td colspan="6" class="center">
+							Aucun enseignant trouvé.
+						</td>
+					</tr>
+				{% else %}
+					<h2>
+						{{ pagination.getTotalItemCount }}
+						enseignant{{ pagination.getTotalItemCount > 1 ? 's' : '' }}
+					</h2>
 
 
 			<div class="table-wrapper">
@@ -29,7 +41,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						{% for i in instructor %}
+						{% for i in pagination %}
 							<tr>
 								<td class="border border-slate-300 px-6 py-4 ">{{ i.lastName }}</td>
 								<td class="border border-slate-300 px-6 py-4 ">{{ i.firstName }}</td>
@@ -43,6 +55,10 @@
 						{% endfor %}
 					</tbody>
 				</table>
+			</div>
+            {% endif %}
+            <div class="pagination">
+				{{ knp_pagination_render(pagination) }}
 			</div>
 		</div>
 	</div>

@@ -3,8 +3,16 @@
 {% block title %}Modification Interventions
 {% endblock %}
 
+
 {% block body %}
-	<div class="flex items-center w-full h-full">
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+     {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+
+	<div>
 		{% include "Components/sidebar.html.twig" %}
 		<div class="h-full mt-32 mx-24">
 			<h1 class="text-blue-950 text-3xl font-medium mb-6">Modifier une intervention</h1>

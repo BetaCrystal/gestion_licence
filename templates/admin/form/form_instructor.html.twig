@@ -12,7 +12,7 @@
 		<div class="alert alert-info">{{ message }}</div>
 	{% endfor %}
 
-	{{ form_start(form, { method: 'GET' }) }}
+	{{ form_start (form)}}
 
 	{{ form_row(form.last_name) }}
 	{{ form_row(form.first_name) }}

@@ -58,7 +58,7 @@ final class InterventionTypeController extends AbstractController
         $interventionTypeForm = $this->createForm(InterventionTypeForm::class, $interventionType);
         $interventionTypeForm->handleRequest($request);
 
-        if ($interventionTypeForm->isSubmitted() && !$interventionTypeForm->isValid()) {
+        /*if ($interventionTypeForm->isSubmitted() && !$interventionTypeForm->isValid()) {
             //Erreurs champs vides
             if (!$interventionTypeForm->get('name')->getData()) {
                 $this->addFlash('error', 'Le nom est obligatoire.');
@@ -69,7 +69,7 @@ final class InterventionTypeController extends AbstractController
             if (!$interventionTypeForm->get('color')->getData()) {
                 $this->addFlash('error', 'Le code couleur est obligatoire.');
             }
-        }
+        }*/
 
         if ($interventionTypeForm->isSubmitted() && $interventionTypeForm->isValid()) {
             $interventionType = $interventionTypeForm->getData();
@@ -92,7 +92,7 @@ final class InterventionTypeController extends AbstractController
         $interventionTypeForm = $this->createForm(InterventionTypeForm::class, $interventionType);
         $interventionTypeForm->handleRequest($request);
 
-        if ($interventionTypeForm->isSubmitted() && !$interventionTypeForm->isValid()) {
+        /*if ($interventionTypeForm->isSubmitted() && !$interventionTypeForm->isValid()) {
             //Erreurs champs vides
             if (!$interventionTypeForm->get('name')->getData()) {
                 $this->addFlash('error', 'Le nom est obligatoire.');
@@ -103,7 +103,7 @@ final class InterventionTypeController extends AbstractController
             if (!$interventionTypeForm->get('color')->getData()) {
                 $this->addFlash('error', 'Le code couleur est obligatoire.');
             }
-        }
+        }*/
 
         if ($interventionTypeForm->isSubmitted() && $interventionTypeForm->isValid()) {
             $interventionType = $interventionTypeForm->getData();

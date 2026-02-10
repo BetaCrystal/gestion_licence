@@ -16,6 +16,7 @@ use App\Repository\CourseRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Shuchkin\SimpleXLSXGen;
+use App\Form\InterventionForm;
 
 #[Route('/twig/instructor')] // Route de classe (préfixe commun)
 final class InstructorController extends AbstractController
@@ -103,27 +104,42 @@ final class InstructorController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-      #[Route('/list_instructor', name: 'instructors', methods: ['GET','POST'])] // Route de méthode
-      public function list(Request $request, InstructorRepository $repo): Response
-      {
-        $form = $this->createForm(InstructorFilterForm::class, null, [
-            'method' => 'GET',
-        ]);
-        $form->handleRequest($request);
+#[Route('/list_instructor', name: 'instructors', methods: ['GET','POST'])]
+public function list(Request $request, InstructorRepository $repo, PaginatorInterface $paginator): Response
+{
+    $form = $this->createForm(InstructorFilterForm::class);
+    $form->handleRequest($request);
 
+    $qb = $repo->findAllInstructor();
+
+
+    if ($form->isSubmitted() && $form->isValid()) {
         $data = $form->getData();
-        //dd($data);
-        $lastName = $data['last_name'] ?? null;
 
-        if (empty($lastName)) {
-            $instructors = $repo->findAllInstructor();
-        } else {
-            $instructors = $repo->findByLastName($lastName);
+        if (!empty($data['last_name'])) {
+            $qb->andWhere('u.lastName LIKE :lastName')
+               ->setParameter('lastName', '%' . $data['last_name'] . '%');
         }
-        return $this->render('instructor/instructor_list.html.twig', [
-            'instructor' => $instructors,
-            'form' => $form->createView(),
-        ]);
+
+        if (!empty($data['first_name'])) {
+            $qb->andWhere('u.firstName LIKE :firstName')
+               ->setParameter('firstName', '%' . $data['first_name'] . '%');
+        }
+
+        if (!empty($data['email'])) {
+            $qb->andWhere('u.email LIKE :email')
+               ->setParameter('email', '%' . $data['email'] . '%');
+        }
+    }
+    $page = $request->query->getInt('page', 1);
+    $limit = 10;
+
+    $pagination = $paginator->paginate($qb, $page, $limit);
+
+    return $this->render('instructor/instructor_list.html.twig', [
+        'form' => $form->createView(),
+        'pagination' => $pagination,
+    ]);
 }
     #[Route('/{id}', name: 'instructor_excel_export', methods: ['GET','POST'])] // Route de méthode
     public function excelExport(InstructorRepository $repository, Instructor $instructor)
@@ -211,5 +227,3 @@ final class InstructorController extends AbstractController
         ]);
     }
 }
-
-

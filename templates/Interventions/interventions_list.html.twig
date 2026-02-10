@@ -3,105 +3,73 @@
 {% block title %}Interventions
 {% endblock %}
 {% block body %}
-<div>
-	{% include "Components/sidebar.html.twig" %}
-	{#{include('instructor/instructor_informations.html.twig', { form: form })}#}
-	<div class="enseignant-card">
+	<div class="flex items-center w-full h-full">
+		{% include "Components/sidebar.html.twig" %}
+		<div class="h-full mt-32 mx-24">
+			{% include "instructor/instructor_sheet.html.twig" %}
+			<div>
+				<button class="btn active" active>
+					<a href="{{ path('enseignant_infos', {id: instructor.id}) }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl">Informations générales</a>
+				</button>
+				<a href="{{ path('app_add_course')}}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl">Interventions</a>
+			</div>
+			<br>
+			<div>
+				<h2 class="text-yellow-500 text-xl">Filtrer les interventions</h2>
 
-		<h2>
-			{{ results[0].prenom }}
-			{{ results[0].nom }}
-		</h2>
+			</div>
+			{{ form_start(form) }}
 
-		<h3 class="section-title">Modules enseignés</h3>
+			{{ form_end(form) }}
 
-		<ul class="modules-list">
-			{% for row in results %}
-				<li class="module-item">
-					<strong>{{ row.module }}</strong>
-					:
-					{{ row.nbHeures }}h
-										                    (dont
-					{{ row.nbHeuresRestantes }}
-					restantes pour cette année)
-				</li>
-			{% endfor %}
-		</ul>
+			<div class="interventions-container">
+				{% if pagination|length == 0 %}
+					<tr>
+						<td colspan="6" class="center">
+							Aucune intervention trouvée.
+						</td>
+					</tr>
+				{% else %}
+					<h2>
+						{{ pagination.getTotalItemCount }}
+						intervention{{ pagination.getTotalItemCount > 1 ? 's' : '' }}
+						trouvée{{ pagination.getTotalItemCount > 1 ? 's' : '' }}
+						au total
+					</h2>
 
-		<a href="" class="btn-export">
-			Exporter le récapitulatif (fichier .xls)
-		</a>
-
-	</div>
-	<hr>
-	<div>
-		<button class="btn active" active>
-			<a href="{{ path('enseignant_infos', {id: instructor.id}) }}">Informations générales</a>
-		</button>
-		<a href="{{ path('app_add_course')}}" class="text-blue-950 text-3xl font-medium">Interventions</a>
-	</div>
-	<br>
-
-
-	{{ form_start(form) }}
-
-	{{ form_end(form) }}
-
-		<div>
-			<h2>Informations générales</h2>
-
-		</div>
-		{{ form_start(form) }}
-
-		{{ form_end(form) }}
-
-		<div class="interventions-container">
-			{% if pagination|length == 0 %}
-				<tr>
-					<td colspan="6" class="center">
-						Aucune intervention trouvée.
-					</td>
-				</tr>
-			{% else %}
-				<h2>
-					{{ pagination.getTotalItemCount }}
-					intervention{{ pagination.getTotalItemCount > 1 ? 's' : '' }}
-					trouvée{{ pagination.getTotalItemCount > 1 ? 's' : '' }}
-					au total
-				</h2>
-
-				<div class="table-wrapper">
-					<table class="interventions-table">
-						<thead>
-							<tr>
-								<th>Date de l’intervention</th>
-								<th>Module</th>
-								<th>Type</th>
-								<th>Intervenants</th>
-								<th>En visio</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for row in pagination %}
+					<div class="table-wrapper">
+						<table class="interventions-table">
+							<thead>
 								<tr>
-									<td>{{ row.startDate|date('d/m/Y H:i') }}</td>
-									<td>{{ row.moduleName }}</td>
-									<td>{{ row.interventionType }}</td>
-									<td>{{ row.intervenants }}</td>
-									<td class="center">
-										{% if row.remotely %}🎥
-										{% endif %}
-									</td>
+									<th class="border border-slate-300 px-6 py-4 bg-slate-300">Date de l’intervention</th>
+									<th class="border border-slate-300 px-6 py-4 bg-slate-300">Module</th>
+									<th class="border border-slate-300 px-6 py-4 bg-slate-300">Type</th>
+									<th class="border border-slate-300 px-6 py-4 bg-slate-300">Intervenants</th>
+									<th class="border border-slate-300 px-6 py-4 bg-slate-300">En visio</th>
+									<th></th>
 								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
-			{% endif %}
-		</div>
-		<div class="pagination">
-			{{ knp_pagination_render(pagination) }}
+							</thead>
+							<tbody>
+								{% for row in pagination %}
+									<tr>
+										<td class="border border-slate-300 px-6 py-4 ">{{ row.startDate|date('d/m/Y H:i') }}</td>
+										<td class="border border-slate-300 px-6 py-4 ">{{ row.moduleName }}</td>
+										<td class="border border-slate-300 px-6 py-4 ">{{ row.interventionType }}</td>
+										<td class="border border-slate-300 px-6 py-4 ">{{ row.intervenants }}</td>
+										<td class="border border-slate-300 px-6 py-4 ">
+											{% if row.remotely %}🎥
+											{% endif %}
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				{% endif %}
+			</div>
+			<div class="pagination">
+				{{ knp_pagination_render(pagination) }}
+			</div>
 		</div>
 	</div>
 {% endblock %}
