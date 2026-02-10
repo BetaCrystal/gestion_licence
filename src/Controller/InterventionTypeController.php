@@ -11,6 +11,7 @@ use App\Repository\InterventionTypeRepository;
 use App\Entity\InterventionType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\InterventionTypeFilterForm;
+use App\Form\InterventionTypeForm;
 use App\Entity\Course;
 use App\Repository\CourseRepository;
 
