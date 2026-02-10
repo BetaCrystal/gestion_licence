@@ -160,8 +160,10 @@ class CourseController extends AbstractController
             $endDate = $form->get('endDate')->getData();
             if ($startDate > $endDate) {
                 $this->addFlash('error', 'La date de début doit être antérieure à la date de fin.');
-                $hasErrors = true;
+                $hasErrors = true;}}
         $submitted = $form->isSubmitted();
+
+
         if ($submitted && !$form->isValid()) {
             /*if (!$form->get('startDate')->getData()) {
                 $this->addFlash('error', 'La date de début est obligatoire.');
@@ -243,6 +245,7 @@ class CourseController extends AbstractController
             'course' => $course,
         ]);
     }
+
 
 
 
