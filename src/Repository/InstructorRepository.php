@@ -16,29 +16,18 @@ class InstructorRepository extends ServiceEntityRepository
         parent::__construct($registry, Instructor::class);
     }
 
-    public function findAllInstructor(): array
-    {
-        return $this->createQueryBuilder('i')
-            ->select('i.id,u.firstName, u.lastName, GROUP_CONCAT(m.name) AS modules, SUM(m.hoursCount) AS totalHours')
-            ->join('i.user', 'u') // param 1 = jointure de instructor vers user, param 2 = création d'un alias pour user 'u'
-            ->join('i.Module', 'm') //param 1 = jointure de instructor vers module, param 2 = création d'un alias pour module 'm'
-            ->groupBy('u.id')
-            ->getQuery()
-            ->getResult();
-    }
+    public function findAllInstructor()
+{
+    $qb = $this->createQueryBuilder('i')
+        ->select('i.id, u.firstName, u.lastName, GROUP_CONCAT(DISTINCT m.name) AS modules, SUM(DISTINCT m.hoursCount) AS totalHours')
+        ->join('i.user', 'u')
+        ->leftJoin('i.Module', 'm')
+        ->groupBy('i.id, u.firstName, u.lastName')
+        ->orderBy('u.lastName', 'ASC');
 
-    public function findByLastName(?string $lastName): array
-    {
-        $qb = $this->createQueryBuilder('i')
-            ->join('i.user', 'u');
+    return $qb;
+}
 
-        if ($lastName) {
-            $qb->andWhere('u.lastName LIKE :lastName')
-            ->setParameter('lastName', '%' . $lastName . '%');
-        }
-
-        return $qb->getQuery()->getResult();
-    }
 
 
 

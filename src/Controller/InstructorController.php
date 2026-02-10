@@ -101,37 +101,42 @@ final class InstructorController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-      #[Route('/list_instructor', name: 'instructors', methods: ['GET','POST'])] // Route de méthode
-      public function list(Request $request, InstructorRepository $repo, PaginatorInterface $paginator): Response
-      {
-        $form = $this->createForm(InstructorFilterForm::class, null, [
-            'method' => 'GET',
-        ]);
-        $form->handleRequest($request);
+#[Route('/list_instructor', name: 'instructors', methods: ['GET','POST'])]
+public function list(Request $request, InstructorRepository $repo, PaginatorInterface $paginator): Response
+{
+    $form = $this->createForm(InstructorFilterForm::class);
+    $form->handleRequest($request);
 
+    $qb = $repo->findAllInstructor();
+
+
+    if ($form->isSubmitted() && $form->isValid()) {
         $data = $form->getData();
-        //dd($data);
-        $lastName = $data['last_name'] ?? null;
 
-        if (empty($lastName)) {
-            $instructors = $repo->findAllInstructor();
-        } else {
-            $instructors = $repo->findByLastName($lastName);
+        if (!empty($data['last_name'])) {
+            $qb->andWhere('u.lastName LIKE :lastName')
+               ->setParameter('lastName', '%' . $data['last_name'] . '%');
         }
 
-        $page = $request->query->getInt('page', 1);
-        $limit = 10;
+        if (!empty($data['first_name'])) {
+            $qb->andWhere('u.firstName LIKE :firstName')
+               ->setParameter('firstName', '%' . $data['first_name'] . '%');
+        }
 
-        $pagination = $paginator->paginate(
-            $instructors,
-            $page,
-            $limit
-        );
-        return $this->render('instructor/instructor_list.html.twig', [
-            'instructor' => $instructors,
-            'form' => $form->createView(),
-            'pagination' => $pagination,
-        ]);
+        if (!empty($data['email'])) {
+            $qb->andWhere('u.email LIKE :email')
+               ->setParameter('email', '%' . $data['email'] . '%');
+        }
+    }
+    $page = $request->query->getInt('page', 1);
+    $limit = 10;
+
+    $pagination = $paginator->paginate($qb, $page, $limit);
+
+    return $this->render('instructor/instructor_list.html.twig', [
+        'form' => $form->createView(),
+        'pagination' => $pagination,
+    ]);
 }
 
     #[Route(path: '/listeInterventions/enseignant/{id}', name: 'liste_interventions_enseignant', methods: ['GET','POST'])]
