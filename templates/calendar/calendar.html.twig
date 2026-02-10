@@ -30,24 +30,24 @@ right: 'dayGridMonth,timeGridWeek,timeGridDay'
 },
 events: '{{ path("app_calendar_events") }}',
 eventContent: function (info) {
+const remote = info.event.extendedProps.remotely == 1 ? "🎥" : "";
 return {
 html: `
                 <div>
+                <div class='flex flex-row'>
+                <small class='mr-0.5'>${
+info.event.extendedProps.hour
+}</small><br>
+<small>${remote}
+</small>
+</div>
                     <strong>${
 info.event.extendedProps.module
 }</strong><br>
                     <small>${
 info.event.extendedProps.instructor
 }</small><br>
-<small>${
-info.event.id
-}</small><br>
-<small>${
-info.event.start
-}</small><br>
-<small>${
-info.event.end
-}</small><br>
+<br>
                     <small>${
 info.event.title
 }</small>

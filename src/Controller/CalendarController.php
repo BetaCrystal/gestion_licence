@@ -36,6 +36,9 @@ final class CalendarController extends AbstractController
                 'module' => $course->getModule()->getName(),
                 'start' => $course->getStartDate()->format('Y-m-d H:i:s'),
                 'end' => $course->getEndDate()->format('Y-m-d H:i:s'),
+                'color' => $course->getInterventionType()->getColor(),
+                'hour' => $course->getStartDate()->format('H:i'),
+                'remotely' => $course->isRemotely()
             ];
         }
 
