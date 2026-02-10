@@ -12,6 +12,7 @@ use App\Form\CourseForm;
 use App\Entity\CoursePeriod;
 use App\Entity\SchoolYear;
 use App\Repository\CoursePeriodRepository;
+use App\Entity\Instructor;
 
 class CourseController extends AbstractController
 {
@@ -120,7 +121,7 @@ class CourseController extends AbstractController
     {
         $coursePeriod = $coursePeriodRepository->findAll();
 
-        // Pre-fill dates if date parameter is provided
+        // Pre-fill dates
         $dateStr = $request->query->get('date');
         if ($dateStr) {
             $selectedDate = new \DateTime($dateStr);
@@ -131,6 +132,7 @@ class CourseController extends AbstractController
         $form = $this->createForm(CourseForm::class, $course);
         $form->handleRequest($request);
 
+        // Vérif coursePeriod
         foreach ($coursePeriod as $cp) {
             if ($cp->getStartDate() <= $course->getStartDate() && $cp->getEndDate() >= $course->getStartDate()) {
                 $course->setCoursePeriod($cp);
@@ -138,9 +140,27 @@ class CourseController extends AbstractController
         }
         if (!$course->getCoursePeriod()) {
             $this->addFlash('error', 'Aucune période de cours trouvée pour cette date.');
-            return $this->redirectToRoute('app_calendar_calendar');
+            return $this->render('admin/courses/view_course.html.twig', [
+                'form' => $form,
+                'course' => $course,
+            ]);
         }
 
+        $hasErrors = false;
+
+        // Titre > 255 caractères
+        if ($form->get('title')->getData() && strlen($form->get('title')->getData()) > 255) {
+            $this->addFlash('error', 'Le titre ne doit pas dépasser 255 caractères.');
+            $hasErrors = true;
+        }
+
+        // Dates + durée 4h
+        if ($form->get('startDate')->getData() && $form->get('endDate')->getData()) {
+            $startDate = $form->get('startDate')->getData();
+            $endDate = $form->get('endDate')->getData();
+            if ($startDate > $endDate) {
+                $this->addFlash('error', 'La date de début doit être antérieure à la date de fin.');
+                $hasErrors = true;
         $submitted = $form->isSubmitted();
         if ($submitted && !$form->isValid()) {
             /*if (!$form->get('startDate')->getData()) {
@@ -155,9 +175,20 @@ class CourseController extends AbstractController
             if (!$form->get('interventionType')->getData()) {
                 $this->addFlash('error', 'Le type d\'intervention est obligatoire.');
             }
-            if ($form->get('CourseInstructor')->getData()->isEmpty()) {
-                $this->addFlash('error', 'Au moins un intervenant est obligatoire.');
+            $interval = $startDate->diff($endDate);
+            if ($interval->h > 4) {
+                $this->addFlash('error', 'L\'intervention ne doit pas dépasser 4h.');
+                $hasErrors = true;
             }
+        }
+
+        // Intervenants/module
+        $module = $form->get('module')->getData();
+        $instructors = $form->get('CourseInstructor')->getData();
+        foreach ($instructors as $instructor) {
+            if (!$instructor->getModule()->contains($module)) {
+                $this->addFlash('error', 'L\'intervenant ' . $instructor->getUser()->getLastName() . ' n\'intervient pas sur le module ' . $module->getName() . '. Veuillez choisir un intervenant qui intervient sur ce module.');
+                $hasErrors = true;
             if ($form->get('remotely')->getData() === null) {
                 $this->addFlash('error', 'Le mode (présentiel/à distance) est obligatoire.');
             }*/
@@ -170,12 +201,19 @@ class CourseController extends AbstractController
             }
         }
 
+        // Champs obligatoires
+        if ($form->isSubmitted()) {
+            if (!$form->get('startDate')->getData()) $this->addFlash('error', 'La date de début est obligatoire.');
+            if (!$form->get('endDate')->getData()) $this->addFlash('error', 'La date de fin est obligatoire.');
+            if (!$form->get('module')->getData()) $this->addFlash('error', 'Le module est obligatoire.');
+            if (!$form->get('interventionType')->getData()) $this->addFlash('error', 'Le type d\'intervention est obligatoire.');
+            if ($form->get('CourseInstructor')->getData()->isEmpty()) $this->addFlash('error', 'Au moins un intervenant est obligatoire.');
+            if ($form->get('remotely')->getData() === null) $this->addFlash('error', 'Le mode est obligatoire.');
+        }
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if (!$hasErrors && $form->isSubmitted() && $form->isValid()) {
             $startDate = $course->getStartDate();
 
-
-            // Find school year containing the start date
             $qb = $entityManager->createQueryBuilder();
             $schoolYear = $qb->select('sy')
                 ->from(SchoolYear::class, 'sy')
@@ -186,33 +224,32 @@ class CourseController extends AbstractController
                 ->getQuery()
                 ->getOneOrNullResult();
 
-
             if (!$schoolYear) {
                 $this->addFlash('error', 'Aucune année scolaire trouvée à cette date.');
-                return $this->redirectToRoute('app_add_course');
-            }
-            if ($form->get('startDate')->getData() && $form->get('endDate')->getData()) {
-                $startDate = $form->get('startDate')->getData();
-                $endDate = $form->get('endDate')->getData();
-                if ($startDate > $endDate) {
-                    $this->addFlash('error', 'La date de début doit être antérieure à la date de fin.');
-                }
+                return $this->render('admin/courses/view_course.html.twig', [
+                    'form' => $form,
+                    'course' => $course,
+                ]);
             }
 
             $entityManager->persist($course);
             $entityManager->flush();
-
-
             $this->addFlash('success', 'Intervention modifiée avec succès !');
             return $this->redirectToRoute('app_calendar_calendar');
         }
 
-
         return $this->render('admin/courses/view_course.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
             'course' => $course,
         ]);
     }
+
+
+
+
+
+
+
     #[Route('/course/{id}', name: 'app_course_delete', methods: ['POST'])]
     public function delete(Request $request, Course $course, EntityManagerInterface $entityManager): Response
     {
