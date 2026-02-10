@@ -24,7 +24,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for schoolYear in schoolYears %}
+					{% for schoolYear in pagination %}
 						<tr>
 							<td>{{ schoolYear.name }}</td>
 							<td>{{ schoolYear.startDate|date('Y') }}/{{ schoolYear.endDate|date('Y') }}</td>
