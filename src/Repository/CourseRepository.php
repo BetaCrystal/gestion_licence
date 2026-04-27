@@ -36,6 +36,20 @@ class CourseRepository extends ServiceEntityRepository
             ->innerJoin('ci.user', 'u', 'ci.user = u.id')
             ->groupBy('c.id,c.startDate,c.endDate,c.remotely,it.name,m.name');
 
+            if (!empty($data['DateDebut'])) {
+                $qb->andWhere('c.startDate >= :dateDebut')
+                ->setParameter('dateDebut', $data['DateDebut']->format('Y-m-d H:i:s'));
+            }
+
+            if (!empty($data['DateFin'])) {
+                $qb->andWhere('c.endDate <= :dateFin')
+                ->setParameter('dateFin', $data['DateFin']->format('Y-m-d H:i:s'));
+            }
+
+            if (!empty($data['Module'])) {
+                $qb->andWhere('m.id = :module')
+                ->setParameter('module', $data['Module']->getId());
+            }
             return $qb;
     }
 
@@ -56,9 +70,24 @@ class CourseRepository extends ServiceEntityRepository
             ->innerJoin('c.module', 'm', 'c.module_id = m.id')
             ->innerJoin('c.CourseInstructor', 'ci', 'ci.course_id = c.id')
             ->innerJoin('ci.user', 'u', 'ci.user = u.id')
-             ->where('ci.id = :id')
+            ->where('ci.id = :id')
             ->setParameter('id', $instructorId)
             ->groupBy('c.id,c.startDate,c.endDate,c.remotely,it.name,m.name');
+
+            $data = $form->getData();
+            
+            if (!empty($data['DateDebut'])) {
+                $qb->andWhere('c.startDate >= :dateDebut')
+                ->setParameter('dateDebut', $data['DateDebut']->format('Y-m-d H:i:s'));
+            }
+            if (!empty($data['DateFin'])) {
+                $qb->andWhere('c.endDate <= :dateFin')
+                ->setParameter('dateFin', $data['DateFin']->format('Y-m-d H:i:s'));
+            }
+            if (!empty($data['Module'])) {
+                $qb->andWhere('m.id = :module')
+                ->setParameter('module', $data['Module']->getId());
+            }
 
             return $qb;
     }
