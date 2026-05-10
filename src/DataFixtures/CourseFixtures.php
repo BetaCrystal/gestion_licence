@@ -17,8 +17,8 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             [
-                'startDate' => '2026-09-04 13:00:00',
-                'endDate' => '2026-09-04 17:00:00',
+                'startDate' => '2026-04-27 13:00:00',
+                'endDate' => '2026-04-27 17:00:00',
                 'coursePeriodRef' => 'course_period_1',
                 'interventionTypeRef' => 'intervention_type_2',
                 'moduleRef' => 'GESTION_PROJET_AGILE', // Gestion de projet – Méthodes Agile

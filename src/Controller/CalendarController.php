@@ -12,7 +12,7 @@ use App\Repository\SchoolYearRepository;
 use App\Repository\CoursePeriodRepository;
 use Shuchkin\SimpleXLSXGen;
 
-#[Route('/twig/calendar', name: 'app_calendar')]
+#[Route('/calendar', name: 'app_calendar')]
 final class CalendarController extends AbstractController
 {
     #[Route('/', name: '_calendar')]

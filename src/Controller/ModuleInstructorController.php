@@ -9,7 +9,7 @@ use App\Form\InstructorInformationsForm;
 
 final class ModuleInstructorController extends AbstractController
 {
-    #[Route(path: '/twig/instructor_informations', name: 'app_instructor_informations', methods: ['GET','POST'])]
+    #[Route(path: '/instructor_informations', name: 'app_instructor_informations', methods: ['GET','POST'])]
     public function instructorInformations(Request $request): Response
     {
         $form = $this->createForm(InstructorInformationsForm::class);
@@ -26,7 +26,7 @@ final class ModuleInstructorController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/twig/instructor_interventions', name: 'app_instructor_interventions', methods: ['GET'])]
+    #[Route(path: '/instructor_interventions', name: 'app_instructor_interventions', methods: ['GET'])]
     public function instructorInterventions(): Response
     {
         return $this->render('module_instructor/instructor_interventions.html.twig');

@@ -15,7 +15,7 @@ use App\Repository\ModuleRepository;
 
 final class ModuleController extends AbstractController
 {
-    #[Route(path:'/twig/modules', name:'app_modules', methods:['GET'])]
+    #[Route(path:'/modules', name:'app_modules', methods:['GET'])]
     public function modules(TeachingBlockRepository $teachingBlockRepository, ModuleRepository $moduleRepository): Response
     {
         $teachingBlocks = $teachingBlockRepository->findAll();
@@ -27,7 +27,7 @@ final class ModuleController extends AbstractController
         ]);
     }
 
-    #[Route(path:'/twig/view_module?id={id}', name:'app_view_module', methods:['GET','POST'])]
+    #[Route(path:'/view_module?id={id}', name:'app_view_module', methods:['GET','POST'])]
     public function viewModule(Request $request, Module $module): Response
     {
         $form = $this->createForm(ModuleForm::class, $module);
@@ -85,7 +85,7 @@ final class ModuleController extends AbstractController
         ]);
     }
 
-    #[Route(path:'/twig/add_module', name:'app_add_module', methods:['GET','POST'])]
+    #[Route(path:'/add_module', name:'app_add_module', methods:['GET','POST'])]
     public function addModule(Request $request, EntityManagerInterface $entityManager): Response
     {
         $module = new Module();
@@ -157,7 +157,7 @@ final class ModuleController extends AbstractController
         ]);
     }
 
-    #[Route(path:'/twig/delete_module?id={id}', name:'app_delete_module', methods:['GET','POST'])]
+    #[Route(path:'/delete_module?id={id}', name:'app_delete_module', methods:['GET','POST'])]
     public function deleteModule(Request $request, EntityManagerInterface $entityManager, Module $module): Response
     {
         if ($this->isCsrfTokenValid('delete_module'.$module->getId(), $request->request->get('_token'))) {

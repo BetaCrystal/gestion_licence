@@ -16,7 +16,7 @@ use App\Form\CoursePeriodForm;
 
 final class CoursePeriodController extends AbstractController
 {
-    #[Route(path:'/twig/course_periods', name:'app_courseperiods', methods:['GET'])]
+    #[Route(path:'/course_periods', name:'app_courseperiods', methods:['GET'])]
     public function coursePeriods(CoursePeriodRepository $coursePeriodRepository, SchoolYearRepository $schoolYearRepository): Response
     {
         $schoolYear = $schoolYearRepository->findCurrent();
@@ -28,7 +28,7 @@ final class CoursePeriodController extends AbstractController
         ]);
     }
 
-    #[Route('/twig/add_course_period?id={id}', name: 'app_add_courseperiod', methods: ['GET', 'POST'])]
+    #[Route('/add_course_period?id={id}', name: 'app_add_courseperiod', methods: ['GET', 'POST'])]
     public function addCoursePeriod(int $id, Request $request, EntityManagerInterface $entityManager, SchoolYearRepository $schoolYearRepository): Response
     {
         $schoolYear = $schoolYearRepository->find($id);
@@ -77,7 +77,7 @@ final class CoursePeriodController extends AbstractController
         ]);
     }
 
-    #[Route('/twig/view_course_period?id={id}', name: 'app_view_course_period', methods: ['GET', 'POST'])]
+    #[Route('/view_course_period?id={id}', name: 'app_view_course_period', methods: ['GET', 'POST'])]
     public function viewCoursePeriod(int $id, CoursePeriodRepository $coursePeriodRepository, Request $request, EntityManagerInterface $entityManager, CourseRepository $courseRepository): Response
     {
         $courses = $courseRepository->findAll();
@@ -138,7 +138,7 @@ final class CoursePeriodController extends AbstractController
         ]);
     }
 
-    #[Route('/twig/delete_course_period?id={id}', name: 'app_delete_course_period', methods: ['GET', 'POST'])]
+    #[Route('/delete_course_period?id={id}', name: 'app_delete_course_period', methods: ['GET', 'POST'])]
     public function deleteCoursePeriod(int $id, CoursePeriodRepository $coursePeriodRepository, EntityManagerInterface $entityManager, CourseRepository $courseRepository): Response
     {
         $courses = $courseRepository->findAll();

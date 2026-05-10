@@ -17,7 +17,7 @@ use App\Entity\Instructor;
 class CourseController extends AbstractController
 {
 
-    #[Route(path: '/twig/course', name: 'app_course', methods: ['GET'])]
+    #[Route(path: '/course', name: 'app_course', methods: ['GET'])]
     public function index(Course $course): Response
     {
         $course = $course->getCourse($course);
@@ -26,7 +26,7 @@ class CourseController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/twig/add_course', name: 'app_add_course', methods: ['GET','POST'])]
+    #[Route(path: '/add_course', name: 'app_add_course', methods: ['GET','POST'])]
     public function addCourse(Request $request, EntityManagerInterface $entityManager, CoursePeriodRepository $coursePeriodRepository): Response
     {
         $course = new Course();
@@ -116,7 +116,7 @@ class CourseController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/twig/{id}/edit_course/', name: 'app_edit_course', methods: ['GET','POST'])]
+    #[Route(path: '/{id}/edit_course/', name: 'app_edit_course', methods: ['GET','POST'])]
     public function changeCourse(Request $request, EntityManagerInterface $entityManager, Course $course, CoursePeriodRepository $coursePeriodRepository): Response
     {
         $coursePeriod = $coursePeriodRepository->findAll();

@@ -17,7 +17,7 @@ use Knp\Component\Pager\PaginatorInterface;
 
 final class SchoolYearController extends AbstractController
 {
-    #[Route(path:'/twig/schoolyears', name:'app_schoolyears', methods:['GET'])]
+    #[Route(path:'/schoolyears', name:'app_schoolyears', methods:['GET'])]
     public function schoolYears(Request $request, SchoolYearRepository $schoolYearRepository, PaginatorInterface $paginator): Response
     {
         $schoolYears = $schoolYearRepository->findAll();
@@ -36,7 +36,7 @@ final class SchoolYearController extends AbstractController
         ]);
     }
 
-    #[Route('/twig/add_schoolyear', name: 'app_add_schoolyear', methods: ['GET', 'POST'])]
+    #[Route('/add_schoolyear', name: 'app_add_schoolyear', methods: ['GET', 'POST'])]
     public function addSchoolYear(Request $request, EntityManagerInterface $entityManager): Response
     {
         $schoolYear = new SchoolYear();
@@ -75,7 +75,7 @@ final class SchoolYearController extends AbstractController
         ]);
     }
 
-    #[Route('/twig/schoolyear?id={id}', name: 'app_view_schoolyear', methods: ['GET', 'POST'])]
+    #[Route('/schoolyear?id={id}', name: 'app_view_schoolyear', methods: ['GET', 'POST'])]
     public function viewSchoolYear(int $id, SchoolYearRepository $schoolYearRepository, Request $request, CoursePeriodRepository $coursePeriodRepository, EntityManagerInterface $entityManager): Response
     {
         $coursePeriods = $coursePeriodRepository->findAll();
@@ -129,7 +129,7 @@ final class SchoolYearController extends AbstractController
         ]);
     }
 
-    #[Route('/twig/delete_schoolyear?id={id}', name: 'app_delete_schoolyear', methods: ['GET', 'POST'])]
+    #[Route('/delete_schoolyear?id={id}', name: 'app_delete_schoolyear', methods: ['GET', 'POST'])]
     public function deleteSchoolYear(int $id, EntityManagerInterface $entityManager, SchoolYearRepository $schoolYearRepository, CoursePeriodRepository $coursePeriodRepository): Response
     {
         $coursePeriods = $coursePeriodRepository->findAll();

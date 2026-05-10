@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Indisponible form
+{% endblock %}
+
+{% block body %}
+
+	{{ form_start(form, { attr: { id: 'indisponible_form'} } ) }}
+
+	{{ form_row(form.instructor)}}
+	{{ form_row(form.startDate) }}
+	{{ form_row(form.endDate) }}
+	{{ form_row(form.motif) }}
+
+{% endblock %}

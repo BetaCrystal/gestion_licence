@@ -17,8 +17,10 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Shuchkin\SimpleXLSXGen;
 use App\Form\InterventionForm;
+use App\Entity\Indisponible;
+use App\Form\IndisponibleForm;
 
-#[Route('/twig/instructor')] // Route de classe (préfixe commun)
+#[Route('/instructor')] // Route de classe (préfixe commun)
 final class InstructorController extends AbstractController
 {
     #[Route(path: '/enseignant/infos/{id}', name: 'enseignant_infos', methods: ['GET','POST'])]
@@ -226,4 +228,38 @@ public function list(Request $request, InstructorRepository $repo, PaginatorInte
             'pagination' => $pagination,
         ]);
     }
+
+    /*#[Route(path: '/indisponible/enseignant/{id}', name: 'indisponible_enseignant', methods: ['GET','POST'])]
+    public function indisponibleEnseignant(Request $request, InstructorRepository $repository, int $id): Response
+    {
+        $qb = $repository->queryForIndisponible($id);
+
+            $form = $this->createForm(IndisponibleForm::class);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted()) {
+                if ($form->isValid()){
+                    $data = $form->getData();
+
+                    if (!empty($data['date_debut'])) {
+                        $qb->andWhere('c.startDate >= :date_debut')
+                        ->setParameter('date_debut', $data['date_debut']->format('Y-m-d H:i:s'));
+                    }
+
+                    if (!empty($data['date_fin'])) {
+                        $qb->andWhere('c.endDate <= :date_fin')
+                        ->setParameter('date_fin', $data['date_fin']->format('Y-m-d H:i:s'));
+                    }
+
+                    if (!empty($data['instructor'])) {
+                        $qb->andWhere('m.id = :instructor')
+                        ->setParameter('instructor', $data['instructor']->getId());
+                    }
+                }
+            }
+
+        return $this->render('indisponible/indisponible.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }*/
 }

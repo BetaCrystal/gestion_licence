@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Form\InstructorFilterForm;  
+use App\Form\InstructorFilterForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\TeachingBlock;
 use App\Form\TeachingBlockFilterForm;
 
-#[Route('/twig/teaching_block')] // Route de classe (préfixe commun)
+#[Route('/teaching_block')] // Route de classe (préfixe commun)
 final class TeachingBlockController extends AbstractController
 {
     #[Route(path: '/liste', name: 'teaching_block_liste', methods: ['GET','POST'])]
@@ -75,7 +75,7 @@ final class TeachingBlockController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 try {
-                    
+
                     // Afficher un message de succès
                     $this->addFlash(
                         'success',
