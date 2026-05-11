@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Form Module
+{% endblock %}
+
+{% block body %}
+
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-danger">{{ message }}</div>
+	{% endfor %}
+	{% for message in app.flashes('info') %}
+		<div class="alert alert-info">{{ message }}</div>
+	{% endfor %}
+
+	{{ form_start(moduleForm, { attr: { id: 'module_form'} } ) }}
+
+	{{ form_row(moduleForm.teachingBlock) }}
+	{{ form_row(moduleForm.code) }}
+	{{ form_row(moduleForm.name) }}
+	{{ form_row(moduleForm.hours_count) }}
+	{{ form_row(moduleForm.parent) }}
+	{{ form_row(moduleForm.description) }}
+	{{ form_row(moduleForm.capstone_project)}}
+
+	<button class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl mt-1" type="submit">Enregistrer les informations</button>
+	{{ form_end(moduleForm) }}
+
+{% endblock %}

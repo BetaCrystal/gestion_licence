@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Corps enseignant
+{% endblock %}
+
+{% block body %}
+	<div class="flex items-center w-full h-full">
+		{% include "Components/sidebar.html.twig" %}
+		<div class="h-full mt-32 mx-24">
+			<div class="flex flex-row w-full justify-between mb-10">
+				<h2 class="text-blue-950 text-3xl font-medium mb-6">Corps enseignant</h2>
+				<a href="{{ path('enseignant_ajout') }}" class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl h-fit">Ajouter un enseignant</a>
+			</div>
+
+
+			<h2 class="text-yellow-500 text-xl">Filtres</h2>
+			{{ include('admin/form/form_instructor.html.twig', { form: form }) }}
+			<div class="bg-yellow-500 w-full h-0.5 rounded-xs my-6"></div>
+            <div class="interventions-container">
+				{% if pagination|length == 0 %}
+					<tr>
+						<td colspan="6" class="center">
+							Aucun enseignant trouvé.
+						</td>
+					</tr>
+				{% else %}
+					<h2>
+						{{ pagination.getTotalItemCount }}
+						enseignant{{ pagination.getTotalItemCount > 1 ? 's' : '' }}
+					</h2>
+
+
+			<div class="table-wrapper">
+				<table class="interventions-table">
+					<thead>
+						<tr>
+							<th class="border border-slate-300 px-6 py-4 bg-slate-300">Nom de famille</th>
+							<th class="border border-slate-300 px-6 py-4 bg-slate-300">Prénom</th>
+							<th class="border border-slate-300 px-6 py-4 bg-slate-300">Modules enseignés</th>
+							<th class="border border-slate-300 px-6 py-4 bg-slate-300">Nombre d'heures</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for i in pagination %}
+							<tr>
+								<td class="border border-slate-300 px-6 py-4 ">{{ i.lastName }}</td>
+								<td class="border border-slate-300 px-6 py-4 ">{{ i.firstName }}</td>
+								<td class="border border-slate-300 px-6 py-4 ">{{ i.modules }}</td>
+								<td class="border border-slate-300 px-6 py-4 ">
+									{{ i.totalHours }}h</td>
+								<td class="border border-slate-300 px-6 py-4 ">
+									<a href="{{ path('enseignant_infos', { id: i.id }) }}">Accéder à la fiche</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+            {% endif %}
+            <div class="pagination">
+				{{ knp_pagination_render(pagination) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

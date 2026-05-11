@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+{% block head %}
+	{% block javascripts %}
+		{{ encore_entry_script_tags('app') }}
+	{% endblock %}
+	{% block stylesheets %}
+		<link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+	{% endblock %}
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js'></script>
+	<script>
+
+		document.addEventListener('DOMContentLoaded', function () {
+var calendarEl = document.getElementById('calendar');
+var calendar = new FullCalendar.Calendar(calendarEl, {
+timeZone: 'UTC+1',
+initialView: 'timeGridWeek',
+slotMinTime: "08:00:00",
+slotMaxTime: "19:00:00",
+height: 'auto',
+locale: 'fr',
+firstDay: 1,
+dateClick: function (info) {
+window.location.href = '{{ path("app_add_course") }}?date=' + info.dateStr;
+},
+headerToolbar: {
+left: 'prev,next',
+center: 'title',
+right: 'dayGridMonth,timeGridWeek,timeGridDay'
+},
+events: '{{ path("app_calendar_events") }}',
+eventContent: function (info) {
+const remote = info.event.extendedProps.remotely == 1 ? "🎥" : "";
+return {
+html: `
+                <div>
+                <div class='flex flex-row'>
+                <small class='mr-0.5'>${
+info.event.extendedProps.hour
+}</small><br>
+<small>${remote}
+</small>
+</div>
+                    <strong>${
+info.event.extendedProps.module
+}</strong><br>
+                    <small>${
+info.event.extendedProps.instructor
+}</small><br>
+<br>
+                    <small>${
+info.event.title
+}</small>
+                </div>
+            `
+};
+}
+
+
+});
+
+calendar.render();
+
+});
+	</script>
+{% endblock %}
+{% block title %}Calendar
+{% endblock %}
+
+{% block body %}
+	<div class="flex items-center w-full h-full">
+		{% include "Components/sidebar.html.twig" %}
+		<div class="h-full mt-32 mx-24">
+			{% for message in app.flashes('error') %}
+				<div class="alert alert-danger">{{ message }}</div>
+			{% endfor %}
+			<h1 class="text-blue-950 text-3xl font-medium mb-6">Calendrier</h1>
+
+			<div id="calendar" class="mb-6"></div>
+			<a class="px-4 py-2.5 text-blue-950 bg-yellow-500 font-medium text-base rounded-xl">Exporter le calendrier de l'année (.xls)</a>
+			<a class="px-4 py-2.5 text-white bg-blue-950 font-medium text-base rounded-xl ml-3" href="{{ path('app_calendar_week_convert', {'weekid': 1}) }}">Exporter le planning de la semaine (fichier .xls)</a>
+		</div>
+	</div>
+{% endblock %}

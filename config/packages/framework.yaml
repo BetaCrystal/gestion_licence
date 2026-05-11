@@ -1,0 +1,23 @@
+# see https://symfony.com/doc/current/reference/configuration/framework.html
+framework:
+    secret: '%env(APP_SECRET)%'
+
+    # Note that the session will be started ONLY if you read or write from it.
+    session: true
+    # Nécessaire pour property-access
+    http_client: true
+
+    # Disable AssetMapper when using Webpack Encore
+    asset_mapper: false
+
+    assets:
+        json_manifest_path: '%kernel.project_dir%/public/build/manifest.json'
+
+    #esi: true
+    #fragments: true
+
+when@test:
+    framework:
+        test: true
+        session:
+            storage_factory_id: session.storage.factory.mock_file
